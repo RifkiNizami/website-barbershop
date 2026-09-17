@@ -41,8 +41,8 @@ class AuthController extends Controller
 
         // Jika gagal, kembalikan ke halaman login dengan error
         // yang akan memicu blok warna merah di login.blade.php
-        return back()->withErrors([
-            'email' => 'Username atau password salah',
+        return back()->with([
+            'error' => 'Username atau password salah',
         ])->onlyInput('email');
     }
 
