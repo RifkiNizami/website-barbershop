@@ -18,3 +18,8 @@ Berikut adalah panduan instalasi lengkap untuk menjalankan project ini di komput
 5. Lalu `php artisan migrate`
 6. npm install & npm run build
 7. php artisan serve
+
+
+akun coba:
+admin@gmail.com
+password123

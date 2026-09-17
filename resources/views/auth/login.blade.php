@@ -4,18 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Barbershop</title>
-
-    <!-- Include Vite -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <!-- Gunakan ini untuk testing, atau @vite('resources/css/app.css') di Laravel -->
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-
-<!-- Ubah flex menjadi flex-col agar footer berada di bawah -->
+<!-- 1. Body diubah menjadi flex-col agar bersusun atas-bawah -->
 <body class="bg-white min-h-screen flex flex-col">
 
-    <!-- Kontainer utama form dibuat flex-1 agar mengisi sisa ruang (mendorong footer ke dasar) -->
-    <main class="flex flex-1">
+    <!-- 2. Bagian Utama (Main) dibungkus flex-grow agar mengisi sisa tinggi layar -->
+    <main class="flex-grow flex w-full">
 
-        <!-- Bagian Kiri: Gambar Background -->
+        <!-- Bagian Kiri: Gambar (Hidden di mobile, 50% di desktop) -->
+        <!-- Pastikan gambar Anda benar-benar ada di folder public/images/bg-login.jpg -->
         <div class="hidden md:block md:w-1/2 bg-cover bg-center" style="background-image: url('{{ asset('images/bg-login.jpg') }}');">
         </div>
 
@@ -29,33 +28,20 @@
                     <p class="text-gray-500 text-lg">Welcome back!</p>
                 </div>
 
-                <!-- PESAN SUKSES LOGIN -->
-                @if (session('success'))
-                    <div class="mb-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg text-sm text-center font-bold">
-                        {{ session('success') }}
-                    </div>
-                @endif
-
-                <!-- PESAN ERROR LOGIN -->
-                @if ($errors->any())
-                    <div class="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg text-sm text-center font-bold">
-                        Username atau password salah
-                    </div>
-                @endif
+                <!-- Pesan Berhasil (Jika ada dari backend) -->
+                <!-- Letakkan notifikasi berhasil di sini jika Anda pakai session -->
 
                 <!-- Form -->
-                <form action="{{ route('login.post') }}" method="POST">
-                    <!-- Perbaikan tag CSRF -->
+                <form action="/login" method="POST">
                     @csrf
 
                     <!-- Input Email -->
                     <div class="mb-6">
                         <label for="email" class="block text-sm font-bold text-slate-800 mb-2">Email Address</label>
-                        <!-- Tambahkan value old('email') agar email tidak hilang saat salah input -->
-                        <input type="email" id="email" name="email" value="{{ old('email') }}" class="w-full px-4 py-3 bg-gray-200 border-transparent rounded-lg focus:bg-white focus:border-slate-500 focus:ring-2 focus:ring-slate-500 focus:outline-none transition-colors" required>
+                        <input type="email" id="email" name="email" class="w-full px-4 py-3 bg-gray-200 border-transparent rounded-lg focus:bg-white focus:border-slate-500 focus:ring-2 focus:ring-slate-500 focus:outline-none transition-colors" required>
                     </div>
 
-                    <!-- Input Password & Link Lupa Password -->
+                    <!-- Input Password -->
                     <div class="mb-8">
                         <div class="flex justify-between items-center mb-2">
                             <label for="password" class="block text-sm font-bold text-slate-800">Password</label>
@@ -70,7 +56,6 @@
                     </button>
                 </form>
 
-                <!-- Divider (Atau Daftar) -->
                 <div class="flex items-center mt-8">
                     <hr class="flex-grow border-gray-200">
                     <span class="mx-4 text-xs font-semibold text-gray-400 uppercase tracking-widest hover:text-slate-600 cursor-pointer transition-colors">
@@ -83,7 +68,6 @@
         </div>
     </main>
 
-    <!-- Include Footer di bagian paling bawah -->
     @include('partials.footer')
 
 </body>
