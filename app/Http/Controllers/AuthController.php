@@ -26,23 +26,12 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            // Sesuai permintaan Anda: "apabila login berhasil akan menampilkan login berhasil"
-            // Kode ini akan mengembalikan ke halaman login untuk menampilkan blok hijau
             return back()->with('success', 'Login berhasil!');
-
-            /*
-             * CATATAN:
-             * Jika nanti Anda ingin setelah login langsung masuk ke halaman dashboard,
-             * matikan kode return back() di atas, dan gunakan kode di bawah ini:
-             *
-             * return redirect()->intended('/dashboard')->with('success', 'Login berhasil!');
-             */
         }
 
-        // Jika gagal, kembalikan ke halaman login dengan error
-        // yang akan memicu blok warna merah di login.blade.php
-        return back()->withErrors([
-            'email' => 'Username atau password salah',
+        // PERBAIKAN DI SINI
+        return back()->with([
+            'error' => 'Username atau password salah',
         ])->onlyInput('email');
     }
 

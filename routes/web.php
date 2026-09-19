@@ -5,13 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-*/
-
-// Halaman Utama Website Barbershop (Landing Page)
+// 1. Rute bawaan Laravel (Halaman Welcome)
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
@@ -63,3 +57,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::patch('/booking/{id}/status', [AdminController::class, 'updateBookingStatus'])->name('booking.status');
     Route::delete('/booking/{id}', [AdminController::class, 'destroyBooking'])->name('booking.destroy');
 });
+
+// 2. Rute untuk form Login
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login'])->name('login.post');
+
+// 3. Rute Logout
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

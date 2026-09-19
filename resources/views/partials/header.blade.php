@@ -11,6 +11,7 @@
 
         <!-- Desktop Nav Links -->
         <nav class="hidden md:flex items-center gap-8 text-sm font-medium tracking-wide">
+<<<<<<< HEAD
             <!-- Menambahkan efek hover garis bawah yang elegan -->
             <a href="{{ url('/#home') }}" class="text-white relative group">
                 Home
@@ -32,6 +33,16 @@
                 <i class="bi bi-person-fill"></i> Login Member
             </a>
         </nav>
+=======
+    <a href="#home" class="text-white border-b-2 border-barber-red pb-0.5 font-semibold">Home</a>
+    <a href="#about" class="text-gray-300 hover:text-white transition duration-200">About</a>
+    <a href="#pricing" class="text-gray-300 hover:text-white transition duration-200">Services</a>
+    <a href="#pricing" class="text-gray-300 hover:text-white transition duration-200">Pricing</a>
+    <a href="#gallery" class="text-gray-300 hover:text-white transition duration-200">Blog</a>
+    <a href="#contact" class="text-gray-300 hover:text-white transition duration-200">Contact</a>
+    <a href="/login" class="text-gray-300 hover:text-white transition duration-200">Login</a>
+</nav>
+>>>>>>> d29c25c5852dfcc122f91eec7d548d589246d981
 
         <!-- Mobile Menu Toggle Button -->
         <button id="mobileMenuBtn" type="button" class="md:hidden text-white focus:outline-none p-1.5 hover:text-barber-red transition-colors" aria-label="Buka Menu">

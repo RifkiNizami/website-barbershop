@@ -11,10 +11,19 @@
 <body class="bg-white min-h-screen flex flex-col">
 
     <!-- 2. Bagian Utama (Main) dibungkus flex-grow agar mengisi sisa tinggi layar -->
-    <main class="flex-grow flex w-full">
+    <main class="grow flex w-full">
 
         <!-- Bagian Kiri: Gambar (Hidden di mobile, 50% di desktop) -->
         <!-- Pastikan gambar Anda benar-benar ada di folder public/images/bg-login.jpg -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<!-- flex-col agar layout tersusun atas-bawah -->
+<body class="bg-white min-h-screen flex flex-col">
+
+    <!-- flex-grow akan mendorong footer ke bawah, sisa layar dibagi 2 untuk gambar dan form -->
+    <main class="grow flex w-full">
+
+        <!-- Bagian Kiri: Gambar Background -->
         <div class="hidden md:block md:w-1/2 bg-cover bg-center" style="background-image: url('{{ asset('images/bg-login.jpg') }}');">
         </div>
 
@@ -36,6 +45,21 @@
                     @csrf
 
                     <!-- Input Email -->
+                @if (session('error'))
+                    <div class="mb-6 py-3 px-4 border border-black rounded-lg text-center font-bold text-slate-800">
+                        {{ session('error') }}
+                    </div>
+                @endif
+
+                <!-- Pesan Sukses (Login Berhasil) -->
+                @if (session('success'))
+                    <div class="mb-6 py-3 px-4 border border-black rounded-lg text-center font-bold text-slate-800">
+                        {{ session('success') }}
+                    </div>
+                @endif
+                <form action="/login" method="POST">
+                    @csrf
+
                     <div class="mb-6">
                         <label for="email" class="block text-sm font-bold text-slate-800 mb-2">Email Address</label>
                         <input type="email" id="email" name="email" class="w-full px-4 py-3 bg-gray-200 border-transparent rounded-lg focus:bg-white focus:border-slate-500 focus:ring-2 focus:ring-slate-500 focus:outline-none transition-colors" required>
@@ -57,17 +81,18 @@
                 </form>
 
                 <div class="flex items-center mt-8">
-                    <hr class="flex-grow border-gray-200">
+                    <hr class="grow border-gray-200">
                     <span class="mx-4 text-xs font-semibold text-gray-400 uppercase tracking-widest hover:text-slate-600 cursor-pointer transition-colors">
                         <a href="/register">Or Sign Up</a>
                     </span>
-                    <hr class="flex-grow border-gray-200">
+                    <hr class="grow border-gray-200">
                 </div>
 
             </div>
         </div>
     </main>
 
+    <!-- Memanggil file partial footer -->
     @include('partials.footer')
 
 </body>
