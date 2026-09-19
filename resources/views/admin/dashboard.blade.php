@@ -7,7 +7,7 @@
 <div class="space-y-6">
 
     {{-- 1. WELCOME BANNER --}}
-    <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-slate-950 via-slate-900 to-black text-white p-6 sm:p-8 shadow-2xl border border-slate-800">
+    <div class="relative overflow-hidden rounded-3xl bg-linear-to-r from-slate-950 via-slate-900 to-black text-white p-6 sm:p-8 shadow-2xl border border-slate-800">
         <div class="relative z-10 max-w-2xl">
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/20 text-red-400 text-xs font-semibold mb-3 border border-red-500/30">
                 <i class="bi bi-scissors text-sm"></i> Panel Manajemen Barbershop
@@ -19,11 +19,11 @@
                 Kelola jadwal booking pelanggan, atur daftar layanan cukur, dan pantau performa barber harian secara real-time langsung dari dashboard ini.
             </p>
             <div class="flex flex-wrap gap-3">
-                <a href="{{ route('admin.booking.create') }}" class="inline-flex items-center gap-2 px-4.5 py-2.5 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-all shadow-md shadow-red-600/20">
+                <a href="{{ route('admin.booking.create') }}" class="inline-flex items-center gap-2 px-4.5 py-2.5 bg-linear-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-all shadow-md shadow-red-600/20">
                     <i class="bi bi-calendar-plus text-base"></i>
                     Input Booking Baru
                 </a>
-                <a href="{{ route('admin.layanan.create') }}" class="inline-flex items-center gap-2 px-4.5 py-2.5 bg-slate-800/80 hover:bg-slate-700 text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-all border border-slate-700">
+                <a href="{{ route('admin.layanan.create') }}" class="inline-flex items-center gap-2 px-4.5 py-2.5 bg-linear-to-r from-slate-800/80 to-slate-700/80 hover:from-slate-700 hover:to-slate-600 text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-all border border-slate-700">
                     <i class="bi bi-plus-circle text-base"></i>
                     Tambah Layanan
                 </a>
@@ -264,7 +264,7 @@
             </div>
 
             {{-- Jam Operasional Info Card --}}
-            <div class="p-5 rounded-3xl bg-gradient-to-br from-red-600 to-red-800 text-white shadow-xl space-y-3">
+            <div class="p-5 rounded-3xl bg-linear-to-br from-red-600 to-red-800 text-white shadow-xl space-y-3">
                 <div class="flex items-center gap-2 font-bold text-sm">
                     <i class="bi bi-clock-history text-lg"></i>
                     <span>Jam Operasional Toko</span>

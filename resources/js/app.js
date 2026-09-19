@@ -1,5 +1,4 @@
-// Main Application, Admin, and User JavaScript Bundle
-
+// JavaScript existing yang tetap digunakan
 document.addEventListener('DOMContentLoaded', () => {
     // 1. Landing Page Booking Date Default
     const today = new Date().toISOString().split('T')[0];
@@ -25,8 +24,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 3. Admin Mobile Sidebar Toggle
+    // ... (Kode Admin & User Sidebar existing dibiarkan utuh)
     const adminSidebar = document.getElementById('adminSidebar');
-    const adminBackdrop = document.getElementById('sidebarBackdrop');
+    const adminBackdrop = document.getElementById('sidebarBackdrop');wdwd
     const openAdminBtn = document.getElementById('openSidebarBtn');
     const closeAdminBtn = document.getElementById('closeSidebarBtn');
 
@@ -77,9 +77,47 @@ document.addEventListener('DOMContentLoaded', () => {
             userBackdrop.classList.add('hidden');
         });
     }
+
+    /* --- JAVASCRIPT BARU UNTUK PENGEMBANGAN --- */
+
+    // 5. Sticky Navbar Logic
+    const header = document.getElementById('main-header');
+    if (header) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('glass-nav', 'py-2');
+                header.classList.remove('py-4', 'bg-transparent');
+            } else {
+                header.classList.remove('glass-nav', 'py-2');
+                header.classList.add('py-4', 'bg-transparent');
+            }
+        });
+    }
+
+    // 6. Scroll Reveal Animation using IntersectionObserver
+    const reveals = document.querySelectorAll('.reveal');
+    const revealOptions = {
+        threshold: 0.15, // Memicu animasi ketika 15% elemen terlihat
+        rootMargin: "0px 0px -50px 0px"
+    };
+
+    const revealOnScroll = new IntersectionObserver(function(entries, observer) {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) {
+                return;
+            } else {
+                entry.target.classList.add('active');
+                observer.unobserve(entry.target); // Hanya animasi satu kali
+            }
+        });
+    }, revealOptions);
+
+    reveals.forEach(reveal => {
+        revealOnScroll.observe(reveal);
+    });
 });
 
-// Global Booking Modal Functions
+// Global Booking Modal Functions (Existing)
 window.openBookingModal = function () {
     const modal = document.getElementById('bookingModal');
     const modalContent = document.getElementById('bookingModalContent');

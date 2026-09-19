@@ -38,6 +38,12 @@ html {
     height: 1em;
     align-self: flex-end;
     margin-bottom: 4px;
+    transition: border-color 0.3s ease;
+}
+
+/* Hover effect on list items to highlight dots */
+li:hover .price-dots {
+    border-bottom: 2px dotted var(--color-barber-red);
 }
 
 /* User & Member Specific Classes */
@@ -58,4 +64,31 @@ html {
     background: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(12px);
     border: 1px solid rgba(229, 231, 235, 0.8);
+}
+
+/* --- KODE BARU UNTUK REDESIGN --- */
+
+/* Scroll Reveal Animation */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Delay classes for staggered animations */
+.delay-100 { transition-delay: 100ms; }
+.delay-200 { transition-delay: 200ms; }
+.delay-300 { transition-delay: 300ms; }
+
+/* Sticky Navbar Glassmorphism Effect */
+.glass-nav {
+    background-color: rgba(17, 17, 17, 0.85);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
