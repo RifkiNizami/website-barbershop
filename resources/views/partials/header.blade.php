@@ -11,29 +11,6 @@
 
         <!-- Desktop Nav Links -->
         <nav class="hidden md:flex items-center gap-8 text-sm font-medium tracking-wide">
-<<<<<<< HEAD
-            <!-- Menambahkan efek hover garis bawah yang elegan -->
-            <a href="{{ url('/#home') }}" class="text-white relative group">
-                Home
-                <span class="absolute -bottom-1 left-0 w-full h-0.5 bg-barber-red transform origin-left scale-x-100 transition-transform duration-300"></span>
-            </a>
-            <a href="{{ url('/#about') }}" class="text-gray-300 hover:text-white transition duration-200 relative group">
-                About
-                <span class="absolute -bottom-1 left-0 w-full h-0.5 bg-barber-red transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
-            </a>
-            <a href="{{ url('/#pricing') }}" class="text-gray-300 hover:text-white transition duration-200 relative group">
-                Services
-                <span class="absolute -bottom-1 left-0 w-full h-0.5 bg-barber-red transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
-            </a>
-            <a href="{{ url('/#gallery') }}" class="text-gray-300 hover:text-white transition duration-200 relative group">
-                Gallery
-                <span class="absolute -bottom-1 left-0 w-full h-0.5 bg-barber-red transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
-            </a>
-            <a href="{{ route('user.login') }}" class="inline-flex items-center gap-1.5 px-5 py-2 rounded-full bg-amber-500 hover:bg-amber-400 text-gray-950 font-bold text-xs uppercase tracking-wider transition-all duration-300 shadow-md hover:shadow-amber-500/40 hover:-translate-y-0.5">
-                <i class="bi bi-person-fill"></i> Login Member
-            </a>
-        </nav>
-=======
     <a href="#home" class="text-white border-b-2 border-barber-red pb-0.5 font-semibold">Home</a>
     <a href="#about" class="text-gray-300 hover:text-white transition duration-200">About</a>
     <a href="#pricing" class="text-gray-300 hover:text-white transition duration-200">Services</a>
@@ -42,7 +19,6 @@
     <a href="#contact" class="text-gray-300 hover:text-white transition duration-200">Contact</a>
     <a href="/login" class="text-gray-300 hover:text-white transition duration-200">Login</a>
 </nav>
->>>>>>> d29c25c5852dfcc122f91eec7d548d589246d981
 
         <!-- Mobile Menu Toggle Button -->
         <button id="mobileMenuBtn" type="button" class="md:hidden text-white focus:outline-none p-1.5 hover:text-barber-red transition-colors" aria-label="Buka Menu">
