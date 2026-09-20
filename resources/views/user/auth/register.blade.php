@@ -1,166 +1,169 @@
-@extends('user.layouts.auth')
+<!DOCTYPE html>
+<html lang="id" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>Daftar Member Baru — Rusdi Barbershop</title>
 
-@section('title', 'Daftar Member Baru — Rusdi Barbershop Gentleman Lounge')
+    {{-- Google Fonts --}}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-@section('content')
-<div class="w-full max-w-lg mx-auto">
+    {{-- Bootstrap Icons --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-    {{-- Card Header --}}
-    <div class="text-center mb-8">
-        <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-tr from-amber-500 to-amber-300 text-gray-950 shadow-2xl shadow-amber-500/30 mb-4">
-            <i class="bi bi-person-plus-fill text-2xl"></i>
-        </div>
-        <div class="flex items-center justify-center gap-2 mb-2">
-            <div class="h-px w-8 bg-amber-500/50"></div>
-            <span class="text-amber-500 text-xs font-bold uppercase tracking-widest">Rusdi Barbershop</span>
-            <div class="h-px w-8 bg-amber-500/50"></div>
-        </div>
-        <h1 class="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white">
-            Gabung Member VIP
-        </h1>
-        <p class="text-xs sm:text-sm text-gray-400 mt-2 max-w-xs mx-auto">
-            Dapatkan bonus 50 poin selamat datang dan kumpulkan 10 stempel untuk 1× potong rambut gratis!
-        </p>
-    </div>
+    {{-- Vite Assets --}}
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    {{-- Benefits strip --}}
-    <div class="flex items-center justify-center gap-4 mb-6">
-        <div class="flex items-center gap-1.5 text-xs text-gray-400">
-            <i class="bi bi-star-fill text-amber-500 text-[10px]"></i> Poin Loyalitas
-        </div>
-        <div class="w-px h-4 bg-gray-700"></div>
-        <div class="flex items-center gap-1.5 text-xs text-gray-400">
-            <i class="bi bi-calendar-check-fill text-amber-500 text-[10px]"></i> Booking Prioritas
-        </div>
-        <div class="w-px h-4 bg-gray-700"></div>
-        <div class="flex items-center gap-1.5 text-xs text-gray-400">
-            <i class="bi bi-gift-fill text-amber-500 text-[10px]"></i> Promo Eksklusif
-        </div>
-    </div>
+    <style>
+        body { font-family: 'Plus Jakarta Sans', -apple-system, sans-serif; }
+    </style>
+</head>
+<body class="bg-black text-zinc-100 min-h-screen flex flex-col justify-between antialiased selection:bg-white selection:text-black">
 
-    {{-- Register Card --}}
-    <div class="bg-gray-950/80 backdrop-blur-xl border border-gray-800 rounded-3xl p-6 sm:p-8 shadow-2xl shadow-black/80">
+    {{-- Main Container (Full Viewport Height) --}}
+    <main class="min-h-screen w-full flex items-center justify-center p-6 sm:p-10">
+        <div class="w-full max-w-md space-y-6">
 
-        {{-- Flash Error --}}
-        @if (session('error'))
-            <div class="mb-5 p-3 rounded-xl bg-red-900/40 border border-red-800 text-red-300 text-xs flex items-center gap-2">
-                <i class="bi bi-exclamation-triangle-fill text-red-400"></i>
-                {{ session('error') }}
-            </div>
-        @endif
-
-        @if ($errors->any())
-            <div class="mb-5 p-3 rounded-xl bg-red-900/40 border border-red-800 text-red-300 text-xs">
-                <ul class="space-y-1">
-                    @foreach ($errors->all() as $err)
-                        <li class="flex items-center gap-2"><i class="bi bi-dot text-red-400"></i>{{ $err }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
-        <form action="{{ route('user.register.post') }}" method="POST" class="space-y-4">
-            @csrf
-
-            {{-- Nama Lengkap --}}
-            <div>
-                <label for="nama_lengkap" class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1.5">
-                    Nama Lengkap <span class="text-amber-500">*</span>
-                </label>
-                <div class="relative">
-                    <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-gray-500">
-                        <i class="bi bi-person-fill text-sm"></i>
+            {{-- Header --}}
+            <div class="text-center space-y-2 js-animate-in">
+                <a href="{{ url('/') }}" class="inline-flex items-center gap-2 text-white font-extrabold text-lg uppercase">
+                    <span class="w-8 h-8 rounded-md bg-white text-black flex items-center justify-center text-sm font-black shadow-sm">
+                        <i class="bi bi-scissors"></i>
                     </span>
-                    <input type="text" id="nama_lengkap" name="nama_lengkap"
-                           value="{{ old('nama_lengkap') }}"
-                           placeholder="Contoh: Dimas Pratama" required
-                           class="w-full pl-10 pr-4 py-3 rounded-xl bg-gray-900 border border-gray-800 text-white text-sm focus:border-amber-500 focus:ring-1 focus:ring-amber-500 outline-none transition placeholder-gray-600">
-                </div>
-            </div>
-
-            {{-- Nomor WhatsApp --}}
-            <div>
-                <label for="no_whatsapp" class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1.5">
-                    Nomor WhatsApp / HP Aktif <span class="text-amber-500">*</span>
-                </label>
-                <div class="relative">
-                    <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-gray-500">
-                        <i class="bi bi-phone-fill text-sm"></i>
-                    </span>
-                    <input type="tel" id="no_whatsapp" name="no_whatsapp"
-                           value="{{ old('no_whatsapp') }}"
-                           placeholder="Contoh: 081234567890" required
-                           class="w-full pl-10 pr-4 py-3 rounded-xl bg-gray-900 border border-gray-800 text-white text-sm focus:border-amber-500 focus:ring-1 focus:ring-amber-500 outline-none transition placeholder-gray-600">
-                </div>
-            </div>
-
-            {{-- Gaya Rambut Favorit --}}
-            <div>
-                <label for="favorite_style" class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1.5">
-                    Gaya Rambut Favorit <span class="text-gray-600 font-normal normal-case tracking-normal">(Opsional)</span>
-                </label>
-                <div class="relative">
-                    <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-gray-500">
-                        <i class="bi bi-scissors text-sm"></i>
-                    </span>
-                    <select id="favorite_style" name="favorite_style"
-                            class="w-full pl-10 pr-4 py-3 rounded-xl bg-gray-900 border border-gray-800 text-white text-sm focus:border-amber-500 focus:ring-1 focus:ring-amber-500 outline-none transition appearance-none">
-                        <option value="">— Pilih gaya —</option>
-                        <option value="Classic Pompadour / Side Part">Classic Pompadour / Side Part</option>
-                        <option value="Taper Fade / Low Fade">Taper Fade / Low Fade</option>
-                        <option value="Two-Block / Korean Style">Two-Block / Korean Style</option>
-                        <option value="Buzz Cut / Crop Fringe">Buzz Cut / Crop Fringe</option>
-                        <option value="Beard Grooming & Shave">Beard Grooming & Shave</option>
-                    </select>
-                </div>
-            </div>
-
-            {{-- PIN Akses --}}
-            <div>
-                <label for="password" class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1.5">
-                    Buat 6-Digit PIN Akses <span class="text-amber-500">*</span>
-                </label>
-                <div class="relative">
-                    <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-gray-500">
-                        <i class="bi bi-shield-lock-fill text-sm"></i>
-                    </span>
-                    <input type="password" id="password" name="password"
-                           placeholder="Contoh: 123456" required
-                           class="w-full pl-10 pr-4 py-3 rounded-xl bg-gray-900 border border-gray-800 text-white text-sm focus:border-amber-500 focus:ring-1 focus:ring-amber-500 outline-none transition placeholder-gray-600">
-                </div>
-            </div>
-
-            {{-- Submit --}}
-            <div class="pt-3">
-                <button type="submit"
-                        class="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-gray-950 font-black text-xs uppercase tracking-widest transition-all duration-200 shadow-lg shadow-amber-500/20 transform hover:-translate-y-0.5 cursor-pointer flex items-center justify-center gap-2">
-                    <i class="bi bi-person-check-fill"></i>
-                    Daftar & Buka Member Card
-                </button>
-            </div>
-        </form>
-
-        {{-- Login Link --}}
-        <div class="mt-6 pt-6 border-t border-gray-800 text-center">
-            <p class="text-xs text-gray-400">
-                Sudah punya akun member?
-                <a href="{{ route('user.login') }}" class="font-bold text-amber-400 hover:text-amber-300 ml-1 underline">
-                    Login di Sini
+                    <span>RUSDI BARBERSHOP</span>
                 </a>
-            </p>
-            <div class="mt-4">
-                <a href="{{ url('/') }}" class="text-xs text-gray-500 hover:text-white transition flex items-center justify-center gap-1.5">
-                    <i class="bi bi-arrow-left"></i> Kembali ke Beranda Barbershop
-                </a>
+                <h1 class="text-2xl font-bold text-white tracking-tight">Daftar Member VIP</h1>
+                <p class="text-xs text-zinc-400">Dapatkan bonus poin & klaim cukur gratis di kunjungan ke-10!</p>
+            </div>
+
+            {{-- Register Card --}}
+            <div class="bg-black border border-zinc-800 rounded-md p-6 sm:p-7 space-y-4 js-animate-in">
+
+                {{-- Flash Messages --}}
+                @if (session('error'))
+                    <div class="p-3 rounded-md bg-zinc-900 border border-zinc-700 text-white text-xs flex items-center gap-2">
+                        <i class="bi bi-exclamation-triangle-fill text-white shrink-0"></i>
+                        <span>{{ session('error') }}</span>
+                    </div>
+                @endif
+
+                @if ($errors->any())
+                    <div class="p-3 rounded-md bg-zinc-900 border border-zinc-700 text-white text-xs space-y-1">
+                        @foreach ($errors->all() as $err)
+                            <div class="flex items-center gap-2">
+                                <i class="bi bi-x-circle-fill text-white shrink-0"></i>
+                                <span>{{ $err }}</span>
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
+
+                <form action="{{ route('user.register.post') }}" method="POST" class="space-y-4">
+                    @csrf
+
+                    {{-- Nama Lengkap --}}
+                    <div class="space-y-1.5">
+                        <label for="nama_lengkap" class="block text-xs font-semibold text-zinc-300">
+                            Nama Lengkap <span class="text-white">*</span>
+                        </label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-zinc-500">
+                                <i class="bi bi-person text-xs"></i>
+                            </div>
+                            <input type="text" id="nama_lengkap" name="nama_lengkap" value="{{ old('nama_lengkap') }}" placeholder="Contoh: Dimas Pratama" required
+                                   class="w-full pl-9 pr-3 py-2.5 bg-zinc-950 border border-zinc-800 rounded-md text-white text-sm focus:bg-zinc-950 focus:border-white focus:ring-1 focus:ring-white outline-none transition duration-150 placeholder:text-zinc-600">
+                        </div>
+                    </div>
+
+                    {{-- Email --}}
+                    <div class="space-y-1.5">
+                        <label for="email" class="block text-xs font-semibold text-zinc-300">
+                            Alamat Email <span class="text-white">*</span>
+                        </label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-zinc-500">
+                                <i class="bi bi-envelope text-xs"></i>
+                            </div>
+                            <input type="email" id="email" name="email" value="{{ old('email') }}" placeholder="contoh@email.com" required
+                                   class="w-full pl-9 pr-3 py-2.5 bg-zinc-950 border border-zinc-800 rounded-md text-white text-sm focus:bg-zinc-950 focus:border-white focus:ring-1 focus:ring-white outline-none transition duration-150 placeholder:text-zinc-600">
+                        </div>
+                    </div>
+
+                    {{-- WhatsApp --}}
+                    <div class="space-y-1.5">
+                        <label for="no_whatsapp" class="block text-xs font-semibold text-zinc-300">
+                            Nomor WhatsApp / HP <span class="text-white">*</span>
+                        </label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-zinc-500">
+                                <i class="bi bi-whatsapp text-xs"></i>
+                            </div>
+                            <input type="tel" id="no_whatsapp" name="no_whatsapp" value="{{ old('no_whatsapp') }}" placeholder="Contoh: 081234567890" required
+                                   class="w-full pl-9 pr-3 py-2.5 bg-zinc-950 border border-zinc-800 rounded-md text-white text-sm focus:bg-zinc-950 focus:border-white focus:ring-1 focus:ring-white outline-none transition duration-150 placeholder:text-zinc-600">
+                        </div>
+                    </div>
+
+                    {{-- Gaya Rambut Favorit --}}
+                    <div class="space-y-1.5">
+                        <label for="favorite_style" class="block text-xs font-semibold text-zinc-300">
+                            Gaya Rambut Favorit <span class="text-zinc-500 font-normal">(Opsional)</span>
+                        </label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-zinc-500">
+                                <i class="bi bi-scissors text-xs"></i>
+                            </div>
+                            <select id="favorite_style" name="favorite_style"
+                                    class="w-full pl-9 pr-3 py-2.5 bg-zinc-950 border border-zinc-800 rounded-md text-white text-sm focus:bg-zinc-950 focus:border-white focus:ring-1 focus:ring-white outline-none transition appearance-none">
+                                <option value="">— Pilih gaya —</option>
+                                <option value="Classic Pompadour / Side Part">Classic Pompadour / Side Part</option>
+                                <option value="Taper Fade / Low Fade">Taper Fade / Low Fade</option>
+                                <option value="Two-Block / Korean Style">Two-Block / Korean Style</option>
+                                <option value="Buzz Cut / Crop Fringe">Buzz Cut / Crop Fringe</option>
+                                <option value="Beard Grooming & Shave">Beard Grooming & Shave</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    {{-- Password --}}
+                    <div class="space-y-1.5">
+                        <label for="password" class="block text-xs font-semibold text-zinc-300">
+                            Buat Kata Sandi <span class="text-white">*</span>
+                        </label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-zinc-500">
+                                <i class="bi bi-lock text-xs"></i>
+                            </div>
+                            <input type="password" id="password" name="password" placeholder="Minimal 4 karakter" required
+                                   class="w-full pl-9 pr-3 py-2.5 bg-zinc-950 border border-zinc-800 rounded-md text-white text-sm focus:bg-zinc-950 focus:border-white focus:ring-1 focus:ring-white outline-none transition duration-150 placeholder:text-zinc-600">
+                        </div>
+                    </div>
+
+                    {{-- Submit Button --}}
+                    <div class="pt-2">
+                        <button type="submit" class="btn-ripple w-full py-3 px-4 bg-white hover:bg-zinc-200 text-black font-black rounded-md text-xs uppercase tracking-wider transition duration-150 cursor-pointer flex items-center justify-center gap-2">
+                            <i class="bi bi-person-check-fill text-sm"></i>
+                            <span>DAFTAR & BUKA MEMBER CARD</span>
+                        </button>
+                    </div>
+                </form>
+
+                {{-- Login Link --}}
+                <div class="pt-3 border-t border-zinc-900 text-center">
+                    <p class="text-xs text-zinc-400">
+                        Sudah memiliki akun? 
+                        <a href="{{ route('login') }}" class="font-bold text-white hover:text-zinc-300 transition ml-1 underline">Masuk di sini</a>
+                    </p>
+                </div>
+
             </div>
         </div>
-    </div>
+    </main>
 
-    {{-- Info strip --}}
-    <div class="mt-6 text-center text-[11px] text-gray-500 bg-gray-950/40 p-3 rounded-xl border border-gray-800/60">
-        <i class="bi bi-shield-check text-amber-500"></i>
-        <strong>Data Aman:</strong> Informasi Anda kami jaga dan tidak dibagikan ke pihak ketiga.
-    </div>
+    {{-- Integrated Footer --}}
+    @include('partials.footer')
 
-</div>
-@endsection
+</body>
+</html>

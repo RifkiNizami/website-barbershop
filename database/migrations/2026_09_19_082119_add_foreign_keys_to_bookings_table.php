@@ -11,10 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('bookings', function (Blueprint $table) {
-            $table->foreign(['user_id'], 'bookings_ibfk_1')->references(['user_id'])->on('users')->onUpdate('no action')->onDelete('no action');
-            $table->foreign(['service_id'], 'bookings_ibfk_2')->references(['service_id'])->on('services')->onUpdate('no action')->onDelete('no action');
-        });
+        // Optional foreign key constraints
     }
 
     /**
@@ -22,9 +19,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('bookings', function (Blueprint $table) {
-            $table->dropForeign('bookings_ibfk_1');
-            $table->dropForeign('bookings_ibfk_2');
-        });
+        //
     }
 };

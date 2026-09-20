@@ -1,88 +1,89 @@
-<!-- FOOTER SECTION -->
-<footer class="bg-gray-950 text-gray-400 pt-20 pb-8 border-t border-gray-800">
-    <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-16">
+<!-- FOOTER SECTION — Black & White Monochromatic Barbershop Footer -->
+<footer class="bg-black text-zinc-400 pt-10 pb-6 border-t border-zinc-900">
+    <div class="max-w-6xl mx-auto px-6">
         
-        <!-- Col 1: Brand Info -->
-        <div class="space-y-5">
-            <a href="{{ url('/') }}" class="flex items-center gap-2 text-white font-black tracking-widest text-xl uppercase">
-                <span class="p-2 bg-barber-red rounded text-white flex items-center justify-center shadow-lg">
-                    <i class="bi bi-scissors text-lg"></i>
-                </span>
-                <span>RUSDI BARBER</span>
-            </a>
-            <p class="text-sm text-gray-400 leading-relaxed pr-4">
-                Barbershop pilihan pria modern yang mengutamakan kualitas potongan, pelayanan ramah, dan kenyamanan maksimal.
-            </p>
-            <div class="flex items-center gap-4 text-white pt-2">
-                <a href="#" class="w-10 h-10 rounded-full bg-gray-900 border border-gray-800 flex items-center justify-center hover:bg-barber-red hover:border-barber-red transition-all duration-300">
-                    <i class="bi bi-instagram"></i>
+        {{-- Main Footer Content (3 Columns) --}}
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 pb-8">
+            
+            {{-- Col 1: Brand & Socials --}}
+            <div class="space-y-3">
+                <a href="{{ url('/') }}" class="inline-flex items-center gap-2 text-white font-extrabold tracking-wider text-lg uppercase">
+                    <span class="w-7 h-7 rounded-md bg-white text-black flex items-center justify-center text-sm font-black shadow-sm">
+                        <i class="bi bi-scissors"></i>
+                    </span>
+                    <span>RUSDI BARBER</span>
                 </a>
-                <a href="#" class="w-10 h-10 rounded-full bg-gray-900 border border-gray-800 flex items-center justify-center hover:bg-barber-red hover:border-barber-red transition-all duration-300">
-                    <i class="bi bi-facebook"></i>
-                </a>
-                <a href="#" class="w-10 h-10 rounded-full bg-gray-900 border border-gray-800 flex items-center justify-center hover:bg-barber-red hover:border-barber-red transition-all duration-300">
-                    <i class="bi bi-whatsapp text-lg"></i>
-                </a>
+                <p class="text-xs text-zinc-400 leading-relaxed pr-2">
+                    Barbershop pilihan pria modern dengan mengutamakan kualitas potongan, pelayanan ramah, dan kenyamanan maksimal.
+                </p>
+                {{-- Black & White social icon buttons --}}
+                <div class="flex items-center gap-2.5 pt-1">
+                    <a href="#" aria-label="Instagram" class="w-8 h-8 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-black hover:bg-white hover:border-white transition-all text-xs">
+                        <i class="bi bi-instagram"></i>
+                    </a>
+                    <a href="#" aria-label="Facebook" class="w-8 h-8 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-black hover:bg-white hover:border-white transition-all text-xs">
+                        <i class="bi bi-facebook"></i>
+                    </a>
+                    <a href="#" aria-label="WhatsApp" class="w-8 h-8 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-black hover:bg-white hover:border-white transition-all text-xs">
+                        <i class="bi bi-whatsapp"></i>
+                    </a>
+                </div>
+            </div>
+
+            {{-- Col 2: Jam Operasional --}}
+            <div class="space-y-2.5">
+                <h4 class="text-white text-xs font-bold uppercase tracking-wider">
+                    Jam Operasional
+                </h4>
+                <div class="text-xs space-y-1.5 text-zinc-400">
+                    <div class="flex justify-between items-center max-w-xs">
+                        <span>Senin – Jumat</span>
+                        <span class="text-white font-medium font-mono">10.00 – 21.00</span>
+                    </div>
+                    <div class="flex justify-between items-center max-w-xs">
+                        <span>Sabtu – Minggu</span>
+                        <span class="text-white font-medium font-mono">09.00 – 22.00</span>
+                    </div>
+                    <p class="text-[11px] text-zinc-300 font-medium pt-1 flex items-center gap-1.5">
+                        <i class="bi bi-check2-circle text-white"></i> Buka Setiap Hari
+                    </p>
+                </div>
+            </div>
+
+            {{-- Col 3: Lokasi, Kontak & Member Link --}}
+            <div class="space-y-2.5">
+                <h4 class="text-white text-xs font-bold uppercase tracking-wider">
+                    Lokasi & Kontak
+                </h4>
+                <div class="text-xs space-y-2 text-zinc-400">
+                    <div class="flex items-start gap-2">
+                        <i class="bi bi-geo-alt text-white mt-0.5 text-xs shrink-0"></i>
+                        <span>Jl. Gentleman Grooming No. 88, Jakarta Selatan, 12345</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i class="bi bi-telephone text-white text-xs shrink-0"></i>
+                        <span class="font-mono text-zinc-300">+62 812-3456-7890</span>
+                    </div>
+                    <div class="pt-1">
+                        <a href="{{ route('login') }}" class="inline-flex items-center gap-1.5 text-xs font-bold text-white hover:text-zinc-300 transition-colors">
+                            <span>Member Area</span>
+                            <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        {{-- Thin Horizontal Divider --}}
+        <div class="border-t border-zinc-900 pt-5 pb-2 flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-zinc-500">
+            <p>&copy; {{ date('Y') }} Rusdi Barbershop. All rights reserved.</p>
+            <div class="flex gap-4 text-xs">
+                <a href="#" class="hover:text-zinc-300 transition-colors">Privacy Policy</a>
+                <span>·</span>
+                <a href="#" class="hover:text-zinc-300 transition-colors">Terms of Service</a>
             </div>
         </div>
 
-        <!-- Col 2: Jam Operasional -->
-        <div class="space-y-5">
-            <h4 class="text-white text-sm font-bold uppercase tracking-wider relative inline-block">
-                Jam Operasional
-                <span class="absolute -bottom-2 left-0 w-1/2 h-0.5 bg-barber-red"></span>
-            </h4>
-            <ul class="text-sm space-y-3 text-gray-400 mt-6">
-                <li class="flex justify-between border-b border-gray-800 pb-2"><span>Senin - Jumat:</span> <span class="text-white font-medium">10.00 - 21.00</span></li>
-                <li class="flex justify-between border-b border-gray-800 pb-2"><span>Sabtu - Minggu:</span> <span class="text-white font-medium">09.00 - 22.00</span></li>
-                <li class="pt-2 text-emerald-400 font-semibold flex items-center gap-2">
-                    <i class="bi bi-check-circle-fill"></i> Buka Setiap Hari
-                </li>
-            </ul>
-        </div>
-
-        <!-- Col 3: Alamat & Kontak -->
-        <div class="space-y-5">
-            <h4 class="text-white text-sm font-bold uppercase tracking-wider relative inline-block">
-                Lokasi Outlet
-                <span class="absolute -bottom-2 left-0 w-1/2 h-0.5 bg-barber-red"></span>
-            </h4>
-            <div class="space-y-4 mt-6 text-sm text-gray-400">
-                <div class="flex items-start gap-3">
-                    <i class="bi bi-geo-alt-fill text-barber-red mt-1 text-lg"></i> 
-                    <p class="leading-relaxed">Jl. Gentlemen Grooming No. 88, Jakarta Selatan, 12345</p>
-                </div>
-                <div class="flex items-center gap-3">
-                    <i class="bi bi-telephone-fill text-barber-red text-lg"></i> 
-                    <p>+62 812-3456-7890</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Col 4: Member Portal -->
-        <div class="space-y-5">
-            <h4 class="text-white text-sm font-bold uppercase tracking-wider relative inline-block">
-                Member Club
-                <span class="absolute -bottom-2 left-0 w-1/2 h-0.5 bg-barber-red"></span>
-            </h4>
-            <p class="text-sm text-gray-400 leading-relaxed mt-6">
-                Daftar member VIP untuk mengumpulkan stempel dan klaim potongan rambut gratis di kunjungan ke-10!
-            </p>
-            <a href="{{ route('user.login') }}" class="inline-flex items-center justify-center w-full gap-2 px-6 py-3 bg-amber-500 hover:bg-amber-400 text-gray-950 font-bold text-sm uppercase tracking-wider rounded-xl transition-colors shadow-lg">
-                <i class="bi bi-person-fill"></i> Portal Member
-            </a>
-        </div>
-
-    </div>
-
-    <!-- Copyright -->
-    <div class="max-w-6xl mx-auto px-6 pt-8 border-t border-gray-900 text-center flex flex-col md:flex-row justify-between items-center gap-4">
-        <p class="text-xs text-gray-500">
-            &copy; {{ date('Y') }} Rusdi Barbershop. All Rights Reserved.
-        </p>
-        <div class="flex gap-4 text-xs text-gray-500">
-            <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
-            <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
-        </div>
     </div>
 </footer>

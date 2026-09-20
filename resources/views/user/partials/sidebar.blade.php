@@ -49,19 +49,22 @@
                 </nav>
             </div>
 
-            {{-- Navigasi --}}
+            {{-- Navigasi & Logout --}}
             <div>
-                <p class="px-3 text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-2.5">Navigasi</p>
+                <p class="px-3 text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-2.5">Autentikasi</p>
                 <nav class="space-y-1.5">
                     <a href="{{ url('/') }}" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium text-slate-400 hover:bg-slate-900 hover:text-white transition-all">
                         <i class="bi bi-house text-base"></i>
                         <span>Website Utama</span>
                     </a>
 
-                    <a href="{{ route('user.login') }}" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium text-red-400 hover:bg-red-500/10 hover:text-red-300 transition-all">
-                        <i class="bi bi-box-arrow-right text-base"></i>
-                        <span>Keluar / Ganti Akun</span>
-                    </a>
+                    <form action="{{ route('logout') }}" method="POST" class="w-full">
+                        @csrf
+                        <button type="submit" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium text-red-400 hover:bg-red-500/10 hover:text-red-300 transition-all cursor-pointer text-left">
+                            <i class="bi bi-box-arrow-right text-base"></i>
+                            <span>Logout / Keluar</span>
+                        </button>
+                    </form>
                 </nav>
             </div>
 

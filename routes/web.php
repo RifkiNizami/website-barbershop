@@ -1,24 +1,26 @@
 <?php
 
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-// 1. Rute bawaan Laravel (Halaman Welcome)
+// 1. Landing Page
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
 // ==========================================
-// 1. AUTH & USER / MEMBER PORTAL ROUTES
+// AUTH ROUTES — Login Tunggal (Admin & User)
 // ==========================================
 Route::get('/login', [UserController::class, 'showLogin'])->name('login');
 Route::post('/login', [UserController::class, 'login'])->name('login.post');
 Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 
+// ==========================================
+// USER / MEMBER PORTAL ROUTES
+// ==========================================
 Route::prefix('user')->name('user.')->group(function () {
-    // Auth Khusus Pelanggan
+    // Auth Khusus Pelanggan (alias ke halaman login utama)
     Route::get('/login', [UserController::class, 'showLogin'])->name('login');
     Route::post('/login', [UserController::class, 'login'])->name('login.post');
     Route::get('/register', [UserController::class, 'showRegister'])->name('register');
@@ -37,7 +39,7 @@ Route::prefix('user')->name('user.')->group(function () {
 });
 
 // ==========================================
-// 2. ADMIN SUITE ROUTES (Direct Access Tanpa Login)
+// ADMIN SUITE ROUTES (Direct Access Tanpa Login)
 // ==========================================
 Route::prefix('admin')->name('admin.')->group(function () {
     // Dashboard Utama
@@ -57,10 +59,3 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::patch('/booking/{id}/status', [AdminController::class, 'updateBookingStatus'])->name('booking.status');
     Route::delete('/booking/{id}', [AdminController::class, 'destroyBooking'])->name('booking.destroy');
 });
-
-// 2. Rute untuk form Login
-Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [AuthController::class, 'login'])->name('login.post');
-
-// 3. Rute Logout
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

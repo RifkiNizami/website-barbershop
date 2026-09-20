@@ -12,39 +12,47 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     /**
-     * Tampilkan Halaman Login Pelanggan
+     * Tampilkan Halaman Login (Unified untuk Admin & Customer)
      */
     public function showLogin()
     {
         if (Auth::check()) {
-            return redirect()->route('user.dashboard');
+            return $this->redirectByRole(Auth::user());
         }
-        return view('user.auth.login');
+        return view('auth.login');
     }
 
     /**
-     * Proses Login Pelanggan (Auth Session)
+     * Proses Login (Email + Password, redirect berdasarkan role)
      */
     public function login(Request $request)
     {
         $request->validate([
-            'no_whatsapp' => 'required|string',
+            'email'    => 'required|email',
+            'password' => 'required|string',
         ]);
 
-        // Login atau buat user otomatis berdasarkan nomor WA / HP
-        $user = User::where('email', $request->no_whatsapp . '@member.com')
-            ->orWhere('name', 'LIKE', '%' . $request->no_whatsapp . '%')
-            ->first();
+        // Coba autentikasi dengan email & password
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+            $request->session()->regenerate();
+            $user = Auth::user();
 
-        if (!$user) {
-            $user = User::create([
-                'name' => 'Member ' . substr($request->no_whatsapp, -4),
-                'email' => $request->no_whatsapp . '@member.com',
-                'password' => Hash::make('password'),
-            ]);
+            return $this->redirectByRole($user);
         }
 
-        Auth::login($user);
+        return back()->withErrors([
+            'email' => 'Email atau password salah. Silakan coba lagi.',
+        ])->onlyInput('email');
+    }
+
+    /**
+     * Redirect berdasarkan role user
+     */
+    private function redirectByRole($user)
+    {
+        if ($user->role === 'admin') {
+            return redirect()->route('admin.dashboard')->with('success', 'Selamat datang, Admin ' . $user->name . '!');
+        }
 
         return redirect()->route('user.dashboard')->with('success', 'Selamat datang kembali, ' . $user->name . '!');
     }
@@ -64,14 +72,17 @@ class UserController extends Controller
     {
         $request->validate([
             'nama_lengkap' => 'required|string|max:255',
-            'no_whatsapp' => 'required|string',
-            'password' => 'required|string|min:4',
+            'email'        => 'required|email|unique:users,email',
+            'no_whatsapp'  => 'required|string',
+            'password'     => 'required|string|min:4',
         ]);
 
         $user = User::create([
-            'name' => $request->nama_lengkap,
-            'email' => $request->no_whatsapp . '@member.com',
+            'name'     => $request->nama_lengkap,
+            'email'    => $request->email,
+            'phone'    => $request->no_whatsapp,
             'password' => Hash::make($request->password),
+            'role'     => 'customer',
         ]);
 
         Auth::login($user);
@@ -80,12 +91,14 @@ class UserController extends Controller
     }
 
     /**
-     * Logout Pelanggan
+     * Logout
      */
-    public function logout()
+    public function logout(Request $request)
     {
         Auth::logout();
-        return redirect()->route('home')->with('success', 'Anda telah keluar dari Member Area.');
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect()->route('login')->with('success', 'Anda telah keluar. Sampai jumpa kembali!');
     }
 
     /**
@@ -95,7 +108,7 @@ class UserController extends Controller
     {
         $currentUser = Auth::user();
         $userName = $currentUser ? $currentUser->name : 'Dimas Pratama';
-        $userEmail = $currentUser ? $currentUser->email : '081234567890@member.com';
+        $userEmail = $currentUser ? $currentUser->email : 'dimas@gmail.com';
 
         // Stempel & Poin dari DB
         $totalCompleted = Booking::where('status', 'completed')->count();
@@ -103,7 +116,7 @@ class UserController extends Controller
 
         $member = [
             'name' => $userName,
-            'phone' => str_replace('@member.com', '', $userEmail),
+            'phone' => $currentUser ? ($currentUser->phone ?? '-') : '-',
             'tier' => 'Gold VIP Member',
             'loyalty_points' => 380 + ($totalCompleted * 50),
             'stamps' => $stamps,
@@ -173,7 +186,7 @@ class UserController extends Controller
         Booking::create([
             'booking_code' => 'BK-' . rand(1000, 9999),
             'nama_pelanggan' => $user ? $user->name : ($request->nama_pelanggan ?? 'Pelanggan Member'),
-            'no_whatsapp' => $user ? str_replace('@member.com', '', $user->email) : '081234567890',
+            'no_whatsapp' => $user ? ($user->phone ?? '081234567890') : '081234567890',
             'layanan' => $validated['layanan'],
             'barber' => $validated['barber'],
             'tanggal' => $validated['tanggal'],
@@ -181,7 +194,7 @@ class UserController extends Controller
             'catatan' => $validated['catatan'] ?? null,
             'harga' => $harga,
             'status' => 'confirmed',
-            'user_id' => $user ? $user->id : null,
+            'user_id' => $user ? $user->user_id : null,
         ]);
 
         return redirect()->route('user.dashboard')->with('success', 'Reservasi berhasil dibuat! Silakan datang 10 menit sebelum jadwal.');

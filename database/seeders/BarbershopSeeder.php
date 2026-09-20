@@ -12,63 +12,60 @@ class BarbershopSeeder extends Seeder
 {
     public function run(): void
     {
-        // Sample Admin & Customer Users
-        $admin = User::firstOrCreate(
-            ['email' => 'admin@rusdibarber.com'],
+        // 1. Sample Admin User
+        User::firstOrCreate(
+            ['email' => 'admin@gmail.com'],
             [
                 'name' => 'Administrator',
-                'password' => Hash::make('password'),
+                'password' => Hash::make('password'), 
+                'phone' => '081234567890',
+                'role' => 'admin'
             ]
         );
 
+        // 2. Sample Customer User
         $customer = User::firstOrCreate(
             ['email' => 'dimas@gmail.com'],
             [
                 'name' => 'Dimas Pratama',
                 'password' => Hash::make('password'),
+                'phone' => '089876543210',
+                'role' => 'customer'
             ]
         );
 
-        // Sample Services
+        // 3. Sample Services
         $services = [
             [
-                'nama_layanan' => 'Gentlemen Haircut + Wash',
+                'nama_layanan' => 'Gentleman Haircut & Styling',
                 'kategori' => 'Haircut',
                 'harga' => 65000,
                 'durasi' => 45,
-                'deskripsi' => 'Konsultasi gaya rambut, potong presisi, cuci rambut hangat, dan styling pomade.',
+                'deskripsi' => 'Potong rambut presisi sesuai bentuk wajah, cuci rambut, pijat kepala ringan, dan konsultasi gaya.',
                 'is_active' => true,
             ],
             [
-                'nama_layanan' => 'Classic Beard Trim & Shave',
+                'nama_layanan' => 'Beard Trim & Hot Towel Shave',
                 'kategori' => 'Shaving',
                 'harga' => 45000,
                 'durasi' => 30,
-                'deskripsi' => 'Cukur jenggot & kumis profesional dengan handuk hangat dan aftershave lotion.',
+                'deskripsi' => 'Merapikan brewok dengan handuk hangat, krim cukur eksklusif, dan pisau cukur steril.',
                 'is_active' => true,
             ],
             [
-                'nama_layanan' => 'Hair Treatment + Styling',
-                'kategori' => 'Treatment',
-                'harga' => 85000,
-                'durasi' => 50,
-                'deskripsi' => 'Perawatan akar rambut, pijat relaksasi kepala, tonic vitamin, dan styling.',
-                'is_active' => true,
-            ],
-            [
-                'nama_layanan' => 'Royal Grooming Package',
-                'kategori' => 'Combo Package',
+                'nama_layanan' => 'Hair Coloring & Highlight',
+                'kategori' => 'Coloring',
                 'harga' => 120000,
-                'durasi' => 75,
-                'deskripsi' => 'Paket komplit: Haircut + Wash + Hot Towel Shave + Pijat Kepala + Styling Premium.',
+                'durasi' => 60,
+                'deskripsi' => 'Pewarnaan rambut profesional menggunakan bahan berkualitas tinggi yang aman untuk kulit kepala.',
                 'is_active' => true,
             ],
             [
-                'nama_layanan' => 'Express Cut',
-                'kategori' => 'Haircut',
-                'harga' => 50000,
-                'durasi' => 30,
-                'deskripsi' => 'Potong rambut cepat & rapi untuk pria sibuk.',
+                'nama_layanan' => 'VIP Full Grooming Package',
+                'kategori' => 'Package',
+                'harga' => 150000,
+                'durasi' => 90,
+                'deskripsi' => 'Paket komplit: Potong rambut, beard trim, hair mask treatment, pijat relaksasi, dan minuman gratis.',
                 'is_active' => true,
             ],
         ];
@@ -77,63 +74,37 @@ class BarbershopSeeder extends Seeder
             Service::firstOrCreate(['nama_layanan' => $svc['nama_layanan']], $svc);
         }
 
-        // Sample Bookings
-        $bookings = [
+        // 4. Sample Bookings
+        $sampleBookings = [
             [
-                'booking_code' => 'BK-1049',
+                'booking_code' => 'BK-1001',
                 'nama_pelanggan' => 'Dimas Pratama',
-                'no_whatsapp' => '081234567890',
-                'layanan' => 'Gentlemen Haircut + Wash',
-                'barber' => 'Rusdi',
+                'no_whatsapp' => '089876543210',
+                'layanan' => 'Gentleman Haircut & Styling',
+                'barber' => 'Mas Rusdi (Master Barber)',
                 'tanggal' => now()->format('Y-m-d'),
-                'jam' => '10:30 WIB',
-                'catatan' => 'Request model Taper Fade',
+                'jam' => '14.00 WIB',
+                'catatan' => 'Minta potong taper fade tipis.',
                 'harga' => 65000,
                 'status' => 'confirmed',
-                'user_id' => $customer->id,
+                'user_id' => $customer ? $customer->user_id : null,
             ],
             [
-                'booking_code' => 'BK-1050',
-                'nama_pelanggan' => 'Andi Wijaya',
-                'no_whatsapp' => '085712345678',
-                'layanan' => 'Classic Beard Trim & Shave',
-                'barber' => 'Farhan',
+                'booking_code' => 'BK-1002',
+                'nama_pelanggan' => 'Rian Hidayat',
+                'no_whatsapp' => '081399887766',
+                'layanan' => 'Beard Trim & Hot Towel Shave',
+                'barber' => 'Mas Budi (Senior Barber)',
                 'tanggal' => now()->format('Y-m-d'),
-                'jam' => '11:15 WIB',
-                'catatan' => 'Rapikan kumis tipis',
+                'jam' => '16.30 WIB',
+                'catatan' => 'Cukur rapi brewok.',
                 'harga' => 45000,
-                'status' => 'pending',
-                'user_id' => null,
-            ],
-            [
-                'booking_code' => 'BK-1051',
-                'nama_pelanggan' => 'Reza Fahlevi',
-                'no_whatsapp' => '082198765432',
-                'layanan' => 'Hair Treatment + Styling',
-                'barber' => 'Budi',
-                'tanggal' => now()->subDay()->format('Y-m-d'),
-                'jam' => '13:00 WIB',
-                'catatan' => 'Kulit kepala sensitif',
-                'harga' => 85000,
                 'status' => 'completed',
-                'user_id' => null,
-            ],
-            [
-                'booking_code' => 'BK-1052',
-                'nama_pelanggan' => 'Kevin Sanjaya',
-                'no_whatsapp' => '089611223344',
-                'layanan' => 'Royal Grooming Package',
-                'barber' => 'Rusdi',
-                'tanggal' => now()->addDay()->format('Y-m-d'),
-                'jam' => '14:30 WIB',
-                'catatan' => 'Full service',
-                'harga' => 120000,
-                'status' => 'confirmed',
                 'user_id' => null,
             ],
         ];
 
-        foreach ($bookings as $bk) {
+        foreach ($sampleBookings as $bk) {
             Booking::firstOrCreate(['booking_code' => $bk['booking_code']], $bk);
         }
     }

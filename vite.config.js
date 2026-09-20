@@ -8,9 +8,13 @@ export default defineConfig({
         laravel({
             input: [
                 'resources/css/app.css',
+                'resources/css/login.css',
+                'resources/css/admin.css',
+                'resources/css/user.css',
                 'resources/js/app.js',
                 'resources/js/admin.js',
-                'resources/js/user.js'
+                'resources/js/user.js',
+                'resources/js/login.js'
             ],
             refresh: true,
             fonts: [

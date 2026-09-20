@@ -11,9 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('reviews', function (Blueprint $table) {
-            $table->foreign(['user_id'], 'reviews_ibfk_1')->references(['user_id'])->on('users')->onUpdate('no action')->onDelete('no action');
-        });
+        // No-op for legacy foreign key constraints
     }
 
     /**
@@ -21,8 +19,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('reviews', function (Blueprint $table) {
-            $table->dropForeign('reviews_ibfk_1');
-        });
+        //
     }
 };

@@ -1,4 +1,4 @@
-{{-- TOP NAVBAR --}}
+{{-- TOP NAVBAR ADMIN --}}
 <header class="h-16 bg-slate-950/90 backdrop-blur-md border-b border-slate-800/80 sticky top-0 z-20 flex items-center justify-between px-4 sm:px-6 lg:px-8 shrink-0">
     
     {{-- Left Section: Mobile Toggle & Page Header --}}
@@ -18,7 +18,7 @@
         </div>
     </div>
 
-    {{-- Right Section: Quick Actions & Live Status --}}
+    {{-- Right Section: Quick Actions, Live Status & Logout --}}
     <div class="flex items-center gap-3">
         
         {{-- Quick Action: Tambah Booking --}}
@@ -28,24 +28,19 @@
         </a>
 
         {{-- Quick Action: Tambah Layanan --}}
-        <a href="{{ route('admin.layanan.create') }}" class="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold uppercase tracking-wider bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white rounded-xl transition-all shadow-md shadow-red-600/20">
+        <a href="{{ route('admin.layanan.create') }}" class="hidden md:inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold uppercase tracking-wider bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white rounded-xl transition-all shadow-md shadow-red-600/20">
             <i class="bi bi-plus-lg"></i>
             Tambah Layanan
         </a>
 
-        {{-- Live Status Pill --}}
-        <div class="flex items-center gap-2 pl-3 border-l border-slate-800">
-            <div class="w-8 h-8 rounded-xl bg-slate-900 text-amber-400 flex items-center justify-center font-bold text-sm border border-slate-800">
-                <i class="bi bi-scissors"></i>
-            </div>
-            <div class="hidden md:flex flex-col text-left leading-tight">
-                <span class="text-xs font-bold text-white">Rusdi Master</span>
-                <span class="text-[10px] text-emerald-400 font-semibold flex items-center gap-1">
-                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                    Direct Mode
-                </span>
-            </div>
-        </div>
+        {{-- Logout Button Form --}}
+        <form action="{{ route('logout') }}" method="POST" class="inline-flex">
+            @csrf
+            <button type="submit" class="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold uppercase tracking-wider bg-red-950/60 hover:bg-red-900 border border-red-800/60 text-red-200 rounded-xl transition-all cursor-pointer">
+                <i class="bi bi-box-arrow-right text-red-400 text-sm"></i>
+                <span>Logout</span>
+            </button>
+        </form>
 
     </div>
 

@@ -55,14 +55,22 @@
                 </nav>
             </div>
 
-            {{-- Akses Cepat --}}
+            {{-- Akses Publik & Logout --}}
             <div>
-                <p class="px-3 text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-2.5">Akses Publik</p>
+                <p class="px-3 text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-2.5">Autentikasi</p>
                 <nav class="space-y-1.5">
                     <a href="{{ url('/') }}" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium text-slate-400 hover:bg-slate-800/80 hover:text-white transition-colors">
                         <i class="bi bi-house-door text-base"></i>
-                        <span>Kembali ke Website</span>
+                        <span>Website Utama</span>
                     </a>
+
+                    <form action="{{ route('logout') }}" method="POST" class="w-full">
+                        @csrf
+                        <button type="submit" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium text-red-400 hover:bg-red-500/10 hover:text-red-300 transition-colors cursor-pointer text-left">
+                            <i class="bi bi-box-arrow-right text-base"></i>
+                            <span>Logout / Keluar</span>
+                        </button>
+                    </form>
                 </nav>
             </div>
 
@@ -71,17 +79,26 @@
 
     {{-- Bottom Section: Admin Profile Widget --}}
     <div class="p-4 border-t border-slate-800/80 bg-slate-950 shrink-0">
-        <div class="flex items-center gap-3 p-2 rounded-xl bg-slate-900/80 border border-slate-800/60">
-            <div class="relative shrink-0">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-red-600 to-rose-500 flex items-center justify-center font-bold text-white shadow-md">
-                    <i class="bi bi-person-fill text-lg"></i>
+        <div class="flex items-center justify-between p-2 rounded-xl bg-slate-900/80 border border-slate-800/60">
+            <div class="flex items-center gap-3 overflow-hidden">
+                <div class="relative shrink-0">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-red-600 to-rose-500 flex items-center justify-center font-bold text-white shadow-md">
+                        <i class="bi bi-person-fill text-lg"></i>
+                    </div>
+                    <span class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-500 border-2 border-slate-950 rounded-full" title="Online"></span>
                 </div>
-                <span class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-500 border-2 border-slate-950 rounded-full" title="Online"></span>
+                <div class="flex-1 min-w-0">
+                    <p class="text-xs font-bold text-white truncate">Administrator</p>
+                    <p class="text-[11px] text-slate-400 truncate">admin@gmail.com</p>
+                </div>
             </div>
-            <div class="flex-1 min-w-0">
-                <p class="text-xs font-bold text-white truncate">Administrator</p>
-                <p class="text-[11px] text-slate-400 truncate">admin@rusdibarber.com</p>
-            </div>
+            
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
+                <button type="submit" title="Logout" class="p-2 text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-lg transition-colors cursor-pointer">
+                    <i class="bi bi-box-arrow-right text-lg"></i>
+                </button>
+            </form>
         </div>
     </div>
 </aside>

@@ -12,14 +12,19 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('bookings', function (Blueprint $table) {
-            $table->integer('booking_id', true);
-            $table->integer('user_id')->nullable()->index('user_id');
-            $table->integer('service_id')->nullable()->index('service_id');
-            $table->date('booking_date')->nullable();
-            $table->time('booking_time')->nullable();
-            $table->integer('queue_number')->nullable();
-            $table->string('status', 30)->nullable();
-            $table->timestamp('created_at')->nullable();
+            $table->id();
+            $table->string('booking_code')->nullable();
+            $table->string('nama_pelanggan');
+            $table->string('no_whatsapp');
+            $table->string('layanan');
+            $table->string('barber')->nullable();
+            $table->date('tanggal');
+            $table->string('jam');
+            $table->text('catatan')->nullable();
+            $table->integer('harga')->default(0);
+            $table->string('status', 30)->default('confirmed');
+            $table->integer('user_id')->nullable();
+            $table->timestamps();
         });
     }
 

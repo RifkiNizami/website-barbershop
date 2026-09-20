@@ -1,0 +1,64 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+
+/* Konfigurasi Font Global */
+body {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Animasi Latar Belakang (Ken Burns Effect) */
+.kenburns-bg {
+    animation: kenburns 25s ease-out infinite alternate;
+}
+
+@keyframes kenburns {
+    0% { transform: scale(1) translate(0, 0); }
+    100% { transform: scale(1.15) translate(-1%, -1%); }
+}
+
+/* Animasi Transisi Masuk (Fade Up) */
+.animate-fade-up {
+    animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    opacity: 0;
+    transform: translateY(24px);
+}
+
+.delay-1 { animation-delay: 150ms; }
+.delay-2 { animation-delay: 300ms; }
+.delay-3 { animation-delay: 450ms; }
+.delay-4 { animation-delay: 600ms; }
+
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Efek Interaksi Tombol (Ripple) */
+.btn-ripple {
+    position: relative;
+    overflow: hidden;
+}
+
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    transform: scale(0);
+    animation: ripple-anim 600ms linear;
+    background-color: rgba(0, 0, 0, 0.15);
+    pointer-events: none;
+}
+
+.btn-ripple-dark .ripple {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+@keyframes ripple-anim {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}

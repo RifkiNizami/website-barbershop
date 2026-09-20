@@ -18,11 +18,11 @@
         </div>
     </div>
 
-    {{-- Right Section: Booking CTA & Member Profile Pill --}}
+    {{-- Right Section: Booking CTA, Member Profile Pill & Logout --}}
     <div class="flex items-center gap-3">
         
         {{-- Quick CTA: Booking Cukur --}}
-        <a href="{{ route('user.booking.create') }}" class="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-bold uppercase tracking-wider bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 rounded-xl transition-all shadow-md shadow-amber-500/20">
+        <a href="{{ route('user.booking.create') }}" class="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 text-xs font-bold uppercase tracking-wider bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 rounded-xl transition-all shadow-md shadow-amber-500/20">
             <i class="bi bi-calendar-plus-fill"></i>
             Booking Cukur
         </a>
@@ -35,10 +35,19 @@
             <div class="hidden md:flex flex-col text-left leading-tight">
                 <span class="text-xs font-bold text-white">Dimas Pratama</span>
                 <span class="text-[10px] text-amber-400 font-semibold flex items-center gap-1">
-                    <i class="bi bi-patch-check-fill"></i> Gold VIP Member
+                    <i class="bi bi-patch-check-fill"></i> VIP Member
                 </span>
             </div>
         </div>
+
+        {{-- Logout Form Button --}}
+        <form action="{{ route('logout') }}" method="POST" class="inline-flex">
+            @csrf
+            <button type="submit" class="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold uppercase tracking-wider bg-red-950/60 hover:bg-red-900 border border-red-800/60 text-red-200 rounded-xl transition-all cursor-pointer">
+                <i class="bi bi-box-arrow-right text-red-400 text-sm"></i>
+                <span>Logout</span>
+            </button>
+        </form>
 
     </div>
 

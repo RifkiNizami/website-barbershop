@@ -1,4 +1,4 @@
-// JavaScript existing yang tetap digunakan
+// JavaScript existing & animasi baru untuk Rusdi Barbershop
 document.addEventListener('DOMContentLoaded', () => {
     // 1. Landing Page Booking Date Default
     const today = new Date().toISOString().split('T')[0];
@@ -24,9 +24,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 3. Admin Mobile Sidebar Toggle
-    // ... (Kode Admin & User Sidebar existing dibiarkan utuh)
     const adminSidebar = document.getElementById('adminSidebar');
-    const adminBackdrop = document.getElementById('sidebarBackdrop');wdwd
+    const adminBackdrop = document.getElementById('sidebarBackdrop');
     const openAdminBtn = document.getElementById('openSidebarBtn');
     const closeAdminBtn = document.getElementById('closeSidebarBtn');
 
@@ -78,8 +77,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    /* --- JAVASCRIPT BARU UNTUK PENGEMBANGAN --- */
-
     // 5. Sticky Navbar Logic
     const header = document.getElementById('main-header');
     if (header) {
@@ -97,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 6. Scroll Reveal Animation using IntersectionObserver
     const reveals = document.querySelectorAll('.reveal');
     const revealOptions = {
-        threshold: 0.15, // Memicu animasi ketika 15% elemen terlihat
+        threshold: 0.15,
         rootMargin: "0px 0px -50px 0px"
     };
 
@@ -107,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             } else {
                 entry.target.classList.add('active');
-                observer.unobserve(entry.target); // Hanya animasi satu kali
+                observer.unobserve(entry.target);
             }
         });
     }, revealOptions);
@@ -115,9 +112,86 @@ document.addEventListener('DOMContentLoaded', () => {
     reveals.forEach(reveal => {
         revealOnScroll.observe(reveal);
     });
+
+    /* --- ANIMASI JAVASCRIPT BARU UNTUK Halaman LOGIN --- */
+
+    // 7. Staggered Entrance Animation untuk elemen form login
+    const animateElements = document.querySelectorAll('.js-animate-in');
+    animateElements.forEach((el, index) => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(16px)';
+        el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        
+        setTimeout(() => {
+            el.style.opacity = '1';
+            el.style.transform = 'translateY(0)';
+        }, 100 + index * 80);
+    });
+
+    // 8. Ripple Effect pada Tombol Utama
+    const buttons = document.querySelectorAll('.btn-ripple');
+    buttons.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            const circle = document.createElement('span');
+            const diameter = Math.max(btn.clientWidth, btn.clientHeight);
+            const radius = diameter / 2;
+            const rect = btn.getBoundingClientRect();
+
+            circle.style.width = circle.style.height = `${diameter}px`;
+            circle.style.left = `${e.clientX - rect.left - radius}px`;
+            circle.style.top = `${e.clientY - rect.top - radius}px`;
+            circle.classList.add('ripple-circle');
+
+            const existingRipple = btn.querySelector('.ripple-circle');
+            if (existingRipple) existingRipple.remove();
+
+            btn.appendChild(circle);
+        });
+    });
 });
 
-// Global Booking Modal Functions (Existing)
+// Global Interactive Functions for Auth Pages
+
+window.togglePassword = function () {
+    const input = document.getElementById('password');
+    const icon = document.getElementById('toggleIcon');
+    if (!input || !icon) return;
+
+    icon.style.transform = 'scale(0.8) rotate(90deg)';
+    icon.style.transition = 'transform 0.2s ease';
+
+    setTimeout(() => {
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.classList.remove('bi-eye');
+            icon.classList.add('bi-eye-slash');
+        } else {
+            input.type = 'password';
+            icon.classList.remove('bi-eye-slash');
+            icon.classList.add('bi-eye');
+        }
+        icon.style.transform = 'scale(1) rotate(0deg)';
+    }, 150);
+};
+
+window.fillCredentials = function (email, pass) {
+    const emailInput = document.getElementById('email');
+    const passInput = document.getElementById('password');
+
+    if (emailInput && passInput) {
+        emailInput.value = email;
+        passInput.value = pass;
+
+        // Flash animation effect pada input
+        [emailInput, passInput].forEach(el => {
+            el.classList.add('ring-2', 'ring-white', 'border-white');
+            setTimeout(() => {
+                el.classList.remove('ring-2', 'ring-white', 'border-white');
+            }, 600);
+        });
+    }
+};
+
 window.openBookingModal = function () {
     const modal = document.getElementById('bookingModal');
     const modalContent = document.getElementById('bookingModalContent');
