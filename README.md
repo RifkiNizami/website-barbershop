@@ -17,9 +17,19 @@ Berikut adalah panduan instalasi lengkap untuk menjalankan project ini di komput
    DB_PASSWORD=
 5. Lalu `php artisan migrate`
 6. npm install & npm run build
-7. php artisan serve
+7. php artisan tinker
+8. Insert data ke database dgn
+    DB::table('users')->insert([
+   'name' => 'Admin User',
+    'email' => 'admin@example.com',
+    'password' => Hash::make('password123'),
+    'phone' => '08123456789',
+    'role' => 'admin',
+    'created_at' => now(),
+ ]);
+9. php artisan serve
 
 
 akun coba:
-admin@gmail.com
+admin@example.com
 password123
