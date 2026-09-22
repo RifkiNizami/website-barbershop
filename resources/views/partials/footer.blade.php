@@ -1,10 +1,10 @@
 <!-- FOOTER SECTION — Black & White Monochromatic Barbershop Footer -->
 <footer class="bg-black text-zinc-400 pt-10 pb-6 border-t border-zinc-900">
     <div class="max-w-6xl mx-auto px-6">
-        
+
         {{-- Main Footer Content (3 Columns) --}}
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 pb-8">
-            
+
             {{-- Col 1: Brand & Socials --}}
             <div class="space-y-3">
                 <a href="{{ url('/') }}" class="inline-flex items-center gap-2 text-white font-extrabold tracking-wider text-lg uppercase">
@@ -63,12 +63,6 @@
                     <div class="flex items-center gap-2">
                         <i class="bi bi-telephone text-white text-xs shrink-0"></i>
                         <span class="font-mono text-zinc-300">+62 812-3456-7890</span>
-                    </div>
-                    <div class="pt-1">
-                        <a href="{{ route('login') }}" class="inline-flex items-center gap-1.5 text-xs font-bold text-white hover:text-zinc-300 transition-colors">
-                            <span>Member Area</span>
-                            <i class="bi bi-arrow-right"></i>
-                        </a>
                     </div>
                 </div>
             </div>
