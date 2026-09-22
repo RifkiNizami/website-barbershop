@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
-@section('title', 'Rusdi Barbershop — Premium Gentleman Grooming')
+@section('title', 'Black Crown Barbershop')
 
 @section('content')
     <!-- 1. HERO SECTION -->
     <section id="home" class="relative min-h-145 md:min-h-screen flex items-center justify-center text-center text-white overflow-hidden">
         <!-- Background Image with Overlay (Diperbaiki Gradientnya) -->
         <div class="absolute inset-0 z-0">
-            <img src="{{ asset('images/hero-barber.jpg') }}" alt="Rusdi Barbershop Hero" class="w-full h-full object-cover object-center filter brightness-50">
+            <img src="{{ asset('images/hero-barber.jpg') }}" alt="Black Crown Barbershop Hero" class="w-full h-full object-cover object-center filter brightness-50">
             <!-- Memperhalus gradient agar teks lebih kontras -->
             <div class="absolute inset-0 bg-linear-to-b from-black/70 via-black/40 to-black/90"></div>
         </div>
@@ -48,12 +48,11 @@
                 <!-- Left Image -->
                 <div class="relative flex justify-center md:justify-start reveal">
                     <div class="relative w-full max-w-md group">
-                        <img src="{{ asset('images/hair-wash.jpg') }}" alt="Layanan Cuci Rambut Rusdi Barbershop" class="w-full h-100 md:h-125 object-cover rounded-2xl shadow-2xl group-hover:scale-[1.02] transition-transform duration-500">
-                        
-center shadow-2xl border-4 border-white transform group-hover:rotate-12 transition-transform duration-500">                        <!-- Circular Badge -->
+                        <img src="{{ asset('images/hair-wash.jpg') }}" alt="Layanan Cuci Rambut Black Crown Barbershop" class="w-full h-100 md:h-125 object-cover rounded-2xl shadow-2xl group-hover:scale-[1.02] transition-transform duration-500">
+                                                <!-- Circular Badge -->
                         <div class="absolute -bottom-6 -right-6 w-28 h-28 md:w-32 md:h-32 rounded-full bg-barber-red text-white flex flex-col items-center justify-center text-
                             <span class="text-[10px] md:text-xs uppercase font-semibold tracking-widest opacity-90">EST.</span>
-                            <span class="text-2xl md:text-3xl font-black tracking-tight leading-none my-1">2018</span>
+                            <span class="text-2xl md:text-3xl font-black tracking-tight leading-none my-1">2026</span>
                         </div>
                     </div>
                 </div>
@@ -69,7 +68,7 @@ center shadow-2xl border-4 border-white transform group-hover:rotate-12 transiti
                     </h2>
                     
                     <p class="text-base text-gray-600 leading-relaxed mb-5">
-                        Rusdi Barbershop adalah pilihan pria modern yang menghargai kerapian, ketelitian, dan kenyamanan. Kami percaya bahwa setiap potongan rambut merefleksikan karakter dan kepercayaan diri Anda.
+                        Black Crown Barbershop adalah pilihan pria modern yang menghargai kerapian, ketelitian, dan kenyamanan. Kami percaya bahwa setiap potongan rambut merefleksikan karakter dan kepercayaan diri Anda.
                     </p>
 
                     <p class="text-base text-gray-600 leading-relaxed mb-8">
@@ -108,111 +107,33 @@ center shadow-2xl border-4 border-white transform group-hover:rotate-12 transiti
                     Kualitas pelayanan premium dengan harga yang rasional. Pilih layanan yang sesuai dengan kebutuhan gaya Anda hari ini.
                 </p>
             </div>
-
-            <!-- 3 Pricing Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Card 1 -->
+            <div class="max-w-md mx-auto">
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 reveal">
-                    <div class="relative h-56 overflow-hidden">
-                        <img src="{{ asset('images/service-haircut.jpg') }}" alt="Layanan Haircut" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
-                        <div class="absolute inset-0 bg-linear-to-t from-black/60 to-transparent flex items-end p-6">
-                            <h3 class="text-2xl font-bold text-white drop-shadow-md">Haircut</h3>
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="{{ asset('images/service-haircut.jpg') }}" alt="Layanan Haircut & Styling" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                        <div class="absolute inset-0 bg-linear-to-t from-black/70 to-transparent flex items-end p-6">
+                            <h3 class="text-2xl font-bold text-white drop-shadow-md">Haircut & Styling</h3>
                         </div>
                     </div>
                     <div class="p-8 flex-1 flex flex-col bg-white relative z-10 -mt-2 rounded-t-2xl">
                         <ul class="space-y-4 text-sm text-gray-600 flex-1">
                             <li class="flex items-baseline justify-between group">
-                                <span class="font-semibold text-gray-800">Hair Cut</span>
+                                <span class="font-semibold text-gray-800">Potong Rambut Biasa</span>
+                                <span class="price-dots"></span>
+                                <span class="font-bold text-barber-red">Rp 25.000</span>
+                            </li>
+                            <li class="flex items-baseline justify-between group">
+                                <span class="font-semibold text-gray-800">Potong Rambut, Cuci & Style</span>
                                 <span class="price-dots"></span>
                                 <span class="font-bold text-barber-red">Rp 35.000</span>
                             </li>
                             <li class="flex items-baseline justify-between group">
-                                <span class="font-semibold text-gray-800">Hair Cut + Wash + Tonic</span>
-                                <span class="price-dots"></span>
-                                <span class="font-bold text-barber-red">Rp 50.000</span>
-                            </li>
-                            <li class="flex items-baseline justify-between group">
-                                <span class="font-semibold text-gray-800">Gentlemen's Cut</span>
-                                <span class="price-dots"></span>
-                                <span class="font-bold text-barber-red">Rp 65.000</span>
-                            </li>
-                            <li class="flex items-baseline justify-between group">
-                                <span class="font-semibold text-gray-800">Kids Haircut</span>
-                                <span class="price-dots"></span>
-                                <span class="font-bold text-barber-red">Rp 30.000</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Card 2 -->
-                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 reveal delay-100">
-                    <div class="relative h-56 overflow-hidden">
-                        <img src="{{ asset('images/service-styling.jpg') }}" alt="Layanan Hair Styling" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
-                        <div class="absolute inset-0 bg-linear-to-t from-black/60 to-transparent flex items-end p-6">
-                            <h3 class="text-2xl font-bold text-white drop-shadow-md">Hair Styling</h3>
-                        </div>
-                    </div>
-                    <div class="p-8 flex-1 flex flex-col bg-white relative z-10 -mt-2 rounded-t-2xl">
-                        <ul class="space-y-4 text-sm text-gray-600 flex-1">
-                            <li class="flex items-baseline justify-between group">
-                                <span class="font-semibold text-gray-800">Pomade Apply</span>
-                                <span class="price-dots"></span>
-                                <span class="font-bold text-barber-red">Rp 20.000</span>
-                            </li>
-                            <li class="flex items-baseline justify-between group">
-                                <span class="font-semibold text-gray-800">Hair Spa</span>
-                                <span class="price-dots"></span>
-                                <span class="font-bold text-barber-red">Rp 55.000</span>
-                            </li>
-                            <li class="flex items-baseline justify-between group">
-                                <span class="font-semibold text-gray-800">Colour Treatment</span>
-                                <span class="price-dots"></span>
-                                <span class="font-bold text-barber-red">Rp 85.000</span>
-                            </li>
-                            <li class="flex items-baseline justify-between group">
-                                <span class="font-semibold text-gray-800">Blow Dry</span>
-                                <span class="price-dots"></span>
-                                <span class="font-bold text-barber-red">Rp 25.000</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Card 3 -->
-                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 reveal delay-200">
-                    <div class="relative h-56 overflow-hidden">
-                        <img src="{{ asset('images/service-care.jpg') }}" alt="Layanan Hair Body Care" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
-                        <div class="absolute inset-0 bg-linear-to-t from-black/60 to-transparent flex items-end p-6">
-                            <h3 class="text-2xl font-bold text-white drop-shadow-md">Body Care</h3>
-                        </div>
-                    </div>
-                    <div class="p-8 flex-1 flex flex-col bg-white relative z-10 -mt-2 rounded-t-2xl">
-                        <ul class="space-y-4 text-sm text-gray-600 flex-1">
-                            <li class="flex items-baseline justify-between group">
-                                <span class="font-semibold text-gray-800">Head Massage</span>
-                                <span class="price-dots"></span>
-                                <span class="font-bold text-barber-red">Rp 30.000</span>
-                            </li>
-                            <li class="flex items-baseline justify-between group">
-                                <span class="font-semibold text-gray-800">Hot Towel Shave</span>
-                                <span class="price-dots"></span>
-                                <span class="font-bold text-barber-red">Rp 30.000</span>
-                            </li>
-                            <li class="flex items-baseline justify-between group">
-                                <span class="font-semibold text-gray-800">Beard Grooming</span>
-                                <span class="price-dots"></span>
-                                <span class="font-bold text-barber-red">Rp 45.000</span>
-                            </li>
-                            <li class="flex items-baseline justify-between group">
-                                <span class="font-semibold text-gray-800">Full Package VIP</span>
+                                <span class="font-semibold text-gray-800">Hair Coloring</span>
                                 <span class="price-dots"></span>
                                 <span class="font-bold text-barber-red">Rp 120.000</span>
                             </li>
                         </ul>
                     </div>
-                </div>
-            </div>
         </div>
     </section>
 

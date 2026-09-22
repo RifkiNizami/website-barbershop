@@ -15,7 +15,7 @@ class AdminController extends Controller
     {
         $stats = [
             'total_bookings_today' => Booking::whereDate('tanggal', now())->count(),
-            'monthly_income' => 'Rp ' . number_format(Booking::whereMonth('tanggal', now()->month)->where('status', '!=', 'cancelled')->sum('harga'), 0, ',', '.'),
+            'monthly_income' => 'Rp '.number_format(Booking::whereMonth('tanggal', now()->month)->where('status', '!=', 'cancelled')->sum('harga'), 0, ',', '.'),
             'total_services' => Service::where('is_active', true)->count(),
             'active_barbers' => 4,
         ];
@@ -29,7 +29,7 @@ class AdminController extends Controller
                 'service' => $b->layanan,
                 'barber' => $b->barber,
                 'time' => $b->jam,
-                'price' => 'Rp ' . number_format($b->harga, 0, ',', '.'),
+                'price' => 'Rp '.number_format($b->harga, 0, ',', '.'),
                 'status' => $b->status,
             ];
         });
@@ -62,12 +62,13 @@ class AdminController extends Controller
 
         Service::create($validated);
 
-        return redirect()->route('admin.dashboard')->with('success', 'Layanan "' . $validated['nama_layanan'] . '" berhasil ditambahkan!');
+        return redirect()->route('admin.dashboard')->with('success', 'Layanan "'.$validated['nama_layanan'].'" berhasil ditambahkan!');
     }
 
     public function editService($id)
     {
         $service = Service::findOrFail($id);
+
         return view('admin.services.edit', compact('service'));
     }
 
@@ -88,7 +89,7 @@ class AdminController extends Controller
 
         $service->update($validated);
 
-        return redirect()->route('admin.dashboard')->with('success', 'Layanan "' . $service->nama_layanan . '" berhasil diperbarui!');
+        return redirect()->route('admin.dashboard')->with('success', 'Layanan "'.$service->nama_layanan.'" berhasil diperbarui!');
     }
 
     public function destroyService($id)
@@ -97,7 +98,7 @@ class AdminController extends Controller
         $name = $service->nama_layanan;
         $service->delete();
 
-        return redirect()->route('admin.dashboard')->with('success', 'Layanan "' . $name . '" berhasil dihapus!');
+        return redirect()->route('admin.dashboard')->with('success', 'Layanan "'.$name.'" berhasil dihapus!');
     }
 
     /**
@@ -106,6 +107,7 @@ class AdminController extends Controller
     public function createBooking()
     {
         $services = Service::where('is_active', true)->get();
+
         return view('admin.bookings.create', compact('services'));
     }
 
@@ -125,13 +127,13 @@ class AdminController extends Controller
         $svc = Service::where('nama_layanan', $validated['layanan'])->first();
         $harga = $svc ? $svc->harga : 65000;
 
-        $validated['booking_code'] = 'BK-' . rand(1000, 9999);
+        $validated['booking_code'] = 'BK-'.rand(1000, 9999);
         $validated['harga'] = $harga;
         $validated['status'] = 'confirmed';
 
         Booking::create($validated);
 
-        return redirect()->route('admin.dashboard')->with('success', 'Booking untuk ' . $validated['nama_pelanggan'] . ' (' . $validated['booking_code'] . ') berhasil dibuat!');
+        return redirect()->route('admin.dashboard')->with('success', 'Booking untuk '.$validated['nama_pelanggan'].' ('.$validated['booking_code'].') berhasil dibuat!');
     }
 
     public function updateBookingStatus(Request $request, $id)
@@ -141,7 +143,7 @@ class AdminController extends Controller
 
         $booking->update(['status' => $request->status]);
 
-        return redirect()->route('admin.dashboard')->with('success', 'Status booking ' . $booking->booking_code . ' diubah menjadi ' . strtoupper($request->status));
+        return redirect()->route('admin.dashboard')->with('success', 'Status booking '.$booking->booking_code.' diubah menjadi '.strtoupper($request->status));
     }
 
     public function destroyBooking($id)
@@ -150,6 +152,6 @@ class AdminController extends Controller
         $code = $booking->booking_code;
         $booking->delete();
 
-        return redirect()->route('admin.dashboard')->with('success', 'Booking ' . $code . ' telah dihapus!');
+        return redirect()->route('admin.dashboard')->with('success', 'Booking '.$code.' telah dihapus!');
     }
 }

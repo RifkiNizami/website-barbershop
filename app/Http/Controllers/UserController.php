@@ -19,6 +19,7 @@ class UserController extends Controller
         if (Auth::check()) {
             return $this->redirectByRole(Auth::user());
         }
+
         return view('auth.login');
     }
 
@@ -28,7 +29,7 @@ class UserController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'email'    => 'required|email',
+            'email' => 'required|email',
             'password' => 'required|string',
         ]);
 
@@ -51,10 +52,10 @@ class UserController extends Controller
     private function redirectByRole($user)
     {
         if ($user->role === 'admin') {
-            return redirect()->route('admin.dashboard')->with('success', 'Selamat datang, Admin ' . $user->name . '!');
+            return redirect()->route('admin.dashboard')->with('success', 'Selamat datang, Admin '.$user->name.'!');
         }
 
-        return redirect()->route('user.dashboard')->with('success', 'Selamat datang kembali, ' . $user->name . '!');
+        return redirect()->route('user.dashboard')->with('success', 'Selamat datang kembali, '.$user->name.'!');
     }
 
     /**
@@ -72,22 +73,22 @@ class UserController extends Controller
     {
         $request->validate([
             'nama_lengkap' => 'required|string|max:255',
-            'email'        => 'required|email|unique:users,email',
-            'no_whatsapp'  => 'required|string',
-            'password'     => 'required|string|min:4',
+            'email' => 'required|email|unique:users,email',
+            'no_whatsapp' => 'required|string',
+            'password' => 'required|string|min:4',
         ]);
 
         $user = User::create([
-            'name'     => $request->nama_lengkap,
-            'email'    => $request->email,
-            'phone'    => $request->no_whatsapp,
+            'name' => $request->nama_lengkap,
+            'email' => $request->email,
+            'phone' => $request->no_whatsapp,
             'password' => Hash::make($request->password),
-            'role'     => 'customer',
+            'role' => 'customer',
         ]);
 
         Auth::login($user);
 
-        return redirect()->route('user.dashboard')->with('success', 'Pendaftaran Member Berhasil! Selamat datang ' . $user->name . ' 💈');
+        return redirect()->route('user.dashboard')->with('success', 'Pendaftaran Member Berhasil! Selamat datang '.$user->name.' 💈');
     }
 
     /**
@@ -98,6 +99,7 @@ class UserController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+
         return redirect()->route('login')->with('success', 'Anda telah keluar. Sampai jumpa kembali!');
     }
 
@@ -137,7 +139,7 @@ class UserController extends Controller
             'barber' => $upcomingBookingModel->barber,
             'date' => $upcomingBookingModel->tanggal ? $upcomingBookingModel->tanggal->format('d M Y') : 'Hari Ini',
             'time' => $upcomingBookingModel->jam,
-            'price' => 'Rp ' . number_format($upcomingBookingModel->harga, 0, ',', '.'),
+            'price' => 'Rp '.number_format($upcomingBookingModel->harga, 0, ',', '.'),
             'status' => $upcomingBookingModel->status,
         ] : null;
 
@@ -148,7 +150,7 @@ class UserController extends Controller
                 'service' => $b->layanan,
                 'barber' => $b->barber,
                 'date' => $b->tanggal ? $b->tanggal->format('d M Y') : '-',
-                'price' => 'Rp ' . number_format($b->harga, 0, ',', '.'),
+                'price' => 'Rp '.number_format($b->harga, 0, ',', '.'),
                 'rating' => 5,
             ];
         });
@@ -162,6 +164,7 @@ class UserController extends Controller
     public function createBooking()
     {
         $services = Service::where('is_active', true)->get();
+
         return view('user.bookings.create', compact('services'));
     }
 
@@ -184,7 +187,7 @@ class UserController extends Controller
         $user = Auth::user();
 
         Booking::create([
-            'booking_code' => 'BK-' . rand(1000, 9999),
+            'booking_code' => 'BK-'.rand(1000, 9999),
             'nama_pelanggan' => $user ? $user->name : ($request->nama_pelanggan ?? 'Pelanggan Member'),
             'no_whatsapp' => $user ? ($user->phone ?? '081234567890') : '081234567890',
             'layanan' => $validated['layanan'],
@@ -206,6 +209,7 @@ class UserController extends Controller
     public function bookingsIndex()
     {
         $bookings = Booking::latest()->get();
+
         return view('user.bookings.index', compact('bookings'));
     }
 
@@ -217,6 +221,6 @@ class UserController extends Controller
         $booking = Booking::findOrFail($id);
         $booking->update(['status' => 'cancelled']);
 
-        return redirect()->route('user.dashboard')->with('success', 'Booking ' . $booking->booking_code . ' berhasil dibatalkan.');
+        return redirect()->route('user.dashboard')->with('success', 'Booking '.$booking->booking_code.' berhasil dibatalkan.');
     }
 }

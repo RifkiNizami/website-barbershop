@@ -6,7 +6,7 @@
             <span class="p-1.5 bg-barber-red rounded text-white flex items-center justify-center shadow-md group-hover:scale-110 transition-transform duration-300">
                 <i class="bi bi-scissors text-lg"></i>
             </span>
-            <span class="group-hover:text-gray-200 transition-colors duration-300">RUSDI BARBER</span>
+            <span class="group-hover:text-gray-200 transition-colors duration-300">BLACK CROWN BARBER</span>
         </a>
 
         <!-- Desktop Nav Links -->

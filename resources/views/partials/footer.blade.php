@@ -11,7 +11,7 @@
                     <span class="w-7 h-7 rounded-md bg-white text-black flex items-center justify-center text-sm font-black shadow-sm">
                         <i class="bi bi-scissors"></i>
                     </span>
-                    <span>RUSDI BARBER</span>
+                    <span>Black Crown BARBER</span>
                 </a>
                 <p class="text-xs text-zinc-400 leading-relaxed pr-2">
                     Barbershop pilihan pria modern dengan mengutamakan kualitas potongan, pelayanan ramah, dan kenyamanan maksimal.
@@ -77,7 +77,7 @@
 
         {{-- Thin Horizontal Divider --}}
         <div class="border-t border-zinc-900 pt-5 pb-2 flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-zinc-500">
-            <p>&copy; {{ date('Y') }} Rusdi Barbershop. All rights reserved.</p>
+            <p>&copy; {{ date('Y') }} Black Crown Barbershop. All rights reserved.</p>
             <div class="flex gap-4 text-xs">
                 <a href="#" class="hover:text-zinc-300 transition-colors">Privacy Policy</a>
                 <span>·</span>

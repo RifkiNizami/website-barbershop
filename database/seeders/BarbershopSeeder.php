@@ -17,9 +17,9 @@ class BarbershopSeeder extends Seeder
             ['email' => 'admin@gmail.com'],
             [
                 'name' => 'Administrator',
-                'password' => Hash::make('password'), 
+                'password' => Hash::make('password'),
                 'phone' => '081234567890',
-                'role' => 'admin'
+                'role' => 'admin',
             ]
         );
 
@@ -30,7 +30,7 @@ class BarbershopSeeder extends Seeder
                 'name' => 'Dimas Pratama',
                 'password' => Hash::make('password'),
                 'phone' => '089876543210',
-                'role' => 'customer'
+                'role' => 'customer',
             ]
         );
 
