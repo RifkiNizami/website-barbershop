@@ -94,14 +94,14 @@
         </div>
     </section>
 
-    <!-- 3. SERVICES & PRICING SECTION -->
+    <!-- 3. PRICING SECTION -->
     <section id="pricing" class="py-24 md:py-32 bg-gray-50 border-t border-gray-100">
         <div class="max-w-6xl mx-auto px-6">
             <!-- Section Header -->
             <div class="text-center mb-16 reveal">
                 <span class="text-xs font-bold text-barber-red uppercase tracking-widest block mb-2">Harga Transparan</span>
                 <h2 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 mb-4 tracking-tight">
-                    Services & Pricing
+                    Pricing
                 </h2>
                 <p class="text-base text-gray-500 font-normal max-w-2xl mx-auto">
                     Kualitas pelayanan premium dengan harga yang rasional. Pilih layanan yang sesuai dengan kebutuhan gaya Anda hari ini.
