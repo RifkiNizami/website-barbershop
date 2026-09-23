@@ -59,3 +59,27 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::patch('/booking/{id}/status', [AdminController::class, 'updateBookingStatus'])->name('booking.status');
     Route::delete('/booking/{id}', [AdminController::class, 'destroyBooking'])->name('booking.destroy');
 });
+
+use App\Http\Controllers\Admin\BookingController; // Sesuaikan namespace controller Anda
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    // Route untuk booking
+    Route::get('/bookings/create', [BookingController::class, 'create'])->name('bookings.create');
+    Route::post('/bookings', [BookingController::class, 'store'])->name('bookings.store');
+    
+    // Atau jika menggunakan Resource Controller:
+    // Route::resource('bookings', BookingController::class);
+});
+
+use App\Http\Controllers\Admin\ServiceController; // Sesuaikan dengan Service Controller Anda
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    // Route untuk services
+    Route::get('/services/create', [ServiceController::class, 'create'])->name('services.create');
+    Route::post('/services', [ServiceController::class, 'store'])->name('services.store');
+    Route::get('/services/{service}/edit', [ServiceController::class, 'edit'])->name('services.edit');
+    Route::put('/services/{service}', [ServiceController::class, 'update'])->name('services.update');
+    
+    // Atau jika pakai resource route:
+    // Route::resource('services', ServiceController::class);
+});
