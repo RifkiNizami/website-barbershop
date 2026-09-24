@@ -36,13 +36,13 @@
                 <!-- Pilih Layanan -->
                 <div>
                     <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">Layanan</label>
-                    <select name="service_id" required class="w-full bg-slate-900 border border-slate-700 text-white text-sm rounded-md px-3.5 py-2.5 focus:outline-none focus:border-red-500 transition-colors">
-                        <option value="">-- Pilih Layanan --</option>
-                        {{-- Loop layanan dari database --}}
-                        @foreach($services ?? [] as $service)
-                            <option value="{{ $service->id }}">{{ $service->name }} (Rp {{ number_format($service->price, 0, ',', '.') }})</option>
-                        @endforeach
-                    </select>
+                    <select name="service_id" required class="w-full bg-slate-900 border border-slate-700 text-white text-sm rounded-md px-3.5 py-2.5 focus:outline-none focus:border-red-600 transition-colors">
+    <option value="" disabled selected>-- Pilih Layanan --</option>
+    <option value="1">Gentlemen Haircut - Rp 50.000</option>
+    <option value="2">Cukur & Shaving Premium - Rp 35.000</option>
+    <option value="3">Hair Treatment & Wash - Rp 45.000</option>
+    <option value="4">Coloring / Pewarnaan Rambut - Rp 100.000</option>
+</select>
                 </div>
 
                 <!-- Tanggal & Jam Booking -->
