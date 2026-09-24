@@ -24,4 +24,12 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
     ];
+
+    /**
+     * Relasi Eloquent ORM: User memiliki banyak Booking
+     */
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class, 'user_id', 'user_id');
+    }
 }

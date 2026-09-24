@@ -1,31 +1,26 @@
 @if (session('success'))
-    <div class="mb-6 flex items-center gap-3 p-4 text-sm text-green-800 bg-green-50 border border-green-200 rounded-xl shadow-xs" role="alert">
-        <svg class="w-5 h-5 shrink-0 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-        </svg>
-        <div class="font-medium">
-            {{ session('success') }}
-        </div>
-        <button type="button" onclick="this.parentElement.remove()" class="ml-auto text-green-600 hover:text-green-800 p-1">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-            </svg>
-        </button>
-    </div>
+<div class="alert alert--success" role="alert" id="flashAlert">
+    <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+    <p class="alert-text">{{ session('success') }}</p>
+    <button type="button" onclick="this.parentElement.remove()" class="alert-close" aria-label="Tutup">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+</div>
 @endif
 
 @if (isset($errors) && $errors->any())
-    <div class="mb-6 p-4 text-sm text-red-800 bg-red-50 border border-red-200 rounded-xl shadow-xs" role="alert">
-        <div class="flex items-center gap-2 font-semibold mb-2">
-            <svg class="w-5 h-5 text-barber-red" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
-            </svg>
-            Terdapat beberapa kesalahan pengisian form:
-        </div>
-        <ul class="list-disc list-inside space-y-1 text-xs md:text-sm pl-2">
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
+<div class="alert alert--error" role="alert">
+    <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    <div class="flex-1">
+        <p class="alert-title">Terdapat kesalahan pada form:</p>
+        <ul class="alert-list">
+            @foreach($errors->all() as $error)
+            <li>{{ $error }}</li>
             @endforeach
         </ul>
     </div>
+    <button type="button" onclick="this.parentElement.remove()" class="alert-close" aria-label="Tutup">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+</div>
 @endif

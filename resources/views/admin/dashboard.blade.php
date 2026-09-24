@@ -1,286 +1,310 @@
 @extends('admin.layouts.app')
-
-@section('title', 'Dashboard Admin — Rusdi Barbershop')
-@section('page_title', 'Ringkasan Dashboard')
+@section('title', 'Dashboard — Rusdi Barbershop Admin')
+@section('page_title', 'Dashboard')
 
 @section('content')
-<div class="space-y-6">
 
-    {{-- 1. WELCOME BANNER --}}
-    <div class="relative overflow-hidden rounded-3xl bg-linear-to-r from-slate-950 via-slate-900 to-black text-white p-6 sm:p-8 shadow-2xl border border-slate-800">
-        <div class="relative z-10 max-w-2xl">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/20 text-red-400 text-xs font-semibold mb-3 border border-red-500/30">
-                <i class="bi bi-scissors text-sm"></i> Panel Manajemen Barbershop
-            </div>
-            <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight mb-2">
-                Selamat Datang di Admin Barbershop!
-            </h2>
-            <p class="text-sm text-slate-300 leading-relaxed mb-6">
-                Kelola jadwal booking pelanggan, atur daftar layanan cukur, dan pantau performa barber harian secara real-time langsung dari dashboard ini.
-            </p>
-            <div class="flex flex-wrap gap-3">
-                <a href="{{ route('admin.booking.create') }}" class="inline-flex items-center gap-2 px-4.5 py-2.5 bg-linear-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-all shadow-md shadow-red-600/20">
-                    <i class="bi bi-calendar-plus text-base"></i>
-                    Input Booking Baru
-                </a>
-                <a href="{{ route('admin.layanan.create') }}" class="inline-flex items-center gap-2 px-4.5 py-2.5 bg-linear-to-r from-slate-800/80 to-slate-700/80 hover:from-slate-700 hover:to-slate-600 text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-all border border-slate-700">
-                    <i class="bi bi-plus-circle text-base"></i>
-                    Tambah Layanan
-                </a>
-            </div>
-        </div>
-        {{-- Decorative Glow --}}
-        <div class="absolute right-0 -bottom-10 w-72 h-72 rounded-full bg-red-600/10 blur-3xl pointer-events-none"></div>
+{{-- ── STAT ROW ────────────────────────────────────────────── --}}
+<div class="stat-row">
+    <div class="stat-cell">
+        <span class="stat-label">Booking Hari Ini</span>
+        <span class="stat-value">{{ $stats['total_bookings_today'] ?? 0 }}</span>
+        <span class="stat-sub stat-sub--up flex items-center gap-1">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+            Antrean aktif
+        </span>
     </div>
-
-    {{-- 2. STATISTIC CARDS --}}
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        
-        {{-- Card 1: Booking Hari Ini --}}
-        <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 shadow-xl flex items-center justify-between">
-            <div>
-                <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Booking Hari Ini</p>
-                <h3 class="text-2xl font-black text-white mt-1">{{ $stats['total_bookings_today'] ?? 18 }} <span class="text-xs font-normal text-slate-400">Antrean</span></h3>
-                <p class="text-xs text-emerald-400 font-semibold mt-2 flex items-center gap-1">
-                    <i class="bi bi-arrow-up-short text-base"></i>
-                    +12% dari kemarin
-                </p>
-            </div>
-            <div class="w-12 h-12 rounded-2xl bg-red-500/10 text-red-500 border border-red-500/20 flex items-center justify-center text-2xl font-bold">
-                <i class="bi bi-scissors"></i>
-            </div>
-        </div>
-
-        {{-- Card 2: Estimasi Omset Bulan Ini --}}
-        <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 shadow-xl flex items-center justify-between">
-            <div>
-                <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Omset Bulan Ini</p>
-                <h3 class="text-2xl font-black text-white mt-1">{{ $stats['monthly_income'] ?? 'Rp 8.450.000' }}</h3>
-                <p class="text-xs text-emerald-400 font-semibold mt-2 flex items-center gap-1">
-                    <i class="bi bi-graph-up-arrow text-xs"></i>
-                    +18% target tercapai
-                </p>
-            </div>
-            <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center text-2xl font-bold">
-                <i class="bi bi-cash-stack"></i>
-            </div>
-        </div>
-
-        {{-- Card 3: Total Layanan Aktif --}}
-        <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 shadow-xl flex items-center justify-between">
-            <div>
-                <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Layanan Barbershop</p>
-                <h3 class="text-2xl font-black text-white mt-1">{{ $stats['total_services'] ?? 12 }} <span class="text-xs font-normal text-slate-400">Menu</span></h3>
-                <a href="{{ route('admin.layanan.create') }}" class="text-xs text-red-400 font-semibold mt-2 hover:underline inline-block">
-                    + Tambah menu baru
-                </a>
-            </div>
-            <div class="w-12 h-12 rounded-2xl bg-blue-500/10 text-blue-400 border border-blue-500/20 flex items-center justify-center text-2xl font-bold">
-                <i class="bi bi-tag-fill"></i>
-            </div>
-        </div>
-
-        {{-- Card 4: Barber Bertugas --}}
-        <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 shadow-xl flex items-center justify-between">
-            <div>
-                <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Barber On Duty</p>
-                <h3 class="text-2xl font-black text-white mt-1">{{ $stats['active_barbers'] ?? 4 }} <span class="text-xs font-normal text-slate-400">Kapster</span></h3>
-                <p class="text-xs text-slate-400 font-semibold mt-2 flex items-center gap-1.5">
-                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                    Semua kursi terisi
-                </p>
-            </div>
-            <div class="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-400 border border-amber-500/20 flex items-center justify-center text-2xl font-bold">
-                <i class="bi bi-people-fill"></i>
-            </div>
-        </div>
-
+    <div class="stat-cell">
+        <span class="stat-label">Omset Bulan Ini</span>
+        <span class="stat-value" style="font-size:18px">{{ $stats['monthly_income'] ?? 'Rp 0' }}</span>
+        <span class="stat-sub stat-sub--up">Non-cancelled</span>
     </div>
+    <div class="stat-cell">
+        <span class="stat-label">Layanan Aktif</span>
+        <span class="stat-value">{{ $stats['total_services'] ?? 0 }}</span>
+        <span class="stat-sub stat-sub--info">
+            <a href="{{ route('admin.layanan.create') }}" style="color:inherit;text-decoration:none;">+ Tambah baru</a>
+        </span>
+    </div>
+    <div class="stat-cell">
+        <span class="stat-label">Barber On Duty</span>
+        <span class="stat-value">{{ $stats['active_barbers'] ?? 4 }}</span>
+        <span class="stat-sub flex items-center gap-1" style="color:var(--c-green)">
+            <span style="width:6px;height:6px;border-radius:50%;background:var(--c-green);display:inline-block"></span>
+            Semua tersedia
+        </span>
+    </div>
+</div>
 
-    {{-- 3. MAIN SECTION GRID: RECENT BOOKINGS & BARBER STATUS --}}
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        
-        {{-- Table: Recent Bookings (2 Cols) --}}
-        <div class="lg:col-span-2 bg-slate-900 rounded-3xl border border-slate-800 shadow-xl overflow-hidden">
-            
-            <div class="p-5 border-b border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-950/40">
+{{-- ── MAIN GRID ───────────────────────────────────────────── --}}
+<div class="dash-grid">
+
+    {{-- LEFT: Booking table + Service list --}}
+    <div class="dash-grid-left">
+
+        {{-- RECENT BOOKINGS TABLE --}}
+        <div class="data-table-wrap">
+            <div class="data-table-header">
                 <div>
-                    <h3 class="font-bold text-white text-base flex items-center gap-2">
-                        <i class="bi bi-clock-history text-red-500"></i> Daftar Reservasi Terbaru
-                    </h3>
-                    <p class="text-xs text-slate-400">Pantau pelanggan yang sudah melakukan booking hari ini</p>
+                    <div class="section-title">Reservasi Terbaru</div>
+                    <div class="section-title-sub">10 booking paling baru</div>
                 </div>
-                <a href="{{ route('admin.booking.create') }}" class="inline-flex items-center gap-1 text-xs font-bold text-red-400 hover:text-red-300">
-                    <span>+ Form Input Manual</span>
-                    <i class="bi bi-chevron-right text-xs"></i>
+                <a href="{{ route('admin.booking.create') }}" class="btn btn--primary" style="font-size:11px;padding:5px 12px">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    Input Manual
                 </a>
             </div>
 
             <div class="overflow-x-auto">
-                <table class="w-full text-left text-sm text-slate-300">
-                    <thead class="bg-slate-950/80 text-[11px] uppercase tracking-wider text-slate-400 font-bold border-b border-slate-800">
+                <table class="data-table">
+                    <thead>
                         <tr>
-                            <th class="px-5 py-3.5">ID / Pelanggan</th>
-                            <th class="px-5 py-3.5">Layanan</th>
-                            <th class="px-5 py-3.5">Barber</th>
-                            <th class="px-5 py-3.5">Waktu</th>
-                            <th class="px-5 py-3.5">Status</th>
-                            <th class="px-5 py-3.5 text-right">Aksi</th>
+                            <th>Pelanggan</th>
+                            <th>Layanan</th>
+                            <th>Barber</th>
+                            <th>Jam</th>
+                            <th>Status</th>
+                            <th style="text-align:right">Aksi</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-slate-800/60 font-normal">
-                        @forelse($recentBookings as $booking)
-                            <tr class="hover:bg-slate-800/40 transition-colors">
-                                <td class="px-5 py-4">
-                                    <div class="font-bold text-white">{{ $booking['customer_name'] }}</div>
-                                    <div class="text-xs text-slate-400 font-mono">{{ $booking['id'] }} &bull; {{ $booking['phone'] }}</div>
-                                </td>
-                                <td class="px-5 py-4">
-                                    <span class="font-medium text-slate-200">{{ $booking['service'] }}</span>
-                                    <div class="text-xs text-slate-400">{{ $booking['price'] }}</div>
-                                </td>
-                                <td class="px-5 py-4">
-                                    <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-300 bg-slate-800 px-2.5 py-1 rounded-lg">
-                                        <i class="bi bi-person-fill text-red-400"></i> {{ $booking['barber'] }}
-                                    </span>
-                                </td>
-                                <td class="px-5 py-4 text-xs font-semibold text-slate-300">
-                                    {{ $booking['time'] }}
-                                </td>
-                                <td class="px-5 py-4">
-                                    @if($booking['status'] == 'confirmed')
-                                        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-bold bg-blue-500/10 text-blue-400 border border-blue-500/30">
-                                            Terkonfirmasi
-                                        </span>
-                                    @elseif($booking['status'] == 'pending')
-                                        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-bold bg-amber-500/10 text-amber-400 border border-amber-500/30">
-                                            Menunggu
-                                        </span>
-                                    @elseif($booking['status'] == 'completed')
-                                        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
-                                            Selesai
-                                        </span>
-                                    @else
-                                        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-bold bg-red-500/10 text-red-400 border border-red-500/30">
-                                            Batal
-                                        </span>
-                                    @endif
-                                </td>
-                                <td class="px-5 py-4 text-right">
-                                    <div class="inline-flex items-center gap-1">
-                                        <button type="button" class="p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition" title="Edit Booking">
-                                            <i class="bi bi-pencil-square"></i>
+                    <tbody>
+                        @forelse($recentBookings as $b)
+                        <tr>
+                            <td>
+                                <div class="cell-name">{{ $b['customer_name'] }}</div>
+                                <div class="cell-meta">{{ $b['id'] }} · {{ $b['phone'] }}</div>
+                            </td>
+                            <td>
+                                <div style="font-size:12px;color:var(--c-text-2)">{{ $b['service'] }}</div>
+                                <div class="cell-price" style="margin-top:2px">{{ $b['price'] }}</div>
+                            </td>
+                            <td>
+                                <span class="badge badge--barber">{{ $b['barber'] }}</span>
+                            </td>
+                            <td>
+                                <span class="cell-time">{{ $b['time'] }}</span>
+                            </td>
+                            <td>
+                                @php
+                                    $statusClass = match($b['status']) {
+                                        'confirmed' => 'badge--confirmed',
+                                        'pending'   => 'badge--pending',
+                                        'completed' => 'badge--completed',
+                                        default     => 'badge--cancelled',
+                                    };
+                                    $statusLabel = match($b['status']) {
+                                        'confirmed' => 'Confirmed',
+                                        'pending'   => 'Pending',
+                                        'completed' => 'Selesai',
+                                        default     => 'Batal',
+                                    };
+                                @endphp
+                                <span class="badge {{ $statusClass }}">{{ $statusLabel }}</span>
+                            </td>
+                            <td style="text-align:right">
+                                <div style="display:inline-flex;gap:4px;align-items:center">
+                                    {{-- Status update --}}
+                                    <form action="{{ route('admin.booking.status', $b['db_id']) }}" method="POST" class="status-form inline-flex items-center">
+                                        @csrf @method('PATCH')
+                                        <select name="status" onchange="this.form.submit()" title="Ubah status booking">
+                                            <option value="confirmed" {{ $b['status']=='confirmed'?'selected':'' }}>Confirmed</option>
+                                            <option value="pending"   {{ $b['status']=='pending'?'selected':'' }}>Pending</option>
+                                            <option value="completed" {{ $b['status']=='completed'?'selected':'' }}>Selesai</option>
+                                            <option value="cancelled" {{ $b['status']=='cancelled'?'selected':'' }}>Batal</option>
+                                        </select>
+                                    </form>
+
+                                    {{-- Delete --}}
+                                    <form action="{{ route('admin.booking.destroy', $b['db_id']) }}" method="POST"
+                                          onsubmit="return confirm('Hapus booking {{ $b['id'] }}?')">
+                                        @csrf @method('DELETE')
+                                        <button type="submit" class="btn-icon btn-icon--danger" title="Hapus booking">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
                                         </button>
-                                        <button type="button" class="p-1.5 text-red-400 hover:text-red-300 rounded-lg hover:bg-red-500/10 transition" title="Batalkan">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
                         @empty
-                            <tr>
-                                <td colspan="6" class="px-5 py-8 text-center text-slate-400 text-sm">
-                                    Belum ada antrean booking hari ini.
-                                </td>
-                            </tr>
+                        <tr>
+                            <td colspan="6" class="data-table-empty">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin:0 auto 8px;display:block;color:var(--c-text-3)"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/></svg>
+                                Belum ada booking. <a href="{{ route('admin.booking.create') }}" style="color:var(--c-red)">Input sekarang →</a>
+                            </td>
+                        </tr>
                         @endforelse
                     </tbody>
                 </table>
             </div>
 
+            {{-- PAGINATION CONTROLS --}}
+            @if($recentBookings->hasPages())
+            <div class="data-table-footer">
+                <div class="pagination-info">
+                    Menampilkan <span>{{ $recentBookings->firstItem() }}</span> - <span>{{ $recentBookings->lastItem() }}</span> dari <span>{{ $recentBookings->total() }}</span> reservasi
+                </div>
+                <div class="pagination-controls">
+                    {{-- Previous Page Link --}}
+                    @if ($recentBookings->onFirstPage())
+                        <span class="pagination-btn pagination-btn--disabled">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg> Prev
+                        </span>
+                    @else
+                        <a href="{{ $recentBookings->previousPageUrl() }}" class="pagination-btn">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg> Prev
+                        </a>
+                    @endif
+
+                    {{-- Page Numbers --}}
+                    @foreach ($recentBookings->getUrlRange(1, $recentBookings->lastPage()) as $page => $url)
+                        @if ($page == $recentBookings->currentPage())
+                            <span class="pagination-page pagination-page--active">{{ $page }}</span>
+                        @else
+                            <a href="{{ $url }}" class="pagination-page">{{ $page }}</a>
+                        @endif
+                    @endforeach
+
+                    {{-- Next Page Link --}}
+                    @if ($recentBookings->hasMorePages())
+                        <a href="{{ $recentBookings->nextPageUrl() }}" class="pagination-btn">
+                            Next <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+                        </a>
+                    @else
+                        <span class="pagination-btn pagination-btn--disabled">
+                            Next <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+                        </span>
+                    @endif
+                </div>
+            </div>
+            @endif
+
         </div>
 
-        {{-- Right Side: Barber on duty & Quick shortcuts (1 Col) --}}
-        <div class="space-y-6">
-            
-            {{-- Barber On Duty Card --}}
-            <div class="bg-slate-900 p-5 rounded-3xl border border-slate-800 shadow-xl">
-                <h3 class="font-bold text-white text-base mb-4 flex items-center justify-between">
-                    <span class="flex items-center gap-2">
-                        <i class="bi bi-people text-red-500"></i> Barber Hari Ini
-                    </span>
-                    <span class="text-xs font-normal text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/20">4 Siap</span>
-                </h3>
-
-                <div class="space-y-3">
-                    
-                    {{-- Barber 1 --}}
-                    <div class="flex items-center justify-between p-3 rounded-2xl bg-slate-950 border border-slate-800/80">
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-xl bg-red-600 text-white flex items-center justify-center font-bold text-sm shadow">
-                                R
-                            </div>
-                            <div>
-                                <h4 class="text-sm font-bold text-white">Rusdi (Master)</h4>
-                                <p class="text-xs text-slate-400">6 Antrean hari ini</p>
-                            </div>
+        {{-- SERVICE LIST --}}
+        <div class="data-table-wrap">
+            <div class="data-table-header">
+                <div>
+                    <div class="section-title">Daftar Layanan</div>
+                    <div class="section-title-sub">Semua layanan barbershop</div>
+                </div>
+                <a href="{{ route('admin.layanan.create') }}" class="btn btn--ghost" style="font-size:11px;padding:5px 12px">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    Tambah
+                </a>
+            </div>
+            <div class="service-list">
+                @forelse($services as $svc)
+                <div class="service-row">
+                    <div class="service-row-info">
+                        <div class="service-row-name">{{ $svc->nama_layanan }}</div>
+                        <div class="service-row-meta">
+                            {{ $svc->kategori }} · {{ $svc->durasi }} menit
                         </div>
-                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500" title="Sedang Melayani"></span>
                     </div>
-
-                    {{-- Barber 2 --}}
-                    <div class="flex items-center justify-between p-3 rounded-2xl bg-slate-950 border border-slate-800/80">
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-xl bg-slate-800 text-white flex items-center justify-center font-bold text-sm">
-                                F
-                            </div>
-                            <div>
-                                <h4 class="text-sm font-bold text-white">Farhan</h4>
-                                <p class="text-xs text-slate-400">4 Antrean hari ini</p>
-                            </div>
+                    <div style="display:flex;align-items:center;gap:10px">
+                        <span class="service-row-price">Rp {{ number_format($svc->harga, 0, ',', '.') }}</span>
+                        <span class="badge {{ $svc->is_active ? 'badge--active' : 'badge--inactive' }}">
+                            {{ $svc->is_active ? 'Aktif' : 'Nonaktif' }}
+                        </span>
+                        <div class="service-row-actions">
+                            <a href="{{ route('admin.layanan.edit', $svc->id) }}" class="btn-icon" title="Edit layanan">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                            </a>
+                            <form action="{{ route('admin.layanan.destroy', $svc->id) }}" method="POST"
+                                  onsubmit="return confirm('Hapus layanan {{ $svc->nama_layanan }}?')">
+                                @csrf @method('DELETE')
+                                <button type="submit" class="btn-icon btn-icon--danger" title="Hapus layanan">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+                                </button>
+                            </form>
                         </div>
-                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500" title="Siap"></span>
                     </div>
+                </div>
+                @empty
+                <div class="service-row" style="justify-content:center;color:var(--c-text-3);font-size:12px;padding:24px">
+                    Belum ada layanan. <a href="{{ route('admin.layanan.create') }}" style="color:var(--c-red);margin-left:4px">Tambah sekarang →</a>
+                </div>
+                @endforelse
+            </div>
+        </div>
 
-                    {{-- Barber 3 --}}
-                    <div class="flex items-center justify-between p-3 rounded-2xl bg-slate-950 border border-slate-800/80">
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-xl bg-slate-800 text-white flex items-center justify-center font-bold text-sm">
-                                B
-                            </div>
-                            <div>
-                                <h4 class="text-sm font-bold text-white">Budi</h4>
-                                <p class="text-xs text-slate-400">5 Antrean hari ini</p>
-                            </div>
-                        </div>
-                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500" title="Siap"></span>
+    </div>
+
+    {{-- RIGHT: Barbers + Quick actions + Info --}}
+    <div class="dash-grid-right">
+
+        {{-- BARBER STATUS --}}
+        <div class="side-panel">
+            <div class="side-panel-header">
+                <span>Barber Hari Ini</span>
+                <span class="badge badge--active">{{ $stats['active_barbers'] ?? 4 }} Siap</span>
+            </div>
+            <div class="side-panel-body">
+                @php
+                $barbers = [
+                    ['init'=>'R','name'=>'Rusdi (Master)','queue'=>6,'status'=>'on'],
+                    ['init'=>'F','name'=>'Farhan',        'queue'=>4,'status'=>'on'],
+                    ['init'=>'B','name'=>'Budi',          'queue'=>5,'status'=>'on'],
+                    ['init'=>'A','name'=>'Agung',         'queue'=>3,'status'=>'away'],
+                ];
+                @endphp
+                @foreach($barbers as $i => $br)
+                <div class="barber-row">
+                    <div class="barber-avatar {{ $i===0 ? 'barber-avatar--red' : '' }}">{{ $br['init'] }}</div>
+                    <div style="flex:1;min-width:0">
+                        <div class="barber-name">{{ $br['name'] }}</div>
+                        <div class="barber-queue">{{ $br['queue'] }} antrean</div>
                     </div>
+                    <span class="barber-dot barber-dot--{{ $br['status'] }}" title="{{ $br['status']==='on' ? 'Siap' : 'Istirahat' }}"></span>
+                </div>
+                @endforeach
+            </div>
+        </div>
 
-                    {{-- Barber 4 --}}
-                    <div class="flex items-center justify-between p-3 rounded-2xl bg-slate-950 border border-slate-800/80">
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-xl bg-slate-800 text-white flex items-center justify-center font-bold text-sm">
-                                A
-                            </div>
-                            <div>
-                                <h4 class="text-sm font-bold text-white">Agung</h4>
-                                <p class="text-xs text-slate-400">3 Antrean hari ini</p>
-                            </div>
-                        </div>
-                        <span class="w-2.5 h-2.5 rounded-full bg-amber-400" title="Istirahat"></span>
-                    </div>
-
+        {{-- QUICK ACTIONS --}}
+        <div class="side-panel">
+            <div class="side-panel-header">
+                <span>Aksi Cepat</span>
+            </div>
+            <div class="side-panel-body">
+                <div class="quick-actions">
+                    <a href="{{ route('admin.booking.create') }}" class="quick-action-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                        Input Booking Baru
+                    </a>
+                    <a href="{{ route('admin.layanan.create') }}" class="quick-action-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+                        Tambah Layanan Baru
+                    </a>
+                    <a href="{{ url('/') }}" target="_blank" class="quick-action-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        Lihat Halaman Utama
+                    </a>
                 </div>
             </div>
+        </div>
 
-            {{-- Jam Operasional Info Card --}}
-            <div class="p-5 rounded-3xl bg-linear-to-br from-red-600 to-red-800 text-white shadow-xl space-y-3">
-                <div class="flex items-center gap-2 font-bold text-sm">
-                    <i class="bi bi-clock-history text-lg"></i>
-                    <span>Jam Operasional Toko</span>
-                </div>
-                <p class="text-xs text-red-100 leading-relaxed">
-                    Buka setiap hari: <strong>10.00 - 21.00 WIB</strong>.<br>
-                    Slot booking manual otomatis dialokasikan tiap 45 menit.
-                </p>
-                <div class="text-xs font-semibold bg-white/20 px-3 py-1.5 rounded-xl inline-block">
-                    <i class="bi bi-circle-fill text-[8px] text-emerald-300 mr-1"></i> Status: BUKA (Aktif)
-                </div>
+        {{-- STORE INFO --}}
+        <div class="info-block">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <div class="info-block-text">
+                <strong style="color:var(--c-text-2)">Jam Operasional</strong><br>
+                Setiap hari · <strong>10.00 – 21.00 WIB</strong><br>
+                Sabtu & Minggu · <strong>09.00 – 22.00 WIB</strong><br>
+                <span style="color:var(--c-green)">● Toko sedang buka</span>
             </div>
-
         </div>
 
     </div>
 
 </div>
+
+@endsection
+
+@section('scripts')
+<script>
+// Auto-dismiss flash alert after 4s
+const fa = document.getElementById('flashAlert');
+if (fa) setTimeout(() => { fa.style.opacity='0'; fa.style.transition='opacity .4s'; setTimeout(()=>fa.remove(), 400); }, 4000);
+</script>
 @endsection

@@ -20,7 +20,7 @@ class AdminController extends Controller
             'active_barbers' => 4,
         ];
 
-        $recentBookings = Booking::latest()->take(10)->get()->map(function ($b) {
+        $recentBookings = Booking::latest()->paginate(8)->through(function ($b) {
             return [
                 'id' => $b->booking_code,
                 'db_id' => $b->id,

@@ -208,7 +208,7 @@ class UserController extends Controller
      */
     public function bookingsIndex()
     {
-        $bookings = Booking::latest()->get();
+        $bookings = Booking::latest()->paginate(8);
 
         return view('user.bookings.index', compact('bookings'));
     }

@@ -1,35 +1,35 @@
-// Admin Management Suite JavaScript
+// ── Admin Panel JS ──────────────────────────────────────────
+const adminSidebar  = () => document.getElementById('adminSidebar');
+const sidebarBD     = () => document.getElementById('sidebarBackdrop');
+
+window.openSidebar = function () {
+    const s = adminSidebar(); const b = sidebarBD();
+    if (s) s.classList.remove('is-hidden');
+    if (b) b.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+};
+
+window.closeSidebar = function () {
+    const s = adminSidebar(); const b = sidebarBD();
+    if (s) s.classList.add('is-hidden');
+    if (b) b.classList.add('hidden');
+    document.body.style.overflow = '';
+};
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Admin Mobile Sidebar Toggle
-    const sidebar = document.getElementById('adminSidebar');
-    const backdrop = document.getElementById('sidebarBackdrop');
-    const openBtn = document.getElementById('openSidebarBtn');
-    const closeBtn = document.getElementById('closeSidebarBtn');
-
-    function openSidebar() {
-        if (sidebar && backdrop) {
-            sidebar.classList.remove('-translate-x-full');
-            backdrop.classList.remove('hidden');
-        }
+    // On mobile: sidebar starts hidden
+    if (window.innerWidth < 1024) {
+        const s = adminSidebar();
+        if (s) s.classList.add('is-hidden');
     }
 
-    function closeSidebar() {
-        if (sidebar && backdrop) {
-            sidebar.classList.add('-translate-x-full');
-            backdrop.classList.add('hidden');
-        }
+    // Auto-dismiss flash alerts after 4s
+    const flash = document.getElementById('flashAlert');
+    if (flash) {
+        setTimeout(() => {
+            flash.style.transition = 'opacity .4s';
+            flash.style.opacity = '0';
+            setTimeout(() => flash.remove(), 420);
+        }, 4000);
     }
-
-    if (openBtn) openBtn.addEventListener('click', openSidebar);
-    if (closeBtn) closeBtn.addEventListener('click', closeSidebar);
-    if (backdrop) backdrop.addEventListener('click', closeSidebar);
 });
-
-// Admin Confirm Delete Dialog
-window.confirmAdminDelete = function (itemName, deleteFormId) {
-    if (confirm(`Apakah Anda yakin ingin menghapus "${itemName}"? Tindakan ini tidak dapat dibatalkan.`)) {
-        const form = document.getElementById(deleteFormId);
-        if (form) form.submit();
-    }
-};

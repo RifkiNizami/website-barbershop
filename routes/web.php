@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\DatabaseDemoController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -58,4 +59,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::post('/booking', [AdminController::class, 'storeBooking'])->name('booking.store');
     Route::patch('/booking/{id}/status', [AdminController::class, 'updateBookingStatus'])->name('booking.status');
     Route::delete('/booking/{id}', [AdminController::class, 'destroyBooking'])->name('booking.destroy');
+
+    // Demo Tugas: Eloquent ORM vs SQL Query Builder
+    Route::get('/query-demo', [DatabaseDemoController::class, 'index'])->name('query.demo');
 });
