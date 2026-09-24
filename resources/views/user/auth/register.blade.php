@@ -33,7 +33,7 @@
                     <span class="w-8 h-8 rounded-md bg-white text-black flex items-center justify-center text-sm font-black shadow-sm">
                         <i class="bi bi-scissors"></i>
                     </span>
-                    <span>RUSDI BARBERSHOP</span>
+                    <span>BLACK CROWN</span>
                 </a>
                 <h1 class="text-2xl font-bold text-white tracking-tight">Daftar Member VIP</h1>
                 <p class="text-xs text-zinc-400">Dapatkan bonus poin & klaim cukur gratis di kunjungan ke-10!</p>
@@ -153,7 +153,7 @@
                 {{-- Login Link --}}
                 <div class="pt-3 border-t border-zinc-900 text-center">
                     <p class="text-xs text-zinc-400">
-                        Sudah memiliki akun? 
+                        Sudah memiliki akun?
                         <a href="{{ route('login') }}" class="font-bold text-white hover:text-zinc-300 transition ml-1 underline">Masuk di sini</a>
                     </p>
                 </div>

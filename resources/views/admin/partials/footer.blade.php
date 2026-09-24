@@ -1,19 +1,12 @@
-<footer class="mt-auto py-6 px-6 sm:px-8 border-t border-gray-200 bg-white text-xs text-gray-500 flex flex-col sm:flex-row items-center justify-between gap-3">
-    <div class="flex items-center gap-2">
-        <span class="font-semibold text-gray-700">Rusdi Barbershop</span>
-        <span>&bull;</span>
-        <span>Admin Panel &copy; {{ date('Y') }}</span>
-    </div>
-    <div class="flex items-center gap-4">
-        <span class="inline-flex items-center gap-1.5 text-gray-400">
-            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-            Server v1.0.0 (Ready)
+<footer class="admin-footer">
+    <span>Rusdi Barbershop © {{ date('Y') }}</span>
+    <div class="admin-footer-right">
+        <span class="footer-status">
+            <span class="footer-status-dot"></span> System Ready
         </span>
-        <a href="{{ url('/') }}" target="_blank" class="text-barber-red hover:underline font-medium flex items-center gap-1">
+        <a href="{{ url('/') }}" target="_blank" class="footer-site-link">
             Lihat Website
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
-            </svg>
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
         </a>
     </div>
 </footer>

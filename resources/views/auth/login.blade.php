@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Login — Rusdi Barbershop</title>
+    <title>Login — Black Crown</title>
 
     {{-- Google Fonts --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,18 +24,18 @@
         {{-- LEFT SIDE (50% Width) — BRAND EXPERIENCE --}}
         <div class="hidden md:flex md:w-1/2 relative min-h-screen bg-black overflow-hidden border-r border-zinc-900">
             <img src="{{ asset('images/bg-login.jpg') }}" alt="Rusdi Barbershop Lounge" class="absolute inset-0 w-full h-full object-cover object-center filter grayscale contrast-125 brightness-[0.5] kenburns-bg">
-            
+
             <div class="absolute inset-0 bg-linear-to-t from-black via-black/70 to-black/30"></div>
             <div class="absolute inset-0 bg-linear-to-r from-black/60 via-transparent to-black"></div>
 
             <div class="relative z-10 flex flex-col justify-between p-12 lg:p-20 w-full h-full">
-                
+
                 <div class="space-y-4 opacity-0 animate-fade-up delay-1">
                     <a href="{{ url('/') }}" class="inline-flex items-center gap-3 text-white font-extrabold text-2xl tracking-wider uppercase group">
                         <span class="w-12 h-12 rounded-xl bg-white text-black flex items-center justify-center text-xl font-black shadow-lg group-hover:scale-105 transition-transform duration-300">
                             <i class="bi bi-scissors"></i>
                         </span>
-                        <span class="group-hover:text-zinc-300 transition-colors">RUSDI BARBERSHOP</span>
+                        <span class="group-hover:text-zinc-300 transition-colors">BLACK CROWN</span>
                     </a>
                     <div>
                         <span class="inline-block px-3.5 py-1.5 rounded-md bg-white/10 backdrop-blur-md border border-white/20 text-white text-[11px] font-black tracking-widest uppercase">
@@ -75,7 +75,7 @@
 
         {{-- RIGHT SIDE (50% Width) — PROMINENT FORM AREA --}}
         <div class="w-full md:w-1/2 min-h-screen flex items-center justify-center p-6 sm:p-12 lg:p-16 bg-black relative">
-            
+
             {{-- Decorative Gradient Blob --}}
             <div class="absolute top-0 right-0 w-125 h-125 bg-white/5 rounded-full blur-[120px] pointer-events-none"></div>
 
@@ -84,7 +84,7 @@
                 <div class="space-y-3 opacity-0 animate-fade-up delay-1">
                     <div class="inline-flex items-center gap-2 text-white font-bold text-xs uppercase tracking-widest px-3 py-1.5 rounded-md bg-zinc-900 border border-zinc-800 shadow-sm">
                         <i class="bi bi-box-arrow-in-right text-sm"></i>
-                        <span>Member Portal</span>
+                        <span>Login Portal</span>
                     </div>
                     <h1 class="text-3xl lg:text-4xl font-extrabold text-white tracking-tight">Selamat Datang</h1>
                     <p class="text-sm text-zinc-400 leading-relaxed">Masukkan kredensial akun Anda untuk mengakses sistem dan reservasi.</p>

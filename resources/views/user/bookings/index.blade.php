@@ -32,80 +32,106 @@
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-800/80 font-normal">
-                    
-                    {{-- Row 1: Upcoming --}}
+                    @forelse($bookings as $b)
                     <tr class="hover:bg-gray-800/40 transition">
-                        <td class="px-6 py-4 font-mono font-bold text-amber-400">#BK-1049</td>
+                        <td class="px-6 py-4 font-mono font-bold text-amber-400">#{{ $b->booking_code }}</td>
                         <td class="px-6 py-4">
-                            <span class="font-bold text-white block">Gentlemen Haircut + Wash</span>
-                            <span class="text-xs text-gray-400">Model: Taper Fade</span>
+                            <span class="font-bold text-white block">{{ $b->layanan }}</span>
+                            @if($b->catatan)
+                            <span class="text-xs text-gray-400">Catatan: {{ Str::limit($b->catatan, 35) }}</span>
+                            @endif
                         </td>
                         <td class="px-6 py-4">
                             <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-gray-800 text-xs text-gray-200">
-                                💈 Mas Rusdi
+                                💈 {{ $b->barber ?? 'Kapster Siap' }}
                             </span>
                         </td>
                         <td class="px-6 py-4 text-xs font-semibold text-gray-200">
-                            Hari Ini &bull; 10:30 WIB
+                            {{ $b->tanggal ? $b->tanggal->format('d M Y') : '-' }} &bull; {{ $b->jam }}
                         </td>
                         <td class="px-6 py-4 font-bold text-amber-400">
-                            Rp 65.000
+                            Rp {{ number_format($b->harga, 0, ',', '.') }}
                         </td>
                         <td class="px-6 py-4">
-                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-bold bg-blue-500/10 text-blue-400 border border-blue-500/30">
-                                Menunggu Kedatangan
-                            </span>
+                            @if($b->status === 'confirmed')
+                                <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-bold bg-blue-500/10 text-blue-400 border border-blue-500/30">
+                                    Terkonfirmasi
+                                </span>
+                            @elseif($b->status === 'pending')
+                                <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-bold bg-amber-500/10 text-amber-400 border border-amber-500/30">
+                                    Menunggu
+                                </span>
+                            @elseif($b->status === 'completed')
+                                <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+                                    ✓ Selesai
+                                </span>
+                            @else
+                                <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-bold bg-red-500/10 text-red-400 border border-red-500/30">
+                                    Dibatalkan
+                                </span>
+                            @endif
                         </td>
                         <td class="px-6 py-4 text-right">
-                            <a href="https://wa.me/6281234567890?text=Halo%20Rusdi%20Barbershop,%20saya%20ingin%20tanya%20booking%20BK-1049" target="_blank" class="text-xs text-amber-400 hover:underline font-bold">
+                            <a href="https://wa.me/6281234567890?text=Halo%20Rusdi%20Barbershop,%20saya%20ingin%20tanya%20booking%20{{ $b->booking_code }}" target="_blank" class="text-xs text-amber-400 hover:underline font-bold">
                                 WhatsApp &rarr;
                             </a>
                         </td>
                     </tr>
-
-                    {{-- Row 2: Past Completed --}}
-                    <tr class="hover:bg-gray-800/40 transition">
-                        <td class="px-6 py-4 font-mono text-gray-400">#BK-0982</td>
-                        <td class="px-6 py-4">
-                            <span class="font-medium text-gray-200 block">Haircut & Beard Shaving</span>
-                            <span class="text-xs text-gray-500">Stempel Ke-7</span>
-                        </td>
-                        <td class="px-6 py-4 text-xs text-gray-400">Mas Rusdi</td>
-                        <td class="px-6 py-4 text-xs text-gray-400">12 Agustus 2026</td>
-                        <td class="px-6 py-4 font-medium text-gray-300">Rp 65.000</td>
-                        <td class="px-6 py-4">
-                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
-                                ✓ Selesai (Stamped)
-                            </span>
-                        </td>
-                        <td class="px-6 py-4 text-right text-xs text-yellow-400">
-                            ★★★★★
+                    @empty
+                    <tr>
+                        <td colspan="7" class="px-6 py-12 text-center text-gray-500 text-sm">
+                            Belum ada riwayat booking. Silakan buat reservasi baru!
                         </td>
                     </tr>
-
-                    {{-- Row 3: Past Completed --}}
-                    <tr class="hover:bg-gray-800/40 transition">
-                        <td class="px-6 py-4 font-mono text-gray-400">#BK-0891</td>
-                        <td class="px-6 py-4">
-                            <span class="font-medium text-gray-200 block">Royal Grooming Package</span>
-                            <span class="text-xs text-gray-500">Stempel Ke-6</span>
-                        </td>
-                        <td class="px-6 py-4 text-xs text-gray-400">Farhan</td>
-                        <td class="px-6 py-4 text-xs text-gray-400">15 Juli 2026</td>
-                        <td class="px-6 py-4 font-medium text-gray-300">Rp 120.000</td>
-                        <td class="px-6 py-4">
-                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
-                                ✓ Selesai (Stamped)
-                            </span>
-                        </td>
-                        <td class="px-6 py-4 text-right text-xs text-yellow-400">
-                            ★★★★★
-                        </td>
-                    </tr>
-
+                    @endforelse
                 </tbody>
             </table>
         </div>
+
+        {{-- Pagination Footer --}}
+        @if($bookings->hasPages())
+        <div class="px-6 py-4 border-t border-gray-800 bg-gray-950 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-400">
+            <div>
+                Menampilkan <span class="font-bold text-white">{{ $bookings->firstItem() }}</span> - <span class="font-bold text-white">{{ $bookings->lastItem() }}</span> dari <span class="font-bold text-white">{{ $bookings->total() }}</span> total reservasi
+            </div>
+            <div class="flex items-center gap-1.5">
+                {{-- Prev --}}
+                @if ($bookings->onFirstPage())
+                    <span class="px-3 py-1.5 rounded-lg border border-gray-800 bg-gray-900 text-gray-600 opacity-50 cursor-not-allowed">
+                        &laquo; Prev
+                    </span>
+                @else
+                    <a href="{{ $bookings->previousPageUrl() }}" class="px-3 py-1.5 rounded-lg border border-gray-700 bg-gray-800 text-gray-200 hover:bg-gray-700 hover:text-white transition">
+                        &laquo; Prev
+                    </a>
+                @endif
+
+                {{-- Page Numbers --}}
+                @foreach ($bookings->getUrlRange(1, $bookings->lastPage()) as $page => $url)
+                    @if ($page == $bookings->currentPage())
+                        <span class="px-3 py-1.5 rounded-lg bg-amber-500 text-gray-950 font-bold">
+                            {{ $page }}
+                        </span>
+                    @else
+                        <a href="{{ $url }}" class="px-3 py-1.5 rounded-lg border border-gray-800 bg-gray-900 text-gray-300 hover:bg-gray-800 hover:text-white transition">
+                            {{ $page }}
+                        </a>
+                    @endif
+                @endforeach
+
+                {{-- Next --}}
+                @if ($bookings->hasMorePages())
+                    <a href="{{ $bookings->nextPageUrl() }}" class="px-3 py-1.5 rounded-lg border border-gray-700 bg-gray-800 text-gray-200 hover:bg-gray-700 hover:text-white transition">
+                        Next &raquo;
+                    </a>
+                @else
+                    <span class="px-3 py-1.5 rounded-lg border border-gray-800 bg-gray-900 text-gray-600 opacity-50 cursor-not-allowed">
+                        Next &raquo;
+                    </span>
+                @endif
+            </div>
+        </div>
+        @endif
     </div>
 
 </div>

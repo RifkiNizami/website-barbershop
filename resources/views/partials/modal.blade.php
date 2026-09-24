@@ -28,8 +28,8 @@
                 <div>
                     <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">Layanan</label>
                     <select id="custService" class="w-full text-xs px-3 py-2.5 border border-gray-300 rounded-xl focus:border-barber-red focus:ring-1 focus:ring-barber-red outline-none bg-white">
-                        <option value="Hair Cut">Hair Cut (Rp 35.000)</option>
-                        <option value="Gentlemen Cut + Wash">Gentlemen Cut + Wash (Rp 65.000)</option>
+                        <option value="Hair Cut">Hair Cut (Rp 25.000)</option>
+                        <option value="Gentlemen Cut + Wash">Hair Cut + Wash (Rp 35.000)</option>
                         <option value="Beard Trim & Shave">Beard Trim & Shave (Rp 45.000)</option>
                         <option value="Hair Styling & Spa">Hair Styling & Spa (Rp 85.000)</option>
                         <option value="Royal Grooming Package">Royal Grooming Package (Rp 120.000)</option>
@@ -40,7 +40,7 @@
                     <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">Barber</label>
                     <select id="custBarber" class="w-full text-xs px-3 py-2.5 border border-gray-300 rounded-xl focus:border-barber-red focus:ring-1 focus:ring-barber-red outline-none bg-white">
                         <option value="Bebas / Siapapun">Bebas / Siapapun</option>
-                        <option value="Mas Rusdi (Senior Barber)">Mas Rusdi (Senior Barber)</option>
+                        <option value="Mas Gatot (Senior Barber)">Mas Gatot (Senior Barber)</option>
                         <option value="Farhan (Stylist)">Farhan (Stylist)</option>
                     </select>
                 </div>
