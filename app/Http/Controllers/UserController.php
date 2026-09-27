@@ -86,9 +86,8 @@ class UserController extends Controller
             'role' => 'customer',
         ]);
 
-        Auth::login($user);
 
-        return redirect()->route('user.dashboard')->with('success', 'Pendaftaran Member Berhasil! Selamat datang '.$user->name.' 💈');
+        return redirect()->route('login')->with('success', 'Pendaftaran Member Berhasil! Selamat datang '.$user->name.' 💈');
     }
 
     /**
