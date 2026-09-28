@@ -101,7 +101,7 @@
                             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-zinc-500">
                                 <i class="bi bi-whatsapp text-xs"></i>
                             </div>
-                            <input type="tel" id="no_whatsapp" name="no_whatsapp" value="{{ old('no_whatsapp') }}" placeholder="Contoh: 081234567890" required
+                            <input type="tel" id="no_whatsapp" name="no_whatsapp" value="{{ old('no_whatsapp') }}" placeholder="Contoh: 081234567890" inputmode="numeric" pattern="[0-9]+" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required
                                    class="w-full pl-9 pr-3 py-2.5 bg-zinc-950 border border-zinc-800 rounded-md text-white text-sm focus:bg-zinc-950 focus:border-white focus:ring-1 focus:ring-white outline-none transition duration-150 placeholder:text-zinc-600">
                         </div>
                     </div>
