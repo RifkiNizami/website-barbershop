@@ -14,12 +14,8 @@
     {{-- Bootstrap Icons --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-    {{-- Vite Assets --}}
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-
-    <style>
-        body { font-family: 'Plus Jakarta Sans', -apple-system, sans-serif; }
-    </style>
+    {{-- Vite Assets Khusus Halaman Auth/Register --}}
+    @vite(['resources/css/login.css', 'resources/js/login.js'])
 </head>
 <body class="bg-black text-zinc-100 min-h-screen flex flex-col justify-between antialiased selection:bg-white selection:text-black">
 

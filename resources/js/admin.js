@@ -16,6 +16,13 @@ window.closeSidebar = function () {
     document.body.style.overflow = '';
 };
 
+window.confirmAdminDelete = function (itemName, deleteFormId) {
+    if (confirm(`Apakah Anda yakin ingin menghapus "${itemName}"? Tindakan ini tidak dapat dibatalkan.`)) {
+        const form = document.getElementById(deleteFormId);
+        if (form) form.submit();
+    }
+};
+
 document.addEventListener('DOMContentLoaded', () => {
     // On mobile: sidebar starts hidden
     if (window.innerWidth < 1024) {

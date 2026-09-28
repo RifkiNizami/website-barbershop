@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     {{-- User / Member Specific CSS & External JS Assets --}}
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/user.css', 'resources/js/user.js'])
 
     {{-- Custom Styles Slot --}}
     @yield('styles')
