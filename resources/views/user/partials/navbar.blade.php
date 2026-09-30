@@ -1,54 +1,51 @@
 {{-- TOP NAVBAR MEMBER --}}
-<header class="h-16 bg-slate-950/90 backdrop-blur-md border-b border-slate-800/80 sticky top-0 z-20 flex items-center justify-between px-4 sm:px-6 lg:px-8 shrink-0">
+<header class="h-16 bg-[#080B12]/90 backdrop-blur-md border-b border-white/[0.06] sticky top-0 z-20 flex items-center justify-between px-4 sm:px-6 lg:px-8 shrink-0">
     
     {{-- Left Section: Mobile Toggle & Page Title --}}
     <div class="flex items-center gap-3">
-        <button type="button" id="openUserSidebarBtn" class="lg:hidden p-2 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white focus:outline-none" aria-label="Buka Menu">
+        <button type="button" id="openUserSidebarBtn" class="lg:hidden p-1.5 rounded-lg text-[#9CA3AF] hover:text-[#F5F5F5] hover:bg-white/[0.04] focus:outline-none" aria-label="Buka Menu">
             <i class="bi bi-list text-xl"></i>
         </button>
 
-        <div class="flex items-center gap-2">
-            <span class="text-xs font-bold uppercase tracking-wider text-amber-400 bg-amber-500/10 px-2.5 py-1 rounded-lg border border-amber-500/20 hidden sm:inline-flex items-center gap-1">
-                <i class="bi bi-star-fill text-amber-400"></i> Member Lounge
-            </span>
-            <span class="text-slate-600 hidden sm:inline-block">/</span>
-            <h1 class="text-base sm:text-lg font-bold text-white tracking-tight">
-                @yield('page_title', 'Dashboard Member')
-            </h1>
-        </div>
+        <h1 class="text-base sm:text-lg font-semibold text-[#F5F5F5] tracking-tight">
+            @yield('page_title', 'Dashboard Member')
+        </h1>
     </div>
 
-    {{-- Right Section: Booking CTA, Member Profile Pill & Logout --}}
+    {{-- Right Section: User Name, Membership Badge, Booking CTA & Logout --}}
     <div class="flex items-center gap-3">
         
-        {{-- Quick CTA: Booking Cukur --}}
-        <a href="{{ route('user.booking.create') }}" class="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 text-xs font-bold uppercase tracking-wider bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 rounded-xl transition-all shadow-md shadow-amber-500/20">
-            <i class="bi bi-calendar-plus-fill"></i>
-            Booking Cukur
-        </a>
-
-        {{-- Member Mini Profile Pill --}}
-        <div class="flex items-center gap-2.5 pl-3 border-l border-slate-800">
-            <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-amber-500 to-amber-300 text-slate-950 flex items-center justify-center font-bold text-xs shadow-xs">
-                DP
-            </div>
-            <div class="hidden md:flex flex-col text-left leading-tight">
-                <span class="text-xs font-bold text-white">Dimas Pratama</span>
-                <span class="text-[10px] text-amber-400 font-semibold flex items-center gap-1">
-                    <i class="bi bi-patch-check-fill"></i> VIP Member
-                </span>
-            </div>
+        {{-- User Name & Membership Badge --}}
+        <div class="flex items-center gap-2">
+            <span class="text-xs font-medium text-[#F5F5F5] hidden md:inline">
+                {{ Auth::user()->name ?? 'Dimas Pratama' }}
+            </span>
+            <span class="text-[11px] font-medium text-[#D4A72C] bg-[#D4A72C]/10 border border-[#D4A72C]/20 px-2 py-0.5 rounded-full hidden sm:inline-flex items-center">
+                VIP Member
+            </span>
         </div>
 
-        {{-- Logout Form Button --}}
+        <div class="h-4 w-px bg-white/[0.08] hidden sm:block"></div>
+
+        {{-- Booking Button (CTA Utama) --}}
+        <a href="{{ route('user.booking.create') }}" 
+           class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-[#D4A72C] hover:bg-[#c49826] text-black font-semibold text-xs transition">
+            <i class="bi bi-calendar-plus text-xs"></i>
+            <span>Booking Cukur</span>
+        </a>
+
+        {{-- Logout --}}
         <form action="{{ route('logout') }}" method="POST" class="inline-flex">
             @csrf
-            <button type="submit" class="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold uppercase tracking-wider bg-red-950/60 hover:bg-red-900 border border-red-800/60 text-red-200 rounded-xl transition-all cursor-pointer">
-                <i class="bi bi-box-arrow-right text-red-400 text-sm"></i>
-                <span>Logout</span>
+            <button type="submit" 
+                    class="inline-flex items-center gap-1 px-2 py-1.5 text-xs font-medium text-[#9CA3AF] hover:text-red-400 hover:bg-red-500/10 rounded-lg transition cursor-pointer" 
+                    title="Logout">
+                <i class="bi bi-box-arrow-right text-xs"></i>
+                <span class="hidden sm:inline">Logout</span>
             </button>
         </form>
 
     </div>
 
 </header>
+

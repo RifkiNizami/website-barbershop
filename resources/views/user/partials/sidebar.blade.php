@@ -1,49 +1,52 @@
 {{-- SIDEBAR MEMBER WRAPPER (Full Height Fixed) --}}
-<aside id="userSidebar" class="fixed top-0 bottom-0 left-0 z-40 w-64 h-screen bg-slate-950 text-slate-300 flex flex-col justify-between transition-transform duration-300 transform -translate-x-full lg:translate-x-0 border-r border-slate-800/80 shadow-2xl overflow-hidden">
+<aside id="userSidebar" class="fixed top-0 bottom-0 left-0 z-40 w-60 h-screen bg-[#0B0F19] text-[#9CA3AF] flex flex-col justify-between transition-transform duration-300 transform -translate-x-full lg:translate-x-0 border-r border-white/[0.06] overflow-hidden select-none">
     
     {{-- Top Portion --}}
     <div class="flex flex-col flex-1 overflow-y-auto">
         
         {{-- Sidebar Brand Header --}}
-        <div class="h-16 px-6 flex items-center justify-between border-b border-slate-800/80 bg-slate-950/90 shrink-0">
-            <a href="{{ route('user.dashboard') }}" class="flex items-center gap-3 font-black tracking-wider text-white uppercase text-base group">
-                <span class="w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-500 to-amber-400 flex items-center justify-center text-slate-950 shadow-md shadow-amber-500/20 group-hover:scale-105 transition-transform">
-                    <i class="bi bi-scissors text-lg"></i>
+        <div class="h-16 px-5 flex items-center justify-between border-b border-white/[0.06] bg-[#0B0F19] shrink-0">
+            <a href="{{ route('user.dashboard') }}" class="flex items-center gap-2.5 group">
+                <span class="w-8 h-8 rounded-lg bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-[#D4A72C] group-hover:border-[#D4A72C]/40 transition-colors">
+                    <i class="bi bi-scissors text-sm"></i>
                 </span>
                 <div class="flex flex-col">
-                    <span class="leading-tight text-sm font-extrabold text-amber-400 tracking-wide">GENTLEMAN CLUB</span>
-                    <span class="text-[10px] text-slate-400 font-medium tracking-normal capitalize">Rusdi Barbershop</span>
+                    <span class="text-xs font-semibold text-[#F5F5F5] tracking-wider uppercase leading-tight">Black Round Barbershop</span>
+                    <span class="text-[10px] text-[#9CA3AF] leading-tight">Gentleman Lounge</span>
                 </div>
             </a>
 
             {{-- Mobile Close Button --}}
-            <button type="button" id="closeUserSidebarBtn" class="lg:hidden text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800" aria-label="Tutup Sidebar">
-                <i class="bi bi-x-lg text-lg"></i>
+            <button type="button" id="closeUserSidebarBtn" class="lg:hidden text-[#9CA3AF] hover:text-[#F5F5F5] p-1 rounded-lg hover:bg-white/[0.05]" aria-label="Tutup Sidebar">
+                <i class="bi bi-x-lg text-base"></i>
             </button>
         </div>
 
         {{-- Navigation Menu Links --}}
-        <div class="flex-1 px-4 py-6 space-y-6">
+        <div class="flex-1 px-3 py-5 space-y-5">
             
             {{-- Member Portal --}}
             <div>
-                <p class="px-3 text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-2.5">Member Area</p>
-                <nav class="space-y-1.5">
+                <p class="px-2.5 text-[10px] font-medium uppercase tracking-widest text-[#6B7280] mb-2">Member Area</p>
+                <nav class="space-y-1">
                     {{-- Dashboard --}}
-                    <a href="{{ route('user.dashboard') }}" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-150 {{ request()->routeIs('user.dashboard') ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-bold shadow-lg shadow-amber-500/20' : 'text-slate-300 hover:bg-slate-900 hover:text-white' }}">
-                        <i class="bi bi-grid-1x2-fill text-base {{ request()->routeIs('user.dashboard') ? 'text-slate-950' : 'text-amber-500' }}"></i>
+                    <a href="{{ route('user.dashboard') }}" 
+                       class="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs font-medium transition-colors {{ request()->routeIs('user.dashboard') ? 'bg-[#D4A72C]/10 text-[#D4A72C]' : 'text-[#9CA3AF] hover:text-[#F5F5F5] hover:bg-white/[0.03]' }}">
+                        <i class="bi bi-grid-1x2 text-sm {{ request()->routeIs('user.dashboard') ? 'text-[#D4A72C]' : 'text-[#9CA3AF]' }}"></i>
                         <span>Dashboard Saya</span>
                     </a>
 
                     {{-- Form Reservasi Cukur --}}
-                    <a href="{{ route('user.booking.create') }}" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-150 {{ request()->routeIs('user.booking.create') ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-bold shadow-lg shadow-amber-500/20' : 'text-slate-300 hover:bg-slate-900 hover:text-white' }}">
-                        <i class="bi bi-calendar-check text-base {{ request()->routeIs('user.booking.create') ? 'text-slate-950' : 'text-amber-500' }}"></i>
+                    <a href="{{ route('user.booking.create') }}" 
+                       class="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs font-medium transition-colors {{ request()->routeIs('user.booking.create') ? 'bg-[#D4A72C]/10 text-[#D4A72C]' : 'text-[#9CA3AF] hover:text-[#F5F5F5] hover:bg-white/[0.03]' }}">
+                        <i class="bi bi-calendar-check text-sm {{ request()->routeIs('user.booking.create') ? 'text-[#D4A72C]' : 'text-[#9CA3AF]' }}"></i>
                         <span>Reservasi Cukur</span>
                     </a>
 
                     {{-- Riwayat Cukur --}}
-                    <a href="{{ route('user.bookings.index') }}" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-150 {{ request()->routeIs('user.bookings.index') ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-bold shadow-lg shadow-amber-500/20' : 'text-slate-300 hover:bg-slate-900 hover:text-white' }}">
-                        <i class="bi bi-clock-history text-base {{ request()->routeIs('user.bookings.index') ? 'text-slate-950' : 'text-amber-500' }}"></i>
+                    <a href="{{ route('user.bookings.index') }}" 
+                       class="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs font-medium transition-colors {{ request()->routeIs('user.bookings.index') ? 'bg-[#D4A72C]/10 text-[#D4A72C]' : 'text-[#9CA3AF] hover:text-[#F5F5F5] hover:bg-white/[0.03]' }}">
+                        <i class="bi bi-clock-history text-sm {{ request()->routeIs('user.bookings.index') ? 'text-[#D4A72C]' : 'text-[#9CA3AF]' }}"></i>
                         <span>Riwayat Cukur</span>
                     </a>
                 </nav>
@@ -51,17 +54,17 @@
 
             {{-- Navigasi & Logout --}}
             <div>
-                <p class="px-3 text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-2.5">Autentikasi</p>
-                <nav class="space-y-1.5">
-                    <a href="{{ url('/') }}" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium text-slate-400 hover:bg-slate-900 hover:text-white transition-all">
-                        <i class="bi bi-house text-base"></i>
+                <p class="px-2.5 text-[10px] font-medium uppercase tracking-widest text-[#6B7280] mb-2">Navigasi</p>
+                <nav class="space-y-1">
+                    <a href="{{ url('/') }}" class="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs font-medium text-[#9CA3AF] hover:text-[#F5F5F5] hover:bg-white/[0.03] transition-colors">
+                        <i class="bi bi-house text-sm"></i>
                         <span>Website Utama</span>
                     </a>
 
                     <form action="{{ route('logout') }}" method="POST" class="w-full">
                         @csrf
-                        <button type="submit" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium text-red-400 hover:bg-red-500/10 hover:text-red-300 transition-all cursor-pointer text-left">
-                            <i class="bi bi-box-arrow-right text-base"></i>
+                        <button type="submit" class="w-full flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs font-medium text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-colors text-left cursor-pointer">
+                            <i class="bi bi-box-arrow-right text-sm"></i>
                             <span>Logout / Keluar</span>
                         </button>
                     </form>
@@ -71,20 +74,20 @@
         </div>
     </div>
 
-    {{-- Bottom Portion: Member Loyalty Badge Widget --}}
-    <div class="p-4 border-t border-slate-800/80 bg-slate-950 shrink-0">
-        <div class="p-3.5 rounded-xl bg-gradient-to-br from-amber-500/10 to-amber-600/5 border border-amber-500/30">
-            <div class="flex items-center justify-between text-xs font-bold text-amber-400 mb-1.5">
-                <span class="flex items-center gap-1">
-                    <i class="bi bi-award-fill"></i> Loyalty Stamps
+    {{-- Bottom Portion: Compact & Elegant Loyalty Stamps Widget --}}
+    <div class="p-3 border-t border-white/[0.06] bg-[#0B0F19] shrink-0">
+        <div class="p-3 rounded-xl bg-[#111827] border border-white/[0.06]">
+            <div class="flex items-center justify-between text-xs font-medium text-[#F5F5F5] mb-1.5">
+                <span class="flex items-center gap-1.5 text-[11px] text-[#9CA3AF]">
+                    <i class="bi bi-award text-[#D4A72C]"></i> Loyalty Stamps
                 </span>
-                <span>7/10</span>
+                <span class="text-[11px] font-mono font-semibold text-[#D4A72C]">7/10</span>
             </div>
-            <div class="w-full bg-slate-800 rounded-full h-2 mb-2 overflow-hidden">
-                <div class="bg-gradient-to-r from-amber-500 to-amber-300 h-2 rounded-full" style="width: 70%"></div>
+            <div class="w-full bg-[#151B26] rounded-full h-1.5 overflow-hidden">
+                <div class="bg-[#D4A72C] h-1.5 rounded-full" style="width: 70%"></div>
             </div>
-            <p class="text-[11px] text-slate-400 leading-tight">
-                3x cukur lagi untuk klaim <strong>1x Free Grooming Treatment</strong>!
+            <p class="text-[10px] text-[#9CA3AF] mt-1.5 leading-snug">
+                3 visits remaining to unlock free grooming
             </p>
         </div>
     </div>
