@@ -28,7 +28,7 @@
             </p>
         </div>
         <div class="sm:hidden">
-            <a href="{{ route('user.booking.create') }}" 
+            <a href="{{ route('user.booking.create') }}"
                class="inline-flex items-center justify-center gap-2 w-full py-2.5 rounded-lg bg-[#D4A72C] hover:bg-[#c49826] text-black font-semibold text-xs uppercase tracking-wider transition">
                 <i class="bi bi-calendar-plus"></i>
                 <span>Booking Cukur</span>
@@ -81,13 +81,13 @@
 
                 {{-- Action Buttons --}}
                 <div class="flex items-center gap-2 pt-3 md:pt-0 border-t md:border-t-0 border-white/[0.06]">
-                    <button type="button" 
+                    <button type="button"
                             onclick="alert('Tunjukkan booking ID ini saat tiba di barbershop: #{{ $upcomingBooking['id'] }}')"
                             class="px-3.5 py-2 rounded-lg bg-[#151B26] hover:bg-[#1c2433] text-xs font-medium text-[#F5F5F5] border border-white/[0.08] transition flex items-center gap-1.5">
                         <i class="bi bi-ticket-perforated text-xs text-[#9CA3AF]"></i>
                         <span>View Ticket</span>
                     </button>
-                    <a href="https://wa.me/6281234567890?text=Halo%20Rusdi%20Barbershop,%20saya%20ingin%20reschedule%20booking%20{{ $upcomingBooking['id'] }}" 
+                    <a href="https://wa.me/6281234567890?text=Halo%20Rusdi%20Barbershop,%20saya%20ingin%20reschedule%20booking%20{{ $upcomingBooking['id'] }}"
                        target="_blank"
                        class="px-3.5 py-2 rounded-lg bg-[#151B26] hover:bg-[#1c2433] text-xs font-medium text-[#9CA3AF] hover:text-[#F5F5F5] border border-white/[0.08] transition flex items-center gap-1.5">
                         <i class="bi bi-whatsapp text-emerald-400 text-xs"></i>
@@ -106,7 +106,7 @@
                 <h2 class="text-base font-semibold text-[#F5F5F5]">Belum ada jadwal cukur mendatang</h2>
                 <p class="text-xs text-[#9CA3AF] mt-0.5">Reservasi sesi grooming Anda dengan barber pilihan.</p>
             </div>
-            <a href="{{ route('user.booking.create') }}" 
+            <a href="{{ route('user.booking.create') }}"
                class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-[#D4A72C] hover:bg-[#c49826] text-black font-semibold text-xs uppercase tracking-wider transition self-start sm:self-auto shrink-0">
                 <i class="bi bi-calendar-plus"></i>
                 <span>Booking Cukur</span>
@@ -140,7 +140,7 @@
 
         {{-- Single Horizontal Progress Bar --}}
         <div class="w-full bg-[#151B26] h-2 rounded-full overflow-hidden border border-white/[0.04]">
-            <div class="bg-[#D4A72C] h-full rounded-full transition-all duration-300" 
+            <div class="bg-[#D4A72C] h-full rounded-full transition-all duration-300"
                  style="width: {{ $progressPercent }}%;"></div>
         </div>
 
@@ -238,11 +238,11 @@
 
                 {{-- Quick Actions --}}
                 <div class="pt-2 flex items-center gap-2">
-                    <a href="{{ route('user.booking.create') }}" 
+                    <a href="{{ route('user.booking.create') }}"
                        class="flex-1 py-2 text-center rounded-lg bg-[#D4A72C] hover:bg-[#c49826] text-black font-semibold text-xs tracking-wider uppercase transition">
                         Booking
                     </a>
-                    <a href="{{ route('user.bookings.index') }}" 
+                    <a href="{{ route('user.bookings.index') }}"
                        class="flex-1 py-2 text-center rounded-lg bg-[#151B26] hover:bg-[#1c2433] text-[#9CA3AF] hover:text-[#F5F5F5] font-medium text-xs border border-white/[0.08] transition uppercase">
                         History
                     </a>

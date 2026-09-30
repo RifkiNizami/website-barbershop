@@ -111,39 +111,49 @@ class UserController extends Controller
         $userName = $currentUser ? $currentUser->name : 'Dimas Pratama';
         $userEmail = $currentUser ? $currentUser->email : 'dimas@gmail.com';
 
-        // Stempel & Poin dari DB
-        $totalCompleted = Booking::where('status', 'completed')->count();
-        $stamps = ($totalCompleted % 10) ?: 7;
+        // Stempel & Poin dari DB — hanya kunjungan milik user yang login
+        $userBookingQuery = $currentUser
+            ? Booking::where('user_id', $currentUser->user_id)
+            : Booking::whereNull('user_id');
+
+        // Hitung kunjungan valid: semua booking kecuali yang dibatalkan
+        $totalCompleted = (clone $userBookingQuery)
+            ->whereNotIn('status', ['cancelled'])
+            ->count();
+
+        // Modulo 10: count resets after reaching 10 (0-9 stamps in current cycle)
+        $stamps = $totalCompleted % 10;
 
         $member = [
-            'name' => $userName,
-            'phone' => $currentUser ? ($currentUser->phone ?? '-') : '-',
-            'tier' => 'Gold VIP Member',
-            'loyalty_points' => 380 + ($totalCompleted * 50),
-            'stamps' => $stamps,
-            'max_stamps' => 10,
+            'name'           => $userName,
+            'phone'          => $currentUser ? ($currentUser->phone ?? '-') : '-',
+            'tier'           => 'Gold VIP Member',
+            'loyalty_points' => $totalCompleted * 50,
+            'stamps'         => $stamps,
+            'max_stamps'     => 10,
             'favorite_barber' => 'Mas Rusdi (Master Barber)',
-            'favorite_style' => 'Taper Fade + Textured Quiff',
+            'favorite_style'  => 'Taper Fade + Textured Quiff',
         ];
 
-        // Booking mendatang
-        $upcomingBookingModel = Booking::whereIn('status', ['confirmed', 'pending'])
+        // Booking mendatang — hanya milik user yang login
+        $upcomingBookingModel = (clone $userBookingQuery)
+            ->whereIn('status', ['confirmed', 'pending'])
             ->latest()
             ->first();
 
         $upcomingBooking = $upcomingBookingModel ? [
-            'id' => $upcomingBookingModel->booking_code,
-            'db_id' => $upcomingBookingModel->id,
+            'id'      => $upcomingBookingModel->booking_code,
+            'db_id'   => $upcomingBookingModel->id,
             'service' => $upcomingBookingModel->layanan,
-            'barber' => $upcomingBookingModel->barber,
-            'date' => $upcomingBookingModel->tanggal ? $upcomingBookingModel->tanggal->format('d M Y') : 'Hari Ini',
-            'time' => $upcomingBookingModel->jam,
-            'price' => 'Rp '.number_format($upcomingBookingModel->harga, 0, ',', '.'),
-            'status' => $upcomingBookingModel->status,
+            'barber'  => $upcomingBookingModel->barber,
+            'date'    => $upcomingBookingModel->tanggal ? $upcomingBookingModel->tanggal->format('d M Y') : 'Hari Ini',
+            'time'    => $upcomingBookingModel->jam,
+            'price'   => 'Rp '.number_format($upcomingBookingModel->harga, 0, ',', '.'),
+            'status'  => $upcomingBookingModel->status,
         ] : null;
 
-        // Riwayat potong rambut
-        $pastBookings = Booking::latest()->take(5)->get()->map(function ($b) {
+        // Riwayat potong rambut — hanya milik user yang login
+        $pastBookings = (clone $userBookingQuery)->latest()->take(5)->get()->map(function ($b) {
             return [
                 'id' => $b->booking_code,
                 'service' => $b->layanan,

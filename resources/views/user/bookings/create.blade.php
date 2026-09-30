@@ -12,9 +12,6 @@
             <h2 class="text-xl sm:text-2xl font-black text-white tracking-tight">Formulir Reservasi Mandiri Pelanggan</h2>
             <p class="text-xs sm:text-sm text-gray-400 mt-1">Pilih layanan, barber favorit, dan slot jam kedatangan Anda.</p>
         </div>
-        <a href="{{ route('user.dashboard') }}" class="px-4 py-2 rounded-xl bg-gray-900 border border-gray-800 text-gray-300 text-xs font-bold uppercase tracking-wider hover:bg-gray-800 transition">
-            &larr; Dashboard
-        </a>
     </div>
 
     {{-- Form Card --}}
@@ -29,8 +26,10 @@
                         DP
                     </div>
                     <div>
-                        <span class="text-xs font-bold text-white block">Dimas Pratama</span>
-                        <span class="text-[11px] text-gray-400">0812-3456-7890 &bull; Gold VIP Member</span>
+                        <span class="text-xs font-bold text-white block">
+                            {{ Auth::user()->name ?? 'Dimas Pratama' }}
+                        </span>
+                        <span class="text-[11px] text-gray-400">{{ Auth::user()->phone ?? '0812-3456-7890' }} &bull; Gold VIP Member</span>
                     </div>
                 </div>
                 <span class="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/20">

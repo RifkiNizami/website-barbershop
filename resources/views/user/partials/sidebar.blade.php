@@ -75,19 +75,34 @@
     </div>
 
     {{-- Bottom Portion: Compact & Elegant Loyalty Stamps Widget --}}
+    @php
+        use App\Models\Booking;
+        use Illuminate\Support\Facades\Auth;
+        $sidebarUser     = Auth::user();
+        $sidebarTotal    = $sidebarUser
+            ? Booking::where('user_id', $sidebarUser->user_id)->whereNotIn('status', ['cancelled'])->count()
+            : 0;
+        $sidebarStamps   = $sidebarTotal % 10;
+        $sidebarRemain   = 10 - $sidebarStamps;
+        $sidebarProgress = ($sidebarStamps / 10) * 100;
+    @endphp
     <div class="p-3 border-t border-white/[0.06] bg-[#0B0F19] shrink-0">
         <div class="p-3 rounded-xl bg-[#111827] border border-white/[0.06]">
             <div class="flex items-center justify-between text-xs font-medium text-[#F5F5F5] mb-1.5">
                 <span class="flex items-center gap-1.5 text-[11px] text-[#9CA3AF]">
                     <i class="bi bi-award text-[#D4A72C]"></i> Loyalty Stamps
                 </span>
-                <span class="text-[11px] font-mono font-semibold text-[#D4A72C]">7/10</span>
+                <span class="text-[11px] font-mono font-semibold text-[#D4A72C]">{{ $sidebarStamps }}/10</span>
             </div>
             <div class="w-full bg-[#151B26] rounded-full h-1.5 overflow-hidden">
-                <div class="bg-[#D4A72C] h-1.5 rounded-full" style="width: 70%"></div>
+                <div class="bg-[#D4A72C] h-1.5 rounded-full transition-all duration-300" style="width: {{ $sidebarProgress }}%"></div>
             </div>
             <p class="text-[10px] text-[#9CA3AF] mt-1.5 leading-snug">
-                3 visits remaining to unlock free grooming
+                @if($sidebarRemain > 0)
+                    {{ $sidebarRemain }} visits remaining to unlock free grooming
+                @else
+                    <span class="text-emerald-400"><i class="bi bi-gift-fill"></i> Reward ready to claim!</span>
+                @endif
             </p>
         </div>
     </div>
