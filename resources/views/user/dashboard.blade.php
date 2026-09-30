@@ -40,7 +40,7 @@
         {{-- 2. NEXT APPOINTMENT (FOCAL POINT) --}}
         {{-- ========================================================================= --}}
         @if(isset($upcomingBooking))
-            <section class="rounded-2xl bg-[#111827] border border-white/[0.06] p-5 sm:p-6 transition">
+            <section class="rounded-2xl bg-[#111827] border border-white/6 p-5 sm:p-6 transition">
                 <div class="flex items-center justify-between mb-4">
                     <span class="text-[11px] font-semibold uppercase tracking-wider text-[#D4A72C] flex items-center gap-1.5">
                         <i class="bi bi-calendar-check text-[#D4A72C]"></i>
@@ -81,16 +81,16 @@
                     </div>
 
                     {{-- Action Buttons --}}
-                    <div class="flex items-center gap-2 pt-3 md:pt-0 border-t md:border-t-0 border-white/[0.06]">
+                    <div class="flex items-center gap-2 pt-3 md:pt-0 border-t md:border-t-0 border-white/6">
                         <button type="button"
                             onclick="alert('Tunjukkan booking ID ini saat tiba di barbershop: #{{ $upcomingBooking['id'] }}')"
-                            class="px-3.5 py-2 rounded-lg bg-[#151B26] hover:bg-[#1c2433] text-xs font-medium text-[#F5F5F5] border border-white/[0.08] transition flex items-center gap-1.5">
+                            class="px-3.5 py-2 rounded-lg bg-[#151B26] hover:bg-[#1c2433] text-xs font-medium text-[#F5F5F5] border border-white/8 transition flex items-center gap-1.5">
                             <i class="bi bi-ticket-perforated text-xs text-[#9CA3AF]"></i>
                             <span>View Ticket</span>
                         </button>
                         <a href="https://wa.me/6281234567890?text=Halo%20Rusdi%20Barbershop,%20saya%20ingin%20reschedule%20booking%20{{ $upcomingBooking['id'] }}"
                             target="_blank"
-                            class="px-3.5 py-2 rounded-lg bg-[#151B26] hover:bg-[#1c2433] text-xs font-medium text-[#9CA3AF] hover:text-[#F5F5F5] border border-white/[0.08] transition flex items-center gap-1.5">
+                            class="px-3.5 py-2 rounded-lg bg-[#151B26] hover:bg-[#1c2433] text-xs font-medium text-[#9CA3AF] hover:text-[#F5F5F5] border border-white/8 transition flex items-center gap-1.5">
                             <i class="bi bi-whatsapp text-emerald-400 text-xs"></i>
                             <span>Reschedule</span>
                         </a>
@@ -100,7 +100,7 @@
         @else
             {{-- Clean & Compact Empty State --}}
             <section
-                class="rounded-2xl bg-[#111827] border border-white/[0.06] p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                class="rounded-2xl bg-[#111827] border border-white/6 p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
                     <span class="text-[11px] font-semibold uppercase tracking-wider text-[#9CA3AF] block mb-1">
                         NEXT APPOINTMENT
@@ -119,7 +119,7 @@
         {{-- ========================================================================= --}}
         {{-- 3. LOYALTY REWARD (HORIZONTAL PROGRESS) --}}
         {{-- ========================================================================= --}}
-        <section class="rounded-2xl bg-[#111827] border border-white/[0.06] p-5 sm:p-6 space-y-3.5">
+        <section class="rounded-2xl bg-[#111827] border border-white/6 p-5 sm:p-6 space-y-3.5">
             <div class="flex items-start justify-between">
                 <div>
                     <span class="text-[11px] font-semibold uppercase tracking-wider text-[#9CA3AF] block">
@@ -141,7 +141,7 @@
             </div>
 
             {{-- Single Horizontal Progress Bar --}}
-            <div class="w-full bg-[#151B26] h-2 rounded-full overflow-hidden border border-white/[0.04]">
+            <div class="w-full bg-[#151B26] h-2 rounded-full overflow-hidden border border-white/4">
                 <div class="bg-[#D4A72C] h-full rounded-full transition-all duration-300"
                     style="width: {{ $progressPercent }}%;"></div>
             </div>
@@ -170,8 +170,8 @@
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6 items-start">
 
             {{-- Kiri: Recent Visits (7 Columns) --}}
-            <section class="lg:col-span-7 rounded-2xl bg-[#111827] border border-white/[0.06] p-5 sm:p-6 space-y-4">
-                <div class="flex items-center justify-between pb-3 border-b border-white/[0.06]">
+            <section class="lg:col-span-7 rounded-2xl bg-[#111827] border border-white/6 p-5 sm:p-6 space-y-4">
+                <div class="flex items-center justify-between pb-3 border-b border-white/6">
                     <h3 class="text-xs font-semibold uppercase tracking-wider text-[#9CA3AF]">
                         RECENT VISITS
                     </h3>
@@ -182,7 +182,7 @@
                     </a>
                 </div>
 
-                <div class="divide-y divide-white/[0.04]">
+                <div class="divide-y divide-white/4">
                     @forelse(($pastBookings ?? collect())->take(4) as $history)
                         <div class="py-3 first:pt-0 last:pb-0 flex items-center justify-between gap-4 text-xs sm:text-sm">
                             <div class="space-y-0.5">
@@ -212,8 +212,8 @@
 
             {{-- Kanan: Member Profile & Your Style (5 Columns) --}}
             <div class="lg:col-span-5 space-y-5">
-                <section class="rounded-2xl bg-[#111827] border border-white/[0.06] p-5 space-y-4">
-                    <div class="pb-3 border-b border-white/[0.06]">
+                <section class="rounded-2xl bg-[#111827] border border-white/6 p-5 space-y-4">
+                    <div class="pb-3 border-b border-white/6">
                         <span class="text-[11px] font-semibold uppercase tracking-wider text-[#9CA3AF] block">
                             MEMBER PROFILE
                         </span>
@@ -232,7 +232,7 @@
                         <span class="text-[11px] font-semibold uppercase tracking-wider text-[#9CA3AF] block">
                             YOUR STYLE
                         </span>
-                        <div class="p-3.5 rounded-xl bg-[#151B26] border border-white/[0.04] space-y-1">
+                        <div class="p-3.5 rounded-xl bg-[#151B26] border border-white/4 space-y-1">
                             <p class="text-xs font-medium text-[#F5F5F5] flex items-center gap-1.5">
                                 <i class="bi bi-scissors text-[#D4A72C] text-xs"></i>
                                 <span>{{ $member['favorite_style'] ?? 'Taper Fade + Textured Quiff' }}</span>
@@ -251,7 +251,7 @@
                             Booking
                         </a>
                         <a href="{{ route('user.bookings.index') }}"
-                            class="flex-1 py-2 text-center rounded-lg bg-[#151B26] hover:bg-[#1c2433] text-[#9CA3AF] hover:text-[#F5F5F5] font-medium text-xs border border-white/[0.08] transition uppercase">
+                            class="flex-1 py-2 text-center rounded-lg bg-[#151B26] hover:bg-[#1c2433] text-[#9CA3AF] hover:text-[#F5F5F5] font-medium text-xs border border-white/8 transition uppercase">
                             History
                         </a>
                     </div>
