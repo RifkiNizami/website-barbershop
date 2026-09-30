@@ -74,7 +74,7 @@ class UserController extends Controller
         $request->validate([
             'nama_lengkap' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
-            'no_whatsapp' => 'required|string',
+            'no_whatsapp' => ['required', 'regex:/^[0-9]+$/'],
             'password' => 'required|string|min:4',
         ]);
 
@@ -87,7 +87,7 @@ class UserController extends Controller
         ]);
 
 
-        return redirect()->route('login')->with('success', 'Pendaftaran Member Berhasil! Selamat datang '.$user->name.' 💈');
+        return redirect()->route('login')->with('success', 'Pendaftaran Member Berhasil! ');
     }
 
     /**

@@ -1,230 +1,253 @@
 @extends('user.layouts.app')
 
-@section('title', 'Dashboard Member — Rusdi Barbershop Gentleman Lounge')
+@section('title', 'Dashboard Member — Black Round Barbershop Gentleman Lounge')
 @section('page_title', 'Dashboard Member')
 
 @section('content')
-<div class="space-y-8">
+@php
+    $currentStamps = (int) ($member['stamps'] ?? 7);
+    $maxStamps = 10;
+    $remainingStamps = max(0, $maxStamps - $currentStamps);
+    $progressPercent = min(100, max(0, ($currentStamps / $maxStamps) * 100));
 
-    {{-- 1. DIGITAL MEMBER CARD & LOYALTY STAMPS --}}
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
-        
-        {{-- Digital Membership Card (1 Col) --}}
-        <div class="p-6 sm:p-7 rounded-3xl bg-gradient-to-br from-amber-500 via-amber-600 to-amber-700 text-slate-950 flex flex-col justify-between shadow-2xl shadow-amber-600/30 relative overflow-hidden">
-            {{-- Watermark --}}
-            <div class="absolute -right-6 -bottom-6 opacity-15 pointer-events-none text-8xl">
-                <i class="bi bi-scissors"></i>
-            </div>
-            
-            <div class="flex items-center justify-between">
-                <div>
-                    <span class="text-[10px] uppercase tracking-widest font-black text-amber-950/80 bg-amber-400/60 px-2.5 py-1 rounded-full">
-                        VIP PASS
-                    </span>
-                    <h3 class="text-xl font-black tracking-tight mt-2 uppercase">Rusdi Gentleman Club</h3>
-                </div>
-                <div class="w-10 h-10 rounded-2xl bg-slate-950 text-amber-400 flex items-center justify-center font-black text-lg shadow">
-                    <i class="bi bi-award-fill"></i>
-                </div>
-            </div>
+    $memberId = '#MEMBER-' . strtoupper(substr(md5($member['phone'] ?? '123'), 0, 6));
+@endphp
 
-            <div class="my-6">
-                <p class="text-xs font-semibold text-amber-950">Nama Pelanggan</p>
-                <h4 class="text-2xl font-black text-slate-950 tracking-tight">{{ $member['name'] ?? 'Dimas Pratama' }}</h4>
-                <p class="text-xs font-mono text-amber-950/80 mt-1">ID: #MEMBER-{{ substr(md5($member['phone'] ?? '123'), 0, 6) }} &bull; {{ $member['phone'] ?? '0812-3456-7890' }}</p>
-            </div>
+<div class="max-w-5xl mx-auto space-y-6 text-[#F5F5F5] select-none sm:select-auto">
 
-            <div class="pt-4 border-t border-amber-400/40 flex items-center justify-between text-xs font-bold">
-                <div>
-                    <span class="text-[10px] text-amber-950 font-normal block">Kategori</span>
-                    <span class="text-slate-950 flex items-center gap-1">
-                        <i class="bi bi-patch-check-fill text-amber-950"></i> {{ $member['tier'] ?? 'Gold VIP Member' }}
-                    </span>
-                </div>
-                <div class="text-right">
-                    <span class="text-[10px] text-amber-950 font-normal block">Poin Loyalty</span>
-                    <span class="text-slate-950 text-sm font-black">{{ $member['loyalty_points'] ?? 380 }} Pts</span>
-                </div>
-            </div>
+    {{-- ========================================================================= --}}
+    {{-- 1. WELCOME / HEADER                                                       --}}
+    {{-- ========================================================================= --}}
+    <section class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2">
+        <div>
+            <h1 class="text-2xl sm:text-[26px] font-semibold text-[#F5F5F5] tracking-tight">
+                Selamat datang, {{ $member['name'] ?? 'Dimas Pratama' }}
+            </h1>
+            <p class="text-sm text-[#9CA3AF] mt-0.5">
+                Siap untuk jadwal potong rambut berikutnya?
+            </p>
         </div>
+        <div class="sm:hidden">
+            <a href="{{ route('user.booking.create') }}" 
+               class="inline-flex items-center justify-center gap-2 w-full py-2.5 rounded-lg bg-[#D4A72C] hover:bg-[#c49826] text-black font-semibold text-xs uppercase tracking-wider transition">
+                <i class="bi bi-calendar-plus"></i>
+                <span>Booking Cukur</span>
+            </a>
+        </div>
+    </section>
 
-        {{-- Interactive Loyalty Stamp Card (2 Cols) --}}
-        <div class="lg:col-span-2 p-6 sm:p-7 rounded-3xl bg-slate-900 border border-slate-800 shadow-xl flex flex-col justify-between">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
-                <div>
-                    <h3 class="text-lg font-bold text-white flex items-center gap-2">
-                        <i class="bi bi-award-fill text-amber-400"></i> Kartu Stempel Potong Rambut
-                    </h3>
-                    <p class="text-xs text-slate-400">Kumpulkan 10 stempel cukur untuk mendapatkan 1x Free Grooming Treatment.</p>
-                </div>
-                <span class="text-xs font-bold text-amber-400 bg-amber-400/10 px-3 py-1 rounded-full border border-amber-400/30 self-start sm:self-auto">
-                    {{ $member['stamps'] ?? 7 }} dari 10 Terkumpul
+    {{-- ========================================================================= --}}
+    {{-- 2. NEXT APPOINTMENT (FOCAL POINT)                                         --}}
+    {{-- ========================================================================= --}}
+    @if(isset($upcomingBooking))
+        <section class="rounded-2xl bg-[#111827] border border-white/[0.06] p-5 sm:p-6 transition">
+            <div class="flex items-center justify-between mb-4">
+                <span class="text-[11px] font-semibold uppercase tracking-wider text-[#D4A72C] flex items-center gap-1.5">
+                    <i class="bi bi-calendar-check text-[#D4A72C]"></i>
+                    <span>NEXT APPOINTMENT</span>
+                </span>
+                <span class="text-[11px] px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium capitalize">
+                    {{ $upcomingBooking['status'] ?? 'Confirmed' }}
                 </span>
             </div>
 
-            {{-- 10 Stamp Circles Grid --}}
-            <div class="grid grid-cols-5 sm:grid-cols-5 gap-3 sm:gap-4 my-3">
-                @for ($i = 1; $i <= 10; $i++)
-                    @if ($i <= ($member['stamps'] ?? 7))
-                        {{-- Stempel yang sudah aktif --}}
-                        <div class="h-16 sm:h-20 rounded-2xl bg-gradient-to-br from-amber-500 to-amber-600 border border-amber-400 text-slate-950 flex flex-col items-center justify-center p-2 shadow-lg shadow-amber-500/20 transform hover:scale-105 transition duration-150">
-                            <i class="bi bi-scissors text-xl"></i>
-                            <span class="text-[10px] font-black uppercase mt-1">#{{ $i }} Selesai</span>
-                        </div>
-                    @elseif ($i == 10)
-                        {{-- Stempel ke 10: Hadiah Gratis --}}
-                        <div class="h-16 sm:h-20 rounded-2xl bg-gradient-to-br from-red-600/30 to-red-800/40 border-2 border-dashed border-red-500 text-red-300 flex flex-col items-center justify-center p-2 text-center animate-pulse">
-                            <i class="bi bi-gift-fill text-xl"></i>
-                            <span class="text-[9px] font-black uppercase leading-tight mt-1 text-red-400">FREE CUT!</span>
-                        </div>
-                    @else
-                        {{-- Stempel yang belum dicapai --}}
-                        <div class="h-16 sm:h-20 rounded-2xl bg-slate-950/80 border border-slate-800 text-slate-600 flex flex-col items-center justify-center p-2">
-                            <i class="bi bi-lock-fill text-base opacity-40"></i>
-                            <span class="text-[10px] font-semibold mt-1 opacity-50">#{{ $i }}</span>
-                        </div>
-                    @endif
-                @endfor
-            </div>
-
-            <div class="pt-3 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400">
-                <span>Tunjukkan kartu ini kepada kasir setiap kali selesai potong rambut.</span>
-                <a href="{{ route('user.booking.create') }}" class="font-bold text-amber-400 hover:text-amber-300 hover:underline flex items-center gap-1">
-                    <span>+ Tambah Stempel via Booking Baru</span>
-                    <i class="bi bi-arrow-right"></i>
-                </a>
-            </div>
-        </div>
-
-    </div>
-
-    {{-- 2. UPCOMING BOOKING & QUICK PREFERENCES --}}
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        
-        {{-- Jadwal Booking Aktif (2 Cols) --}}
-        <div class="lg:col-span-2 bg-slate-900 rounded-3xl border border-slate-800 p-6 sm:p-7 shadow-xl">
-            <div class="flex items-center justify-between mb-5">
-                <div>
-                    <h3 class="text-lg font-bold text-white flex items-center gap-2">
-                        <i class="bi bi-calendar-event-fill text-amber-400"></i> Jadwal Reservasi Mendatang
-                    </h3>
-                    <p class="text-xs text-slate-400">Booking aktif Anda yang sedang terjadwal di Rusdi Barbershop.</p>
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-5">
+                {{-- Service & Barber --}}
+                <div class="space-y-0.5">
+                    <h2 class="text-base sm:text-lg font-semibold text-[#F5F5F5] tracking-tight">
+                        {{ $upcomingBooking['service'] }}
+                    </h2>
+                    <p class="text-xs sm:text-sm text-[#9CA3AF]">
+                        {{ $upcomingBooking['barber'] }} &bull; Master Barber
+                    </p>
                 </div>
-                <a href="{{ route('user.booking.create') }}" class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white text-xs font-bold uppercase tracking-wider transition">
-                    + Reservasi Baru
-                </a>
-            </div>
 
-            @if(isset($upcomingBooking))
-                <div class="p-5 rounded-2xl bg-slate-950 border border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-4">
-                    <div class="space-y-2">
-                        <div class="flex items-center gap-2">
-                            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
-                                Terkonfirmasi
-                            </span>
-                            <span class="text-xs font-mono text-slate-400">{{ $upcomingBooking['id'] }}</span>
-                        </div>
-                        <h4 class="text-xl font-black text-white">{{ $upcomingBooking['service'] }}</h4>
-                        <div class="flex flex-wrap items-center gap-4 text-xs text-slate-300">
-                            <span class="flex items-center gap-1.5">
-                                <i class="bi bi-person-fill text-amber-400"></i> Barber: <strong>{{ $upcomingBooking['barber'] }}</strong>
-                            </span>
-                            <span class="flex items-center gap-1.5">
-                                <i class="bi bi-clock-fill text-amber-400"></i> <strong>{{ $upcomingBooking['date'] }} &bull; {{ $upcomingBooking['time'] }}</strong>
-                            </span>
-                            <span class="text-amber-400 font-bold">
-                                {{ $upcomingBooking['price'] }}
-                            </span>
-                        </div>
+                {{-- Date, Time & Price --}}
+                <div class="flex flex-wrap items-center gap-3 sm:gap-4 text-xs sm:text-sm text-[#9CA3AF]">
+                    <div class="flex items-center gap-1.5">
+                        <i class="bi bi-calendar text-[#D4A72C]/80"></i>
+                        <span class="text-[#F5F5F5]">{{ $upcomingBooking['date'] }}</span>
                     </div>
-
-                    <div class="flex items-center gap-2 shrink-0">
-                        <a href="https://wa.me/6281234567890?text=Halo%20Rusdi%20Barbershop,%20saya%20ingin%20reschedule%20booking%20{{ $upcomingBooking['id'] }}" target="_blank"
-                           class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold transition flex items-center gap-1">
-                            <i class="bi bi-whatsapp text-emerald-400"></i> Ubah Jam
-                        </a>
-                        <button type="button" onclick="alert('Petunjuk: Tunjukkan booking ini ke kasir/barber saat tiba.')"
-                                class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 text-xs font-black transition shadow">
-                            Lihat Tiket QR
-                        </button>
+                    <span class="text-white/20 hidden sm:inline">&bull;</span>
+                    <div class="flex items-center gap-1.5">
+                        <i class="bi bi-clock text-[#D4A72C]/80"></i>
+                        <span class="text-[#F5F5F5]">{{ $upcomingBooking['time'] }} WIB</span>
                     </div>
+                    <span class="text-white/20 hidden sm:inline">&bull;</span>
+                    <span class="font-bold text-[#D4A72C] font-mono text-sm sm:text-base">
+                        {{ $upcomingBooking['price'] }}
+                    </span>
                 </div>
-            @else
-                <div class="p-8 text-center bg-slate-950 rounded-2xl border border-slate-800">
-                    <p class="text-sm text-slate-400 mb-3">Anda belum memiliki jadwal reservasi aktif saat ini.</p>
-                    <a href="{{ route('user.booking.create') }}" class="inline-block px-5 py-2.5 bg-red-600 text-white text-xs font-bold uppercase tracking-wider rounded-xl">
-                        Pesan Jadwal Cukur Sekarang
+
+                {{-- Action Buttons --}}
+                <div class="flex items-center gap-2 pt-3 md:pt-0 border-t md:border-t-0 border-white/[0.06]">
+                    <button type="button" 
+                            onclick="alert('Tunjukkan booking ID ini saat tiba di barbershop: #{{ $upcomingBooking['id'] }}')"
+                            class="px-3.5 py-2 rounded-lg bg-[#151B26] hover:bg-[#1c2433] text-xs font-medium text-[#F5F5F5] border border-white/[0.08] transition flex items-center gap-1.5">
+                        <i class="bi bi-ticket-perforated text-xs text-[#9CA3AF]"></i>
+                        <span>View Ticket</span>
+                    </button>
+                    <a href="https://wa.me/6281234567890?text=Halo%20Rusdi%20Barbershop,%20saya%20ingin%20reschedule%20booking%20{{ $upcomingBooking['id'] }}" 
+                       target="_blank"
+                       class="px-3.5 py-2 rounded-lg bg-[#151B26] hover:bg-[#1c2433] text-xs font-medium text-[#9CA3AF] hover:text-[#F5F5F5] border border-white/[0.08] transition flex items-center gap-1.5">
+                        <i class="bi bi-whatsapp text-emerald-400 text-xs"></i>
+                        <span>Reschedule</span>
                     </a>
                 </div>
-            @endif
+            </div>
+        </section>
+    @else
+        {{-- Clean & Compact Empty State --}}
+        <section class="rounded-2xl bg-[#111827] border border-white/[0.06] p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+                <span class="text-[11px] font-semibold uppercase tracking-wider text-[#9CA3AF] block mb-1">
+                    NEXT APPOINTMENT
+                </span>
+                <h2 class="text-base font-semibold text-[#F5F5F5]">Belum ada jadwal cukur mendatang</h2>
+                <p class="text-xs text-[#9CA3AF] mt-0.5">Reservasi sesi grooming Anda dengan barber pilihan.</p>
+            </div>
+            <a href="{{ route('user.booking.create') }}" 
+               class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-[#D4A72C] hover:bg-[#c49826] text-black font-semibold text-xs uppercase tracking-wider transition self-start sm:self-auto shrink-0">
+                <i class="bi bi-calendar-plus"></i>
+                <span>Booking Cukur</span>
+            </a>
+        </section>
+    @endif
 
-            {{-- Riwayat Booking Singkat --}}
-            <div class="mt-6 pt-6 border-t border-slate-800">
-                <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">Riwayat Potong Rambut Terakhir</h4>
-                <div class="divide-y divide-slate-800/60">
-                    @foreach($pastBookings ?? [] as $history)
-                        <div class="py-3 flex items-center justify-between text-xs">
-                            <div>
-                                <span class="font-bold text-slate-200">{{ $history['service'] }}</span>
-                                <span class="text-slate-500 text-[11px] block">Barber: {{ $history['barber'] }} &bull; {{ $history['date'] }}</span>
-                            </div>
-                            <div class="text-right">
-                                <span class="text-amber-400 font-semibold">{{ $history['price'] }}</span>
-                                <div class="text-[10px] text-yellow-400">
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
+    {{-- ========================================================================= --}}
+    {{-- 3. LOYALTY REWARD (HORIZONTAL PROGRESS)                                   --}}
+    {{-- ========================================================================= --}}
+    <section class="rounded-2xl bg-[#111827] border border-white/[0.06] p-5 sm:p-6 space-y-3.5">
+        <div class="flex items-start justify-between">
+            <div>
+                <span class="text-[11px] font-semibold uppercase tracking-wider text-[#9CA3AF] block">
+                    LOYALTY REWARD
+                </span>
+                <div class="text-base sm:text-lg font-bold text-[#F5F5F5] mt-0.5">
+                    {{ $currentStamps }} / {{ $maxStamps }} Visits
+                </div>
+            </div>
+            <div class="text-right">
+                <span class="text-[11px] font-semibold uppercase tracking-wider text-[#9CA3AF] block">
+                    Loyalty Points
+                </span>
+                <div class="text-base sm:text-lg font-bold text-[#D4A72C] font-mono mt-0.5">
+                    {{ number_format($member['loyalty_points'] ?? 380, 0, ',', '.') }}
+                    <span class="text-xs font-normal text-[#9CA3AF] font-sans ml-0.5">Pts</span>
                 </div>
             </div>
         </div>
 
-        {{-- Profil Gaya Rambut Favorit Pelanggan (1 Col) --}}
-        <div class="space-y-6">
-            <div class="bg-slate-900 rounded-3xl border border-slate-800 p-6 shadow-xl space-y-4">
-                <h3 class="text-base font-bold text-white flex items-center gap-2">
-                    <i class="bi bi-journal-bookmark-fill text-amber-400"></i> Gaya Rambut Favorit
-                </h3>
-                
-                <div class="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-3">
-                    <div>
-                        <span class="text-[10px] uppercase font-bold text-slate-500 tracking-wider">Model Cukuran Pilihan</span>
-                        <p class="text-sm font-bold text-amber-400">{{ $member['favorite_style'] ?? 'Taper Fade + Textured Quiff' }}</p>
-                    </div>
-                    <div>
-                        <span class="text-[10px] uppercase font-bold text-slate-500 tracking-wider">Kapster Andalan</span>
-                        <p class="text-sm font-bold text-slate-200">{{ $member['favorite_barber'] ?? 'Mas Rusdi (Master Barber)' }}</p>
-                    </div>
-                    <div>
-                        <span class="text-[10px] uppercase font-bold text-slate-500 tracking-wider">Produk Styling Suka</span>
-                        <p class="text-sm font-bold text-slate-200">Matte Clay Pomade (Waterbased)</p>
-                    </div>
-                </div>
+        {{-- Single Horizontal Progress Bar --}}
+        <div class="w-full bg-[#151B26] h-2 rounded-full overflow-hidden border border-white/[0.04]">
+            <div class="bg-[#D4A72C] h-full rounded-full transition-all duration-300" 
+                 style="width: {{ $progressPercent }}%;"></div>
+        </div>
 
-                <p class="text-xs text-slate-400 leading-relaxed">
-                    Data preferensi ini otomatis dibaca oleh barber Anda agar hasil cukuran selalu konsisten dan sesuai selera!
-                </p>
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between text-xs text-[#9CA3AF] gap-2 pt-0.5">
+            <div>
+                @if($remainingStamps > 0)
+                    <span><strong class="font-medium text-[#F5F5F5]">{{ $remainingStamps }} visits remaining</strong> &bull; Free Grooming Treatment</span>
+                @else
+                    <span class="text-emerald-400 font-medium"><i class="bi bi-gift-fill mr-1"></i> Reward siap diklaim: Free Grooming Treatment</span>
+                @endif
             </div>
+            <a href="{{ route('user.booking.create') }}" class="text-[#D4A72C] hover:underline flex items-center gap-1 font-medium self-start sm:self-auto">
+                <span>Book visit</span>
+                <i class="bi bi-arrow-right text-[11px]"></i>
+            </a>
+        </div>
+    </section>
 
-            {{-- Promo Voucher Box --}}
-            <div class="p-6 rounded-3xl bg-gradient-to-br from-red-600 to-red-800 text-white shadow-xl space-y-3">
-                <div class="flex items-center justify-between">
-                    <span class="text-[10px] font-black bg-white/20 px-2.5 py-1 rounded-full uppercase tracking-wider flex items-center gap-1">
-                        <i class="bi bi-ticket-perforated-fill"></i> Kupon Spesial
-                    </span>
-                    <span class="text-xs font-mono font-bold">HEMAT20K</span>
-                </div>
-                <h4 class="text-lg font-black leading-tight">Diskon Rp 20.000 untuk Royal Grooming</h4>
-                <p class="text-xs text-red-100">Berlaku untuk booking sesi weekdays (Senin - Kamis).</p>
-                <a href="{{ route('user.booking.create') }}" class="block text-center py-2 bg-white text-slate-950 text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-slate-100 transition shadow">
-                    Gunakan Kupon Ini
+    {{-- ========================================================================= --}}
+    {{-- 4. RECENT VISITS & MEMBER INFORMATION                                     --}}
+    {{-- ========================================================================= --}}
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6 items-start">
+
+        {{-- Kiri: Recent Visits (7 Columns) --}}
+        <section class="lg:col-span-7 rounded-2xl bg-[#111827] border border-white/[0.06] p-5 sm:p-6 space-y-4">
+            <div class="flex items-center justify-between pb-3 border-b border-white/[0.06]">
+                <h3 class="text-xs font-semibold uppercase tracking-wider text-[#9CA3AF]">
+                    RECENT VISITS
+                </h3>
+                <a href="{{ route('user.bookings.index') }}" class="text-xs text-[#9CA3AF] hover:text-[#D4A72C] transition inline-flex items-center gap-1 font-medium">
+                    <span>View History</span>
+                    <i class="bi bi-arrow-right text-[10px]"></i>
                 </a>
             </div>
+
+            <div class="divide-y divide-white/[0.04]">
+                @forelse(($pastBookings ?? collect())->take(4) as $history)
+                    <div class="py-3 first:pt-0 last:pb-0 flex items-center justify-between gap-4 text-xs sm:text-sm">
+                        <div class="space-y-0.5">
+                            <h4 class="font-medium text-[#F5F5F5]">{{ $history['service'] }}</h4>
+                            <p class="text-xs text-[#9CA3AF]">
+                                {{ $history['barber'] }} &bull; {{ $history['date'] }}
+                            </p>
+                        </div>
+                        <div class="text-right space-y-0.5 shrink-0">
+                            <span class="font-mono font-medium text-[#F5F5F5] block">{{ $history['price'] }}</span>
+                            <div class="flex text-[10px] text-[#D4A72C] justify-end gap-0.5">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                            </div>
+                        </div>
+                    </div>
+                @empty
+                    <div class="py-6 text-center text-xs text-[#9CA3AF]">
+                        Belum ada riwayat kunjungan.
+                    </div>
+                @endforelse
+            </div>
+        </section>
+
+        {{-- Kanan: Member Profile & Your Style (5 Columns) --}}
+        <div class="lg:col-span-5 space-y-5">
+            <section class="rounded-2xl bg-[#111827] border border-white/[0.06] p-5 space-y-4">
+                <div class="pb-3 border-b border-white/[0.06]">
+                    <span class="text-[11px] font-semibold uppercase tracking-wider text-[#9CA3AF] block">
+                        MEMBER PROFILE
+                    </span>
+                    <div class="flex items-center justify-between mt-1">
+                        <h3 class="text-base font-semibold text-[#F5F5F5]">{{ $member['name'] ?? 'Dimas Pratama' }}</h3>
+                        <span class="text-[11px] font-medium text-[#D4A72C] bg-[#D4A72C]/10 border border-[#D4A72C]/20 px-2 py-0.5 rounded-full">
+                            {{ $member['tier'] ?? 'Gold VIP Member' }}
+                        </span>
+                    </div>
+                    <p class="text-xs font-mono text-[#9CA3AF] mt-0.5">{{ $memberId }}</p>
+                </div>
+
+                {{-- Your Style Section --}}
+                <div class="space-y-2">
+                    <span class="text-[11px] font-semibold uppercase tracking-wider text-[#9CA3AF] block">
+                        YOUR STYLE
+                    </span>
+                    <div class="p-3.5 rounded-xl bg-[#151B26] border border-white/[0.04] space-y-1">
+                        <p class="text-xs font-medium text-[#F5F5F5] flex items-center gap-1.5">
+                            <i class="bi bi-scissors text-[#D4A72C] text-xs"></i>
+                            <span>{{ $member['favorite_style'] ?? 'Taper Fade + Textured Quiff' }}</span>
+                        </p>
+                        <p class="text-xs text-[#9CA3AF]">
+                            Preferred Barber: <span class="text-[#F5F5F5] font-medium">{{ $member['favorite_barber'] ?? 'Mas Rusdi' }}</span>
+                        </p>
+                    </div>
+                </div>
+
+                {{-- Quick Actions --}}
+                <div class="pt-2 flex items-center gap-2">
+                    <a href="{{ route('user.booking.create') }}" 
+                       class="flex-1 py-2 text-center rounded-lg bg-[#D4A72C] hover:bg-[#c49826] text-black font-semibold text-xs tracking-wider uppercase transition">
+                        Booking
+                    </a>
+                    <a href="{{ route('user.bookings.index') }}" 
+                       class="flex-1 py-2 text-center rounded-lg bg-[#151B26] hover:bg-[#1c2433] text-[#9CA3AF] hover:text-[#F5F5F5] font-medium text-xs border border-white/[0.08] transition uppercase">
+                        History
+                    </a>
+                </div>
+            </section>
         </div>
 
     </div>
