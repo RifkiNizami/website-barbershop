@@ -222,4 +222,61 @@ class UserController extends Controller
 
         return redirect()->route('user.dashboard')->with('success', 'Booking '.$booking->booking_code.' berhasil dibatalkan.');
     }
+
+    /**
+     * Simpan Booking Langsung dari Form Katalog Landing Page
+     */
+    public function storePublicBooking(Request $request)
+    {
+        $validated = $request->validate([
+            'nama_pelanggan' => 'required|string|max:100',
+            'no_whatsapp' => 'required|string|max:30',
+            'layanan' => 'required|string|max:150',
+            'barber' => 'nullable|string|max:100',
+            'tanggal' => 'required|date',
+            'jam' => 'required|string|max:30',
+            'model_rambut' => 'nullable|string|max:100',
+            'catatan' => 'nullable|string|max:500',
+            'foto_referensi' => 'nullable|image|max:3072',
+        ]);
+
+        $svc = Service::where('nama_layanan', $validated['layanan'])->first();
+        $harga = $svc ? $svc->harga : 55000;
+
+        $fotoPath = null;
+        if ($request->hasFile('foto_referensi')) {
+            $file = $request->file('foto_referensi');
+            $filename = 'ref_'.time().'_'.rand(100, 999).'.'.$file->getClientOriginalExtension();
+            $file->move(public_path('uploads/referensi'), $filename);
+            $fotoPath = 'uploads/referensi/'.$filename;
+        }
+
+        $note = '';
+        if (!empty($validated['model_rambut'])) {
+            $note .= '[Model Katalog: '.$validated['model_rambut'].'] ';
+        }
+        if (!empty($validated['catatan'])) {
+            $note .= $validated['catatan'];
+        }
+        if ($fotoPath) {
+            $note .= ' [Foto Referensi: '.$fotoPath.']';
+        }
+
+        $bookingCode = 'BK-'.rand(1000, 9999);
+        Booking::create([
+            'booking_code' => $bookingCode,
+            'nama_pelanggan' => $validated['nama_pelanggan'],
+            'no_whatsapp' => $validated['no_whatsapp'],
+            'layanan' => $validated['layanan'],
+            'barber' => $validated['barber'] ?: 'Rusdi (Master Barber)',
+            'tanggal' => $validated['tanggal'],
+            'jam' => $validated['jam'],
+            'catatan' => trim($note),
+            'harga' => $harga,
+            'status' => 'pending',
+            'user_id' => Auth::check() ? Auth::id() : null,
+        ]);
+
+        return redirect()->to(url('/#katalog'))->with('catalog_success', 'Booking berhasil dibuat untuk '.$validated['nama_pelanggan'].' (Kode: '.$bookingCode.'). Kapster kami akan segera menghubungi Anda via WhatsApp!');
+    }
 }
