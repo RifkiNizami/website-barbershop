@@ -37,6 +37,14 @@ class Booking extends Model
     }
 
     /**
+     * Relasi Eloquent ORM: Booking memiliki satu Payment
+     */
+    public function payment()
+    {
+        return $this->hasOne(Payment::class, 'booking_id', 'id');
+    }
+
+    /**
      * Contoh Eloquent Query Scope
      */
     public function scopeActive($query)

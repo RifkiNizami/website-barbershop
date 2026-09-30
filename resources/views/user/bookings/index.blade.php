@@ -33,10 +33,15 @@
                 </thead>
                 <tbody class="divide-y divide-gray-800/80 font-normal">
                     @forelse($bookings as $b)
-                    <tr class="hover:bg-gray-800/40 transition">
-                        <td class="px-6 py-4 font-mono font-bold text-amber-400">#{{ $b->booking_code }}</td>
+                    <tr class="hover:bg-gray-800/60 transition cursor-pointer group" onclick="if(!event.target.closest('a, button')) window.location='{{ route('user.bookings.show', $b->id) }}'">
+                        <td class="px-6 py-4 font-mono font-bold text-amber-400 group-hover:text-amber-300">
+                            <a href="{{ route('user.bookings.show', $b->id) }}" class="hover:underline flex items-center gap-1">
+                                <span>#{{ $b->booking_code }}</span>
+                                <i class="bi bi-box-arrow-up-right text-[10px] opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                            </a>
+                        </td>
                         <td class="px-6 py-4">
-                            <span class="font-bold text-white block">{{ $b->layanan }}</span>
+                            <a href="{{ route('user.bookings.show', $b->id) }}" class="font-bold text-white block group-hover:text-amber-400 transition-colors">{{ $b->layanan }}</a>
                             @if($b->catatan)
                             <span class="text-xs text-gray-400">Catatan: {{ Str::limit($b->catatan, 35) }}</span>
                             @endif
@@ -49,7 +54,7 @@
                         <td class="px-6 py-4 text-xs font-semibold text-gray-200">
                             {{ $b->tanggal ? $b->tanggal->format('d M Y') : '-' }} &bull; {{ $b->jam }}
                         </td>
-                        <td class="px-6 py-4 font-bold text-amber-400">
+                        <td class="px-6 py-4 font-bold text-amber-400 font-mono">
                             Rp {{ number_format($b->harga, 0, ',', '.') }}
                         </td>
                         <td class="px-6 py-4">
@@ -72,9 +77,26 @@
                             @endif
                         </td>
                         <td class="px-6 py-4 text-right">
-                            <a href="https://wa.me/6281234567890?text=Halo%20Rusdi%20Barbershop,%20saya%20ingin%20tanya%20booking%20{{ $b->booking_code }}" target="_blank" class="text-xs text-amber-400 hover:underline font-bold">
-                                WhatsApp &rarr;
-                            </a>
+                            <div class="flex items-center justify-end gap-1.5">
+                                <a href="{{ route('user.bookings.show', $b->id) }}" 
+                                   title="Lihat Detail Appointment"
+                                   class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-gray-800 hover:bg-gray-700 text-xs font-semibold text-gray-200 hover:text-white transition">
+                                    <i class="bi bi-eye"></i>
+                                    <span class="hidden sm:inline">Detail</span>
+                                </a>
+                                <a href="{{ route('user.payment.show', $b->id) }}" 
+                                   title="Lihat Tagihan & Barcode"
+                                   class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 text-xs font-semibold text-amber-400 border border-amber-500/20 transition">
+                                    <i class="bi bi-receipt"></i>
+                                    <span class="hidden sm:inline">Tagihan</span>
+                                </a>
+                                <a href="https://wa.me/6281234567890?text=Halo%20Black%20Round%20Barbershop,%20saya%20ingin%20tanya%20booking%20{{ $b->booking_code }}" 
+                                   target="_blank" 
+                                   title="WhatsApp Barbershop"
+                                   class="p-1.5 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/20 transition">
+                                    <i class="bi bi-whatsapp"></i>
+                                </a>
+                            </div>
                         </td>
                     </tr>
                     @empty

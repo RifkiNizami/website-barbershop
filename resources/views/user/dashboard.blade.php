@@ -81,12 +81,11 @@
 
                 {{-- Action Buttons --}}
                 <div class="flex items-center gap-2 pt-3 md:pt-0 border-t md:border-t-0 border-white/[0.06]">
-                    <button type="button"
-                            onclick="alert('Tunjukkan booking ID ini saat tiba di barbershop: #{{ $upcomingBooking['id'] }}')"
-                            class="px-3.5 py-2 rounded-lg bg-[#151B26] hover:bg-[#1c2433] text-xs font-medium text-[#F5F5F5] border border-white/[0.08] transition flex items-center gap-1.5">
-                        <i class="bi bi-ticket-perforated text-xs text-[#9CA3AF]"></i>
-                        <span>View Ticket</span>
-                    </button>
+                    <a href="{{ route('user.payment.show', $upcomingBooking['db_id']) }}"
+                       class="px-3.5 py-2 rounded-lg bg-[#151B26] hover:bg-[#1c2433] text-xs font-medium text-[#F5F5F5] border border-white/[0.08] transition flex items-center gap-1.5 hover:text-[#D4A72C]">
+                        <i class="bi bi-receipt text-xs text-[#D4A72C]"></i>
+                        <span>View Ticket & Barcode</span>
+                    </a>
                     <a href="https://wa.me/6281234567890?text=Halo%20Rusdi%20Barbershop,%20saya%20ingin%20reschedule%20booking%20{{ $upcomingBooking['id'] }}"
                        target="_blank"
                        class="px-3.5 py-2 rounded-lg bg-[#151B26] hover:bg-[#1c2433] text-xs font-medium text-[#9CA3AF] hover:text-[#F5F5F5] border border-white/[0.08] transition flex items-center gap-1.5">
@@ -178,9 +177,13 @@
 
             <div class="divide-y divide-white/[0.04]">
                 @forelse(($pastBookings ?? collect())->take(4) as $history)
-                    <div class="py-3 first:pt-0 last:pb-0 flex items-center justify-between gap-4 text-xs sm:text-sm">
+                    <a href="{{ isset($history['db_id']) ? route('user.bookings.show', $history['db_id']) : route('user.bookings.index') }}" 
+                       class="py-3 first:pt-0 last:pb-0 flex items-center justify-between gap-4 text-xs sm:text-sm group hover:bg-white/[0.02] -mx-2 px-2 rounded-xl transition">
                         <div class="space-y-0.5">
-                            <h4 class="font-medium text-[#F5F5F5]">{{ $history['service'] }}</h4>
+                            <h4 class="font-medium text-[#F5F5F5] group-hover:text-[#D4A72C] transition-colors flex items-center gap-1.5">
+                                <span>{{ $history['service'] }}</span>
+                                <i class="bi bi-chevron-right text-[10px] text-[#9CA3AF] opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                            </h4>
                             <p class="text-xs text-[#9CA3AF]">
                                 {{ $history['barber'] }} &bull; {{ $history['date'] }}
                             </p>
@@ -195,7 +198,7 @@
                                 <i class="bi bi-star-fill"></i>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 @empty
                     <div class="py-6 text-center text-xs text-[#9CA3AF]">
                         Belum ada riwayat kunjungan.

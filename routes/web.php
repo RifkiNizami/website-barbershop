@@ -36,7 +36,13 @@ Route::prefix('user')->name('user.')->group(function () {
     Route::get('/booking/tambah', [UserController::class, 'createBooking'])->name('booking.create');
     Route::post('/booking', [UserController::class, 'storeBooking'])->name('booking.store');
     Route::get('/riwayat', [UserController::class, 'bookingsIndex'])->name('bookings.index');
+    Route::get('/riwayat/{id}', [UserController::class, 'showBooking'])->name('bookings.show');
     Route::get('/booking', [UserController::class, 'bookingsIndex']);
+    Route::get('/booking/{id}', [UserController::class, 'showBooking']);
+    Route::delete('/booking/{id}', [UserController::class, 'destroyBooking'])->name('booking.destroy');
+
+    // Nota Tagihan & Barcode Pembayaran
+    Route::get('/payment/{id?}', [UserController::class, 'showPayment'])->name('payment.show');
 });
 
 // ==========================================

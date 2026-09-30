@@ -45,9 +45,16 @@
 
                     {{-- Riwayat Cukur --}}
                     <a href="{{ route('user.bookings.index') }}" 
-                       class="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs font-medium transition-colors {{ request()->routeIs('user.bookings.index') ? 'bg-[#D4A72C]/10 text-[#D4A72C]' : 'text-[#9CA3AF] hover:text-[#F5F5F5] hover:bg-white/[0.03]' }}">
-                        <i class="bi bi-clock-history text-sm {{ request()->routeIs('user.bookings.index') ? 'text-[#D4A72C]' : 'text-[#9CA3AF]' }}"></i>
+                       class="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs font-medium transition-colors {{ request()->routeIs('user.bookings*') ? 'bg-[#D4A72C]/10 text-[#D4A72C]' : 'text-[#9CA3AF] hover:text-[#F5F5F5] hover:bg-white/[0.03]' }}">
+                        <i class="bi bi-clock-history text-sm {{ request()->routeIs('user.bookings*') ? 'text-[#D4A72C]' : 'text-[#9CA3AF]' }}"></i>
                         <span>Riwayat Cukur</span>
+                    </a>
+
+                    {{-- Tagihan & Barcode Pembayaran --}}
+                    <a href="{{ route('user.payment.show') }}" 
+                       class="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs font-medium transition-colors {{ request()->routeIs('user.payment*') ? 'bg-[#D4A72C]/10 text-[#D4A72C]' : 'text-[#9CA3AF] hover:text-[#F5F5F5] hover:bg-white/[0.03]' }}">
+                        <i class="bi bi-receipt-cutoff text-sm {{ request()->routeIs('user.payment*') ? 'text-[#D4A72C]' : 'text-[#9CA3AF]' }}"></i>
+                        <span>Tagihan & Barcode</span>
                     </a>
                 </nav>
             </div>
@@ -80,7 +87,7 @@
         use Illuminate\Support\Facades\Auth;
         $sidebarUser     = Auth::user();
         $sidebarTotal    = $sidebarUser
-            ? Booking::where('user_id', $sidebarUser->user_id)->whereNotIn('status', ['cancelled'])->count()
+            ? Booking::where('user_id', $sidebarUser->user_id)->where('status', 'completed')->count()
             : 0;
         $sidebarStamps   = $sidebarTotal % 10;
         $sidebarRemain   = 10 - $sidebarStamps;

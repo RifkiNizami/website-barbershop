@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Booking;
+use App\Models\Payment;
 use App\Models\Service;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -116,10 +117,7 @@ class UserController extends Controller
             ? Booking::where('user_id', $currentUser->user_id)
             : Booking::whereNull('user_id');
 
-        // Hitung kunjungan valid: semua booking kecuali yang dibatalkan
-        $totalCompleted = (clone $userBookingQuery)
-            ->whereNotIn('status', ['cancelled'])
-            ->count();
+        $totalCompleted = (clone $userBookingQuery)->where('status', 'completed')->count();
 
         // Modulo 10: count resets after reaching 10 (0-9 stamps in current cycle)
         $stamps = $totalCompleted % 10;
@@ -156,6 +154,7 @@ class UserController extends Controller
         $pastBookings = (clone $userBookingQuery)->latest()->take(5)->get()->map(function ($b) {
             return [
                 'id' => $b->booking_code,
+                'db_id' => $b->id,
                 'service' => $b->layanan,
                 'barber' => $b->barber,
                 'date' => $b->tanggal ? $b->tanggal->format('d M Y') : '-',
@@ -217,9 +216,75 @@ class UserController extends Controller
      */
     public function bookingsIndex()
     {
-        $bookings = Booking::latest()->paginate(8);
+        $currentUser = Auth::user();
+
+        $query = $currentUser
+            ? Booking::where('user_id', $currentUser->user_id)
+            : Booking::query();
+
+        $bookings = $query->latest()->paginate(8);
 
         return view('user.bookings.index', compact('bookings'));
+    }
+
+    /**
+     * Detail Appointment / Reservasi Cukur
+     */
+    public function showBooking($id)
+    {
+        $booking = Booking::with('payment')->findOrFail($id);
+        $currentUser = Auth::user();
+
+        return view('user.bookings.show', compact('booking', 'currentUser'));
+    }
+
+    /**
+     * Halaman Tagihan Pembayaran & Barcode Validasi (Payment Bill)
+     */
+    public function showPayment($id = null)
+    {
+        $currentUser = Auth::user();
+
+        if ($id) {
+            $booking = Booking::with('payment')->findOrFail($id);
+        } else {
+            // Jika tanpa ID, ambil booking aktif / mendatang milik user, atau booking terakhir
+            $query = $currentUser
+                ? Booking::where('user_id', $currentUser->user_id)
+                : Booking::query();
+
+            $booking = (clone $query)->whereIn('status', ['confirmed', 'pending'])->latest()->first();
+
+            if (!$booking) {
+                $booking = (clone $query)->latest()->first();
+            }
+        }
+
+        if (!$booking) {
+            return redirect()->route('user.bookings.index')->with('error', 'Tidak ada data reservasi untuk membuat tagihan pembayaran.');
+        }
+
+        // Pastikan entitas payment tersinkronisasi di tabel payment
+        $payment = Payment::firstOrCreate(
+            ['booking_id' => $booking->id],
+            [
+                'payment_method' => 'Cash / QRIS di Kasir',
+                'amount' => $booking->harga,
+                'payment_status' => ($booking->status === 'completed' ? 'paid' : 'unpaid'),
+                'payment_date' => ($booking->status === 'completed' ? now() : null),
+                'transaction_code' => 'TRX-' . strtoupper(substr(md5($booking->booking_code . $booking->id), 0, 8)),
+            ]
+        );
+
+        // Jika status booking completed tapi status payment masih unpaid, sinkronkan
+        if ($booking->status === 'completed' && $payment->payment_status !== 'paid') {
+            $payment->update([
+                'payment_status' => 'paid',
+                'payment_date' => $payment->payment_date ?? now(),
+            ]);
+        }
+
+        return view('user.payment.payment', compact('booking', 'payment', 'currentUser'));
     }
 
     /**
@@ -230,6 +295,6 @@ class UserController extends Controller
         $booking = Booking::findOrFail($id);
         $booking->update(['status' => 'cancelled']);
 
-        return redirect()->route('user.dashboard')->with('success', 'Booking '.$booking->booking_code.' berhasil dibatalkan.');
+        return redirect()->route('user.bookings.index')->with('success', 'Booking '.$booking->booking_code.' berhasil dibatalkan.');
     }
 }
