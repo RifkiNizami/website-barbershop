@@ -1,21 +1,4 @@
 @if (session('success'))
-    <div class="mx-4 md:mx-6 mt-4 p-3 rounded-md bg-emerald-950/80 border border-emerald-800 text-emerald-300 text-xs flex items-center justify-between alert-auto-close">
-        <div class="flex items-center gap-2">
-            <span>✓</span>
-            <span>{{ session('success') }}</span>
-        </div>
-        <button onclick="this.parentElement.remove()" class="text-emerald-400 hover:text-white">&times;</button>
-    </div>
-@endif
-
-@if (session('error'))
-    <div class="mx-4 md:mx-6 mt-4 p-3 rounded-md bg-red-950/80 border border-red-800 text-red-300 text-xs flex items-center justify-between alert-auto-close">
-        <div class="flex items-center gap-2">
-            <span>⚠️</span>
-            <span>{{ session('error') }}</span>
-        </div>
-        <button onclick="this.parentElement.remove()" class="text-red-400 hover:text-white">&times;</button>
-    </div>
 <div class="alert alert--success" role="alert" id="flashAlert">
     <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
     <p class="alert-text">{{ session('success') }}</p>
