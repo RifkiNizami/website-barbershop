@@ -86,7 +86,6 @@ class UserController extends Controller
             'role' => 'customer',
         ]);
 
-
         return redirect()->route('login')->with('success', 'Pendaftaran Member Berhasil! ');
     }
 
@@ -252,10 +251,10 @@ class UserController extends Controller
         }
 
         $note = '';
-        if (!empty($validated['model_rambut'])) {
+        if (! empty($validated['model_rambut'])) {
             $note .= '[Model Katalog: '.$validated['model_rambut'].'] ';
         }
-        if (!empty($validated['catatan'])) {
+        if (! empty($validated['catatan'])) {
             $note .= $validated['catatan'];
         }
         if ($fotoPath) {

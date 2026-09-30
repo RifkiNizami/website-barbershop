@@ -3,12 +3,15 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DatabaseDemoController;
 use App\Http\Controllers\UserController;
+use App\Models\Service;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 // 1. Landing Page & Katalog
 Route::get('/', function () {
-    $services = App\Models\Service::where('is_active', true)->get();
-    $barbers = Illuminate\Support\Facades\DB::table('barbers')->get();
+    $services = Service::where('is_active', true)->get();
+    $barbers = DB::table('barbers')->get();
+
     return view('welcome', compact('services', 'barbers'));
 })->name('home');
 

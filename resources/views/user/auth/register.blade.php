@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id" class="h-full">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +10,8 @@
     {{-- Google Fonts --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
 
     {{-- Bootstrap Icons --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -17,7 +19,9 @@
     {{-- Vite Assets Khusus Halaman Auth/Register --}}
     @vite(['resources/css/login.css', 'resources/js/login.js'])
 </head>
-<body class="bg-black text-zinc-100 min-h-screen flex flex-col justify-between antialiased selection:bg-white selection:text-black">
+
+<body
+    class="bg-black text-zinc-100 min-h-screen flex flex-col justify-between antialiased selection:bg-white selection:text-black">
 
     {{-- Main Container (Full Viewport Height) --}}
     <main class="min-h-screen w-full flex items-center justify-center p-6 sm:p-10">
@@ -25,8 +29,10 @@
 
             {{-- Header --}}
             <div class="text-center space-y-2 js-animate-in">
-                <a href="{{ url('/') }}" class="inline-flex items-center gap-2 text-white font-extrabold text-lg uppercase">
-                    <span class="w-8 h-8 rounded-md bg-white text-black flex items-center justify-center text-sm font-black shadow-sm">
+                <a href="{{ url('/') }}"
+                    class="inline-flex items-center gap-2 text-white font-extrabold text-lg uppercase">
+                    <span
+                        class="w-8 h-8 rounded-md bg-white text-black flex items-center justify-center text-sm font-black shadow-sm">
                         <i class="bi bi-scissors"></i>
                     </span>
                     <span>BLACK CROWN</span>
@@ -40,7 +46,8 @@
 
                 {{-- Flash Messages --}}
                 @if (session('error'))
-                    <div class="p-3 rounded-md bg-zinc-900 border border-zinc-700 text-white text-xs flex items-center gap-2">
+                    <div
+                        class="p-3 rounded-md bg-zinc-900 border border-zinc-700 text-white text-xs flex items-center gap-2">
                         <i class="bi bi-exclamation-triangle-fill text-white shrink-0"></i>
                         <span>{{ session('error') }}</span>
                     </div>
@@ -66,11 +73,13 @@
                             Nama Lengkap <span class="text-white">*</span>
                         </label>
                         <div class="relative">
-                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-zinc-500">
+                            <div
+                                class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-zinc-500">
                                 <i class="bi bi-person text-xs"></i>
                             </div>
-                            <input type="text" id="nama_lengkap" name="nama_lengkap" value="{{ old('nama_lengkap') }}" placeholder="Contoh: Dimas Pratama" required
-                                   class="w-full pl-9 pr-3 py-2.5 bg-zinc-950 border border-zinc-800 rounded-md text-white text-sm focus:bg-zinc-950 focus:border-white focus:ring-1 focus:ring-white outline-none transition duration-150 placeholder:text-zinc-600">
+                            <input type="text" id="nama_lengkap" name="nama_lengkap" value="{{ old('nama_lengkap') }}"
+                                placeholder="Contoh: Dimas Pratama" required
+                                class="w-full pl-9 pr-3 py-2.5 bg-zinc-950 border border-zinc-800 rounded-md text-white text-sm focus:bg-zinc-950 focus:border-white focus:ring-1 focus:ring-white outline-none transition duration-150 placeholder:text-zinc-600">
                         </div>
                     </div>
 
@@ -80,11 +89,13 @@
                             Alamat Email <span class="text-white">*</span>
                         </label>
                         <div class="relative">
-                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-zinc-500">
+                            <div
+                                class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-zinc-500">
                                 <i class="bi bi-envelope text-xs"></i>
                             </div>
-                            <input type="email" id="email" name="email" value="{{ old('email') }}" placeholder="contoh@email.com" required
-                                   class="w-full pl-9 pr-3 py-2.5 bg-zinc-950 border border-zinc-800 rounded-md text-white text-sm focus:bg-zinc-950 focus:border-white focus:ring-1 focus:ring-white outline-none transition duration-150 placeholder:text-zinc-600">
+                            <input type="email" id="email" name="email" value="{{ old('email') }}"
+                                placeholder="contoh@email.com" required
+                                class="w-full pl-9 pr-3 py-2.5 bg-zinc-950 border border-zinc-800 rounded-md text-white text-sm focus:bg-zinc-950 focus:border-white focus:ring-1 focus:ring-white outline-none transition duration-150 placeholder:text-zinc-600">
                         </div>
                     </div>
 
@@ -94,11 +105,14 @@
                             Nomor WhatsApp / HP <span class="text-white">*</span>
                         </label>
                         <div class="relative">
-                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-zinc-500">
+                            <div
+                                class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-zinc-500">
                                 <i class="bi bi-whatsapp text-xs"></i>
                             </div>
-                            <input type="tel" id="no_whatsapp" name="no_whatsapp" value="{{ old('no_whatsapp') }}" placeholder="Contoh: 081234567890" inputmode="numeric" pattern="[0-9]+" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required
-                                   class="w-full pl-9 pr-3 py-2.5 bg-zinc-950 border border-zinc-800 rounded-md text-white text-sm focus:bg-zinc-950 focus:border-white focus:ring-1 focus:ring-white outline-none transition duration-150 placeholder:text-zinc-600">
+                            <input type="tel" id="no_whatsapp" name="no_whatsapp" value="{{ old('no_whatsapp') }}"
+                                placeholder="Contoh: 081234567890" inputmode="numeric" pattern="[0-9]+"
+                                oninput="this.value = this.value.replace(/[^0-9]/g, '')" required
+                                class="w-full pl-9 pr-3 py-2.5 bg-zinc-950 border border-zinc-800 rounded-md text-white text-sm focus:bg-zinc-950 focus:border-white focus:ring-1 focus:ring-white outline-none transition duration-150 placeholder:text-zinc-600">
                         </div>
                     </div>
 
@@ -108,11 +122,12 @@
                             Gaya Rambut Favorit <span class="text-zinc-500 font-normal">(Opsional)</span>
                         </label>
                         <div class="relative">
-                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-zinc-500">
+                            <div
+                                class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-zinc-500">
                                 <i class="bi bi-scissors text-xs"></i>
                             </div>
                             <select id="favorite_style" name="favorite_style"
-                                    class="w-full pl-9 pr-3 py-2.5 bg-zinc-950 border border-zinc-800 rounded-md text-white text-sm focus:bg-zinc-950 focus:border-white focus:ring-1 focus:ring-white outline-none transition appearance-none">
+                                class="w-full pl-9 pr-3 py-2.5 bg-zinc-950 border border-zinc-800 rounded-md text-white text-sm focus:bg-zinc-950 focus:border-white focus:ring-1 focus:ring-white outline-none transition appearance-none">
                                 <option value="">— Pilih gaya —</option>
                                 <option value="Classic Pompadour / Side Part">Classic Pompadour / Side Part</option>
                                 <option value="Taper Fade / Low Fade">Taper Fade / Low Fade</option>
@@ -129,17 +144,20 @@
                             Buat Kata Sandi <span class="text-white">*</span>
                         </label>
                         <div class="relative">
-                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-zinc-500">
+                            <div
+                                class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-zinc-500">
                                 <i class="bi bi-lock text-xs"></i>
                             </div>
-                            <input type="password" id="password" name="password" placeholder="Minimal 4 karakter" required
-                                   class="w-full pl-9 pr-3 py-2.5 bg-zinc-950 border border-zinc-800 rounded-md text-white text-sm focus:bg-zinc-950 focus:border-white focus:ring-1 focus:ring-white outline-none transition duration-150 placeholder:text-zinc-600">
+                            <input type="password" id="password" name="password" placeholder="Minimal 4 karakter"
+                                required
+                                class="w-full pl-9 pr-3 py-2.5 bg-zinc-950 border border-zinc-800 rounded-md text-white text-sm focus:bg-zinc-950 focus:border-white focus:ring-1 focus:ring-white outline-none transition duration-150 placeholder:text-zinc-600">
                         </div>
                     </div>
 
                     {{-- Submit Button --}}
                     <div class="pt-2">
-                        <button type="submit" class="btn-ripple w-full py-3 px-4 bg-white hover:bg-zinc-200 text-black font-black rounded-md text-xs uppercase tracking-wider transition duration-150 cursor-pointer flex items-center justify-center gap-2">
+                        <button type="submit"
+                            class="btn-ripple w-full py-3 px-4 bg-white hover:bg-zinc-200 text-black font-black rounded-md text-xs uppercase tracking-wider transition duration-150 cursor-pointer flex items-center justify-center gap-2">
                             <i class="bi bi-person-check-fill text-sm"></i>
                             <span>DAFTAR & BUKA MEMBER CARD</span>
                         </button>
@@ -150,7 +168,8 @@
                 <div class="pt-3 border-t border-zinc-900 text-center">
                     <p class="text-xs text-zinc-400">
                         Sudah memiliki akun?
-                        <a href="{{ route('login') }}" class="font-bold text-white hover:text-zinc-300 transition ml-1 underline">Masuk di sini</a>
+                        <a href="{{ route('login') }}"
+                            class="font-bold text-white hover:text-zinc-300 transition ml-1 underline">Masuk di sini</a>
                     </p>
                 </div>
 
@@ -162,4 +181,5 @@
     @include('partials.footer')
 
 </body>
+
 </html>
