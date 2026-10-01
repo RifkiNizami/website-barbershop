@@ -154,3 +154,37 @@ li:hover .price-dots {
     0%, 100% { box-shadow: 0 0 0 0 rgba(229, 57, 53, 0.4); }
     50% { box-shadow: 0 0 0 8px rgba(229, 57, 53, 0); }
 }
+
+/* Glass Navbar & Sliding Pill Navigation */
+.glass-nav {
+    background-color: rgba(9, 9, 11, 0.88) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.6) !important;
+}
+
+.sliding-pill-indicator {
+    position: absolute;
+    border-radius: 9999px;
+    background: linear-gradient(135deg, #e53935 0%, #b71c1c 100%);
+    box-shadow: 0 4px 14px rgba(229, 57, 53, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    transition: left 320ms cubic-bezier(0.25, 1, 0.5, 1),
+                width 320ms cubic-bezier(0.25, 1, 0.5, 1),
+                top 320ms cubic-bezier(0.25, 1, 0.5, 1),
+                height 320ms cubic-bezier(0.25, 1, 0.5, 1),
+                opacity 200ms ease;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.nav-pill-item {
+    position: relative;
+    z-index: 2;
+    transition: color 220ms ease, opacity 220ms ease;
+}
+
+.nav-pill-item.active-pill {
+    color: #ffffff !important;
+    font-weight: 700;
+}

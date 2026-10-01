@@ -8,33 +8,229 @@ document.addEventListener('DOMContentLoaded', () => {
         dateInput.min = today;
     }
 
-    // 2. Mobile Menu Toggle (Landing Page)
-    const mobileBtn = document.getElementById('mobileMenuBtn');
-    const mobileMenu = document.getElementById('mobileMenu');
-    if (mobileBtn && mobileMenu) {
-        mobileBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
+    // 2. Sliding Pill Navigation (Desktop & Tablet)
+    const slidingNav = document.getElementById('slidingNav');
+    const pillIndicator = document.getElementById('slidingPillIndicator');
+    const navItems = document.querySelectorAll('.nav-pill-item');
+    const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+    let currentActiveTarget = 'home';
+    let isHovering = false;
+
+    function movePillTo(element, animate = true) {
+        if (!element || !pillIndicator || !slidingNav) return;
+
+        const navRect = slidingNav.getBoundingClientRect();
+        const itemRect = element.getBoundingClientRect();
+
+        const left = itemRect.left - navRect.left;
+        const top = itemRect.top - navRect.top;
+        const width = itemRect.width;
+        const height = itemRect.height;
+
+        if (!animate) {
+            pillIndicator.style.transition = 'none';
+        } else {
+            pillIndicator.style.transition = 'left 320ms cubic-bezier(0.25, 1, 0.5, 1), width 320ms cubic-bezier(0.25, 1, 0.5, 1), top 320ms cubic-bezier(0.25, 1, 0.5, 1), height 320ms cubic-bezier(0.25, 1, 0.5, 1), opacity 200ms ease';
+        }
+
+        pillIndicator.style.left = `${left}px`;
+        pillIndicator.style.top = `${top}px`;
+        pillIndicator.style.width = `${width}px`;
+        pillIndicator.style.height = `${height}px`;
+        pillIndicator.style.opacity = '1';
+
+        if (!animate) {
+            pillIndicator.offsetHeight; // force reflow
+            pillIndicator.style.transition = '';
+        }
+    }
+
+    function setActivePill(target, animate = true) {
+        currentActiveTarget = target;
+        let activeEl = null;
+
+        navItems.forEach(item => {
+            const itemTarget = item.getAttribute('data-target');
+            if (itemTarget === target) {
+                activeEl = item;
+                item.classList.add('active-pill');
+                item.classList.add('text-white');
+                item.classList.remove('text-zinc-400');
+            } else {
+                item.classList.remove('active-pill');
+                if (!isHovering) {
+                    item.classList.remove('text-white');
+                    item.classList.add('text-zinc-400');
+                }
+            }
         });
 
-        document.querySelectorAll('.mobile-link').forEach(link => {
+        // Update mobile links style too
+        mobileLinks.forEach(link => {
+            const linkTarget = link.getAttribute('data-target');
+            if (linkTarget === target) {
+                link.classList.add('text-white', 'bg-barber-red/20', 'border-barber-red/30', 'font-bold');
+                link.classList.remove('text-zinc-400', 'font-medium', 'hover:bg-white/5');
+            } else {
+                link.classList.remove('text-white', 'bg-barber-red/20', 'border-barber-red/30', 'font-bold');
+                link.classList.add('text-zinc-400', 'font-medium', 'hover:bg-white/5');
+            }
+        });
+
+        if (activeEl && !isHovering) {
+            movePillTo(activeEl, animate);
+        }
+    }
+
+    if (slidingNav && pillIndicator && navItems.length > 0) {
+        // Position pill upon initial page load
+        const initPill = () => {
+            const initialHash = window.location.hash.replace('#', '') || 'home';
+            const matched = Array.from(navItems).find(i => i.getAttribute('data-target') === initialHash);
+            setActivePill(matched ? initialHash : 'home', false);
+        };
+        setTimeout(initPill, 60);
+        window.addEventListener('load', initPill);
+
+        // Hover events for sliding morphing pill container
+        navItems.forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                isHovering = true;
+                movePillTo(item, true);
+                navItems.forEach(el => {
+                    if (el === item) {
+                        el.classList.add('text-white');
+                        el.classList.remove('text-zinc-400');
+                    } else if (!el.classList.contains('active-pill')) {
+                        el.classList.remove('text-white');
+                        el.classList.add('text-zinc-400');
+                    }
+                });
+            });
+
+            item.addEventListener('click', () => {
+                const target = item.getAttribute('data-target');
+                if (target) {
+                    setActivePill(target, true);
+                }
+            });
+        });
+
+        slidingNav.addEventListener('mouseleave', () => {
+            isHovering = false;
+            const currentActiveEl = document.querySelector(`.nav-pill-item[data-target="${currentActiveTarget}"]`);
+            if (currentActiveEl) {
+                movePillTo(currentActiveEl, true);
+            }
+            navItems.forEach(el => {
+                if (el.classList.contains('active-pill')) {
+                    el.classList.add('text-white');
+                    el.classList.remove('text-zinc-400');
+                } else {
+                    el.classList.remove('text-white');
+                    el.classList.add('text-zinc-400');
+                }
+            });
+        });
+
+        window.addEventListener('resize', () => {
+            const currentActiveEl = document.querySelector(`.nav-pill-item[data-target="${currentActiveTarget}"]`);
+            if (currentActiveEl) {
+                movePillTo(currentActiveEl, false);
+            }
+        });
+    }
+
+    // ScrollSpy to update active pill dynamically when scrolling
+    const trackedSections = ['home', 'about', 'pricing', 'katalog', 'testimoni'];
+    let scrollDebounce;
+    window.addEventListener('scroll', () => {
+        if (isHovering) return;
+
+        clearTimeout(scrollDebounce);
+        scrollDebounce = setTimeout(() => {
+            const scrollPos = window.scrollY;
+            const windowHeight = window.innerHeight;
+            const docHeight = document.documentElement.scrollHeight;
+
+            if (scrollPos < 120) {
+                if (currentActiveTarget !== 'home') setActivePill('home', true);
+                return;
+            }
+
+            if (scrollPos + windowHeight >= docHeight - 80) {
+                if (currentActiveTarget !== 'testimoni') setActivePill('testimoni', true);
+                return;
+            }
+
+            let foundSection = null;
+            for (const id of trackedSections) {
+                const el = document.getElementById(id);
+                if (el) {
+                    const rect = el.getBoundingClientRect();
+                    if (rect.top <= windowHeight * 0.45 && rect.bottom >= windowHeight * 0.25) {
+                        foundSection = id;
+                    }
+                }
+            }
+
+            if (foundSection && foundSection !== currentActiveTarget) {
+                setActivePill(foundSection, true);
+            }
+        }, 30);
+    }, { passive: true });
+
+    // 3. Mobile Menu Toggle
+    const mobileBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileIcon = document.getElementById('mobileMenuIcon');
+    if (mobileBtn && mobileMenu) {
+        mobileBtn.addEventListener('click', () => {
+            const isClosed = mobileMenu.classList.contains('hidden');
+            if (isClosed) {
+                mobileMenu.classList.remove('hidden');
+                if (mobileIcon) {
+                    mobileIcon.classList.remove('bi-list');
+                    mobileIcon.classList.add('bi-x-lg');
+                }
+            } else {
+                mobileMenu.classList.add('hidden');
+                if (mobileIcon) {
+                    mobileIcon.classList.remove('bi-x-lg');
+                    mobileIcon.classList.add('bi-list');
+                }
+            }
+        });
+
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
             link.addEventListener('click', () => {
                 mobileMenu.classList.add('hidden');
+                if (mobileIcon) {
+                    mobileIcon.classList.remove('bi-x-lg');
+                    mobileIcon.classList.add('bi-list');
+                }
+                const target = link.getAttribute('data-target');
+                if (target) {
+                    setActivePill(target, true);
+                }
             });
         });
     }
 
-    // 3. Sticky Navbar Logic
+    // 4. Sticky Glass Navbar Logic
     const header = document.getElementById('main-header');
     if (header) {
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                header.classList.add('glass-nav', 'py-2');
-                header.classList.remove('py-4', 'bg-transparent');
+        const handleScroll = () => {
+            if (window.scrollY > 40) {
+                header.classList.add('glass-nav', 'py-2.5');
+                header.classList.remove('py-3.5', 'sm:py-4', 'bg-transparent', 'border-transparent');
             } else {
-                header.classList.remove('glass-nav', 'py-2');
-                header.classList.add('py-4', 'bg-transparent');
+                header.classList.remove('glass-nav', 'py-2.5');
+                header.classList.add('py-3.5', 'sm:py-4', 'bg-transparent', 'border-transparent');
             }
-        });
+        };
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        handleScroll();
     }
 
     // 4. Scroll Reveal Animation using IntersectionObserver

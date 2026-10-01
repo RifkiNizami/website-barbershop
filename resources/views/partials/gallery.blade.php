@@ -21,6 +21,12 @@
             <p class="text-sm md:text-base text-zinc-400 leading-relaxed">
                 Pilih potongan rambut idaman Anda dari koleksi portofolio terbaik kami di bawah ini. Klik <strong class="text-white">"Pilih Gaya Ini"</strong> untuk langsung memasukkannya ke formulir pemesanan.
             </p>
+            <div class="mt-4">
+                <a href="{{ route('gallery') }}" class="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-white/10 hover:bg-white hover:text-zinc-950 text-white border border-white/20 transition-all shadow-sm">
+                    <span>Buka Halaman Galeri Lengkap</span>
+                    <i class="bi bi-arrow-up-right"></i>
+                </a>
+            </div>
         </div>
 
         <!-- Filter Categories -->

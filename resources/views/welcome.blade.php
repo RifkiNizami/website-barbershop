@@ -196,7 +196,8 @@
     </section>
 
     <!-- 6. TESTIMONIALS -->
-    <section class="py-24 bg-gray-50 border-t border-gray-100">
+    <section id="testimoni" class="py-24 bg-gray-50 border-t border-gray-100 scroll-mt-20 relative">
+        <div id="contact" class="absolute -top-24"></div>
         <div class="max-w-6xl mx-auto px-6">
             <!-- Header -->
             <div class="text-center mb-16 reveal">

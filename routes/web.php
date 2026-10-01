@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('welcome', compact('services', 'barbers'));
 })->name('home');
 
+Route::get('/gallery', function () {
+    return view('gallery');
+})->name('gallery');
+
 Route::post('/booking/katalog', [UserController::class, 'storePublicBooking'])->name('booking.catalog');
 
 // ==========================================

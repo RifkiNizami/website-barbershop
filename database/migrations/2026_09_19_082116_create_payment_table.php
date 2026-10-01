@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('payment', function (Blueprint $table) {
             $table->integer('payment_id', true);
-            $table->integer('booking_id')->nullable()->index('booking_id');
+            $table->integer('booking_id')->nullable()->index('payment_booking_id_index');
             $table->string('payment_method', 20)->nullable();
             $table->decimal('amount', 12)->nullable();
             $table->string('payment_status', 20)->nullable();
