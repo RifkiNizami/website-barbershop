@@ -742,60 +742,60 @@
     <!-- ======================================================== -->
     <!-- 6. HIGH-RESOLUTION PHOTO LIGHTBOX MODAL                   -->
     <!-- ======================================================== -->
-    <div id="photoLightboxModal" class="fixed inset-0 z-50 items-center justify-center bg-black/85 backdrop-blur-md hidden p-4 opacity-0 transition-opacity duration-300">
-        <div class="bg-zinc-900 border border-zinc-800 w-full max-w-3xl rounded-3xl shadow-2xl overflow-hidden transform scale-95 transition-transform duration-300 flex flex-col md:flex-row max-h-[90vh]" id="photoLightboxContent">
+    <div id="photoLightboxModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md hidden p-4 sm:p-6 opacity-0 transition-opacity duration-300 overflow-y-auto">
+        <div class="bg-zinc-900 border border-zinc-800 w-full max-w-3xl rounded-3xl shadow-2xl overflow-hidden transform scale-95 transition-transform duration-300 flex flex-col md:flex-row max-h-[90vh] m-auto my-auto relative" id="photoLightboxContent">
             
             <!-- Left: Big Photo Frame -->
-            <div class="relative md:w-1/2 bg-black flex items-center justify-center overflow-hidden min-h-[300px] md:min-h-full">
+            <div class="relative md:w-1/2 bg-black flex items-center justify-center overflow-hidden min-h-[280px] md:min-h-full">
                 <img id="lightboxPhotoImg" src="" alt="Preview Gaya Rambut" class="w-full h-full object-cover object-top">
                 <span id="lightboxPhotoTag" class="absolute top-4 left-4 px-3 py-1 rounded-md text-[10px] font-black uppercase tracking-wider bg-zinc-950/80 backdrop-blur-md text-white border border-white/10 shadow"></span>
             </div>
 
-            <!-- Right: Hairstyle Deep Info & Quick Actions -->
-            <div class="p-6 md:p-8 md:w-1/2 flex flex-col justify-between overflow-y-auto">
+            <!-- Right: Hairstyle Deep Info & Quick Actions (Centered Layout) -->
+            <div class="p-6 md:p-8 md:w-1/2 flex flex-col justify-between overflow-y-auto relative text-center">
+                <!-- Close Button (Top Right) -->
+                <button type="button" onclick="closePhotoLightbox()" class="absolute top-4 right-4 text-zinc-400 hover:text-white text-xl p-1.5 leading-none rounded-xl hover:bg-zinc-800 transition z-10 cursor-pointer" aria-label="Tutup Preview">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+
                 <div>
-                    <!-- Modal Header -->
-                    <div class="flex items-start justify-between gap-4 mb-4">
-                        <div>
-                            <span class="text-[11px] font-bold text-zinc-400 uppercase tracking-widest block mb-1">Detail Model Rambut</span>
-                            <h3 id="lightboxPhotoTitle" class="text-2xl font-black text-white tracking-tight"></h3>
-                        </div>
-                        <button type="button" onclick="closePhotoLightbox()" class="text-zinc-400 hover:text-white text-xl p-1 leading-none rounded-lg hover:bg-zinc-800 transition" aria-label="Tutup Preview">
-                            <i class="bi bi-x-lg"></i>
-                        </button>
+                    <!-- Modal Header (Centered) -->
+                    <div class="mb-4 text-center pr-6 md:pr-0">
+                        <span class="text-[11px] font-bold text-zinc-400 uppercase tracking-widest block mb-1">Detail Model Rambut</span>
+                        <h3 id="lightboxPhotoTitle" class="text-2xl sm:text-3xl font-black text-white tracking-tight"></h3>
                     </div>
 
-                    <!-- Price & Duration -->
-                    <div class="flex items-baseline gap-3 mb-5 p-3 rounded-xl bg-zinc-950/60 border border-zinc-800/80">
-                        <span id="lightboxPhotoPrice" class="text-xl font-black text-white"></span>
-                        <span class="text-xs text-zinc-400">&bull;</span>
+                    <!-- Price & Duration (Centered) -->
+                    <div class="inline-flex items-center justify-center gap-3 mb-5 px-5 py-2.5 rounded-xl bg-zinc-950/80 border border-zinc-800/80 mx-auto text-center shadow-inner">
+                        <span id="lightboxPhotoPrice" class="text-lg font-black text-emerald-400"></span>
+                        <span class="text-xs text-zinc-600">&bull;</span>
                         <span id="lightboxPhotoDuration" class="text-xs text-zinc-300 font-mono"></span>
                     </div>
 
-                    <!-- Description -->
-                    <p id="lightboxPhotoDesc" class="text-xs sm:text-sm text-zinc-300 leading-relaxed mb-6"></p>
+                    <!-- Description (Centered) -->
+                    <p id="lightboxPhotoDesc" class="text-xs sm:text-sm text-zinc-300 leading-relaxed mb-6 text-center max-w-md mx-auto"></p>
 
-                    <!-- Stylist Insights Matrix -->
-                    <div class="space-y-2.5 text-xs border-t border-zinc-800 pt-4 mb-6">
-                        <div class="flex items-center justify-between text-zinc-400">
-                            <span><i class="bi bi-person-fill text-zinc-500 mr-1.5"></i> Rekomendasi Bentuk Wajah:</span>
-                            <span id="lightboxPhotoFace" class="text-white font-semibold"></span>
+                    <!-- Stylist Insights Matrix (Balanced Centered Box) -->
+                    <div class="space-y-2.5 text-xs border border-zinc-800/80 bg-zinc-950/60 p-4 rounded-2xl mb-6 text-left max-w-md mx-auto">
+                        <div class="flex items-center justify-between text-zinc-400 gap-2">
+                            <span><i class="bi bi-person-fill text-zinc-500 mr-1.5"></i> Rekomendasi Wajah:</span>
+                            <span id="lightboxPhotoFace" class="text-white font-semibold text-right"></span>
                         </div>
-                        <div class="flex items-center justify-between text-zinc-400">
+                        <div class="flex items-center justify-between text-zinc-400 gap-2">
                             <span><i class="bi bi-magic text-zinc-500 mr-1.5"></i> Produk Penataan:</span>
-                            <span id="lightboxPhotoProduct" class="text-white font-semibold"></span>
+                            <span id="lightboxPhotoProduct" class="text-white font-semibold text-right"></span>
                         </div>
-                        <div class="flex items-center justify-between text-zinc-400">
+                        <div class="flex items-center justify-between text-zinc-400 gap-2">
                             <span><i class="bi bi-award-fill text-barber-red mr-1.5"></i> Stylist Handal:</span>
-                            <span id="lightboxPhotoStylist" class="text-white font-semibold"></span>
+                            <span id="lightboxPhotoStylist" class="text-white font-semibold text-right"></span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Footer CTAs -->
-                <div class="pt-4 border-t border-zinc-800 flex flex-col gap-2">
-                    <button type="button" id="lightboxBookBtn" class="w-full py-3 bg-barber-red hover:bg-barber-darkred text-white text-xs font-bold uppercase tracking-wider rounded-xl shadow-lg shadow-red-900/40 transition-colors flex items-center justify-center gap-2 cursor-pointer">
-                        <i class="bi bi-scissors"></i> Booking Model Ini Sekarang
+                <!-- Footer CTAs (Centered) -->
+                <div class="pt-4 border-t border-zinc-800 flex flex-col gap-2.5">
+                    <button type="button" id="lightboxBookBtn" class="w-full py-3.5 bg-barber-red hover:bg-barber-darkred text-white text-xs font-bold uppercase tracking-wider rounded-xl shadow-lg shadow-red-900/40 transition-colors flex items-center justify-center gap-2 cursor-pointer">
+                        <i class="bi bi-scissors text-base"></i> Booking Model Ini Sekarang
                     </button>
                     <button type="button" onclick="closePhotoLightbox()" class="w-full py-2.5 bg-zinc-800/80 hover:bg-zinc-800 text-zinc-400 hover:text-white text-xs font-medium rounded-xl transition cursor-pointer">
                         Kembali ke Galeri
@@ -922,6 +922,7 @@
 
             if (modal && modalContent) {
                 modal.classList.remove('hidden');
+                modal.classList.add('flex');
                 setTimeout(() => {
                     modal.classList.remove('opacity-0');
                     modalContent.classList.remove('scale-95');
@@ -940,6 +941,7 @@
                 modalContent.classList.add('scale-95');
                 setTimeout(() => {
                     modal.classList.add('hidden');
+                    modal.classList.remove('flex');
                     document.body.style.overflow = '';
                 }, 250);
             }
@@ -947,18 +949,11 @@
 
         // Quick Book Style Handler
         window.quickBookStyle = function (styleName, price) {
-            openBookingModal();
-            // Pre-select service in booking modal if applicable
-            const serviceSelect = document.getElementById('custService');
-            if (serviceSelect) {
-                // If service matches or pick closest
-                for (let i = 0; i < serviceSelect.options.length; i++) {
-                    if (serviceSelect.options[i].text.toLowerCase().includes(styleName.toLowerCase())) {
-                        serviceSelect.selectedIndex = i;
-                        break;
-                    }
-                }
-            }
+            @auth
+                window.location.href = "{{ route('user.booking.create') }}";
+            @else
+                window.location.href = "{{ route('login') }}";
+            @endauth
         };
 
         // Close modal on escape key

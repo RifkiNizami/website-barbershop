@@ -39,22 +39,40 @@
 
         <!-- Desktop Action CTA Buttons -->
         <div class="hidden md:flex items-center gap-2.5 shrink-0">
-            <a href="{{ route('login') }}" class="px-3.5 py-1.5 rounded-full text-xs font-semibold text-zinc-300 hover:text-white hover:bg-white/10 transition-all duration-200 flex items-center gap-1.5 border border-transparent hover:border-zinc-700">
-                <i class="bi bi-person-fill text-xs text-amber-400"></i>
-                <span>Login</span>
-            </a>
-            <button onclick="openBookingModal()" type="button" class="btn-ripple px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-white hover:bg-zinc-100 text-zinc-950 transition-all duration-200 shadow-md hover:shadow-lg hover:shadow-white/10 cursor-pointer flex items-center gap-1.5 group">
-                <i class="bi bi-calendar-check-fill text-xs text-barber-red group-hover:scale-110 transition-transform"></i>
-                <span>Book Now</span>
-            </button>
+            @auth
+                <a href="{{ auth()->user()->role === 'admin' ? route('admin.dashboard') : route('user.dashboard') }}" class="px-3.5 py-1.5 rounded-full text-xs font-semibold text-zinc-300 hover:text-white hover:bg-white/10 transition-all duration-200 flex items-center gap-1.5 border border-transparent hover:border-zinc-700">
+                    <i class="bi bi-person-fill text-xs text-amber-400"></i>
+                    <span>{{ auth()->user()->name }}</span>
+                </a>
+                <a href="{{ auth()->user()->role === 'admin' ? route('admin.booking.create') : route('user.booking.create') }}" class="btn-ripple px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-white hover:bg-zinc-100 text-zinc-950 transition-all duration-200 shadow-md hover:shadow-lg hover:shadow-white/10 cursor-pointer flex items-center gap-1.5 group">
+                    <i class="bi bi-calendar-check-fill text-xs text-barber-red group-hover:scale-110 transition-transform"></i>
+                    <span>Book Now</span>
+                </a>
+            @else
+                <a href="{{ route('login') }}" class="px-3.5 py-1.5 rounded-full text-xs font-semibold text-zinc-300 hover:text-white hover:bg-white/10 transition-all duration-200 flex items-center gap-1.5 border border-transparent hover:border-zinc-700">
+                    <i class="bi bi-person-fill text-xs text-amber-400"></i>
+                    <span>Login</span>
+                </a>
+                <a href="{{ route('login') }}" class="btn-ripple px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-white hover:bg-zinc-100 text-zinc-950 transition-all duration-200 shadow-md hover:shadow-lg hover:shadow-white/10 cursor-pointer flex items-center gap-1.5 group">
+                    <i class="bi bi-calendar-check-fill text-xs text-barber-red group-hover:scale-110 transition-transform"></i>
+                    <span>Book Now</span>
+                </a>
+            @endauth
         </div>
 
         <!-- Mobile Controls (Quick Book CTA + Hamburger Toggle) -->
         <div class="flex md:hidden items-center gap-2">
-            <button onclick="openBookingModal()" type="button" class="px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-wider bg-barber-red text-white shadow-md shadow-red-900/30 flex items-center gap-1">
-                <i class="bi bi-scissors text-xs"></i>
-                <span>Book</span>
-            </button>
+            @auth
+                <a href="{{ auth()->user()->role === 'admin' ? route('admin.booking.create') : route('user.booking.create') }}" class="px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-wider bg-barber-red text-white shadow-md shadow-red-900/30 flex items-center gap-1">
+                    <i class="bi bi-scissors text-xs"></i>
+                    <span>Book</span>
+                </a>
+            @else
+                <a href="{{ route('login') }}" class="px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-wider bg-barber-red text-white shadow-md shadow-red-900/30 flex items-center gap-1">
+                    <i class="bi bi-scissors text-xs"></i>
+                    <span>Book</span>
+                </a>
+            @endauth
             <button id="mobileMenuBtn" type="button" class="text-white focus:outline-none p-1.5 rounded-xl hover:bg-white/10 text-2xl transition-colors" aria-label="Buka Menu Navigasi">
                 <i id="mobileMenuIcon" class="bi bi-list leading-none"></i>
             </button>
@@ -105,12 +123,21 @@
 
             <!-- Auth & Action Buttons -->
             <div class="pt-1 flex flex-col gap-2">
-                <a href="{{ route('login') }}" class="w-full py-2.5 px-4 rounded-xl border border-zinc-800 text-xs font-bold text-amber-400 bg-zinc-900/60 flex items-center justify-center gap-2 hover:bg-zinc-800/80 transition-colors">
-                    <i class="bi bi-person-fill text-sm"></i> Login Member Portal
-                </a>
-                <button onclick="openBookingModal()" type="button" class="w-full py-3 bg-barber-red hover:bg-barber-darkred text-white text-xs font-bold uppercase tracking-wider rounded-xl shadow-lg shadow-red-900/40 transition-colors flex items-center justify-center gap-2">
-                    <i class="bi bi-scissors text-sm"></i> Book Appointment
-                </button>
+                @auth
+                    <a href="{{ auth()->user()->role === 'admin' ? route('admin.dashboard') : route('user.dashboard') }}" class="w-full py-2.5 px-4 rounded-xl border border-zinc-800 text-xs font-bold text-amber-400 bg-zinc-900/60 flex items-center justify-center gap-2 hover:bg-zinc-800/80 transition-colors">
+                        <i class="bi bi-person-fill text-sm"></i> Halo, {{ auth()->user()->name }}
+                    </a>
+                    <a href="{{ auth()->user()->role === 'admin' ? route('admin.booking.create') : route('user.booking.create') }}" class="w-full py-3 bg-barber-red hover:bg-barber-darkred text-white text-xs font-bold uppercase tracking-wider rounded-xl shadow-lg shadow-red-900/40 transition-colors flex items-center justify-center gap-2">
+                        <i class="bi bi-scissors text-sm"></i> Book Appointment
+                    </a>
+                @else
+                    <a href="{{ route('login') }}" class="w-full py-2.5 px-4 rounded-xl border border-zinc-800 text-xs font-bold text-amber-400 bg-zinc-900/60 flex items-center justify-center gap-2 hover:bg-zinc-800/80 transition-colors">
+                        <i class="bi bi-person-fill text-sm"></i> Login Member Portal
+                    </a>
+                    <a href="{{ route('login') }}" class="w-full py-3 bg-barber-red hover:bg-barber-darkred text-white text-xs font-bold uppercase tracking-wider rounded-xl shadow-lg shadow-red-900/40 transition-colors flex items-center justify-center gap-2">
+                        <i class="bi bi-scissors text-sm"></i> Book Appointment (Login Dulu)
+                    </a>
+                @endauth
             </div>
         </div>
     </div>

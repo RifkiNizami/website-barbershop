@@ -26,10 +26,24 @@
                 Wujudkan potongan rambut idaman Anda bersama barber berpengalaman dengan teknik cukur presisi dan pelayanan ternyaman di kelasnya.
             </p>
 
-            <button onclick="openBookingModal()" type="button" class="inline-flex items-center justify-center px-8 py-4 bg-barber-red hover:bg-barber-darkred text-white text-sm font-bold tracking-wider uppercase rounded-full shadow-lg shadow-barber-red/40 transition-all duration-300 transform hover:-translate-y-1 active:translate-y-0 cursor-pointer group">
-                <span>Book Appointment</span>
-                <i class="bi bi-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
-            </button>
+            @auth
+                @if(auth()->user()->role === 'admin')
+                    <a href="{{ route('admin.dashboard') }}" class="inline-flex items-center justify-center px-8 py-4 bg-barber-red hover:bg-barber-darkred text-white text-sm font-bold tracking-wider uppercase rounded-full shadow-lg shadow-barber-red/40 transition-all duration-300 transform hover:-translate-y-1 active:translate-y-0 cursor-pointer group">
+                        <span>Dashboard Admin</span>
+                        <i class="bi bi-speedometer2 ml-2"></i>
+                    </a>
+                @else
+                    <a href="{{ route('user.booking.create') }}" class="inline-flex items-center justify-center px-8 py-4 bg-barber-red hover:bg-barber-darkred text-white text-sm font-bold tracking-wider uppercase rounded-full shadow-lg shadow-barber-red/40 transition-all duration-300 transform hover:-translate-y-1 active:translate-y-0 cursor-pointer group">
+                        <span>Book Appointment</span>
+                        <i class="bi bi-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                @endif
+            @else
+                <a href="{{ route('login') }}" class="inline-flex items-center justify-center px-8 py-4 bg-barber-red hover:bg-barber-darkred text-white text-sm font-bold tracking-wider uppercase rounded-full shadow-lg shadow-barber-red/40 transition-all duration-300 transform hover:-translate-y-1 active:translate-y-0 cursor-pointer group">
+                    <span>Book Appointment</span>
+                    <i class="bi bi-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                </a>
+            @endauth
 
             <!-- Scroll Down Indicator -->
             <a href="#about" class="absolute bottom-10 flex flex-col items-center gap-2 text-gray-400 hover:text-white transition-colors duration-300 group cursor-pointer">
@@ -285,9 +299,21 @@
             <p class="text-base text-gray-300 max-w-xl mx-auto mb-8 leading-relaxed">
                 Nikmati potongan rambut berkualitas tinggi dengan harga bersahabat. Pesan jadwal Anda sekarang tanpa harus antre lama.
             </p>
-            <button onclick="openBookingModal()" type="button" class="inline-flex items-center justify-center px-10 py-4 bg-barber-red hover:bg-barber-darkred text-white text-sm font-bold tracking-wider uppercase rounded-full shadow-xl shadow-barber-red/30 transition-all duration-300 hover:-translate-y-1 active:translate-y-0 cursor-pointer">
-                Book Your Seat Now
-            </button>
+            @auth
+                @if(auth()->user()->role === 'admin')
+                    <a href="{{ route('admin.dashboard') }}" class="inline-flex items-center justify-center px-10 py-4 bg-barber-red hover:bg-barber-darkred text-white text-sm font-bold tracking-wider uppercase rounded-full shadow-xl shadow-barber-red/30 transition-all duration-300 hover:-translate-y-1 active:translate-y-0 cursor-pointer">
+                        Dashboard Admin
+                    </a>
+                @else
+                    <a href="{{ route('user.booking.create') }}" class="inline-flex items-center justify-center px-10 py-4 bg-barber-red hover:bg-barber-darkred text-white text-sm font-bold tracking-wider uppercase rounded-full shadow-xl shadow-barber-red/30 transition-all duration-300 hover:-translate-y-1 active:translate-y-0 cursor-pointer">
+                        Book Your Seat Now
+                    </a>
+                @endif
+            @else
+                <a href="{{ route('login') }}" class="inline-flex items-center justify-center px-10 py-4 bg-barber-red hover:bg-barber-darkred text-white text-sm font-bold tracking-wider uppercase rounded-full shadow-xl shadow-barber-red/30 transition-all duration-300 hover:-translate-y-1 active:translate-y-0 cursor-pointer">
+                    Book Your Seat Now
+                </a>
+            @endauth
         </div>
     </section>
 @endsection

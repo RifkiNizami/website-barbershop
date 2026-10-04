@@ -349,7 +349,7 @@ window.selectCatalogStyle = function (name, category, imgUrl, price, duration, d
     const previewName = document.getElementById('selectedStyleName');
     const previewTag = document.getElementById('selectedStyleTag');
     const previewDesc = document.getElementById('selectedStyleDesc');
-    const previewMeta = document.getElementById('selectedStyleMeta');
+    const previewBarberName = document.getElementById('selectedStyleBarberName');
     const inputModel = document.getElementById('formModelRambut');
     const selectLayanan = document.getElementById('formLayanan');
     const selectBarber = document.getElementById('formBarber');
@@ -359,6 +359,7 @@ window.selectCatalogStyle = function (name, category, imgUrl, price, duration, d
     if (previewTag) previewTag.innerText = category.toUpperCase();
     if (previewDesc) previewDesc.innerText = desc;
     if (previewMeta) previewMeta.innerHTML = `<span class="inline-flex items-center gap-1 text-xs text-amber-400 font-semibold"><i class="bi bi-clock-fill"></i> ${duration}</span> &bull; <span class="text-xs text-emerald-400 font-bold">${price}</span>`;
+    if (previewBarberName && barber) previewBarberName.innerText = barber;
     if (inputModel) inputModel.value = name;
 
     if (selectLayanan && serviceName) {

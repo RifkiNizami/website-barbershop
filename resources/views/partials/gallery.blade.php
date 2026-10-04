@@ -1,5 +1,5 @@
 <!-- ======================================================== -->
-<!-- 4. GALERI FOTO KATALOG GAYA RAMBUT (LOOKBOOK GALLERY)    -->
+<!-- 4. GALERI FOTO KATALOG GAYA RAMBUT (LOOKBOOK HIGHLIGHTS) -->
 <!-- ======================================================== -->
 <section id="katalog" class="py-24 bg-zinc-950 text-white relative overflow-hidden border-t border-zinc-900 scroll-mt-16">
     <div id="gallery" class="absolute -top-20"></div>
@@ -13,45 +13,21 @@
         <!-- Section Header -->
         <div class="text-center max-w-3xl mx-auto mb-12 reveal">
             <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-bold tracking-widest uppercase bg-barber-red/20 text-barber-red border border-barber-red/40 mb-3">
-                <i class="bi bi-camera-fill"></i> Lookbook & Hairstyle Catalog
+                <i class="bi bi-camera-fill"></i> Lookbook & Hairstyle Highlights
             </div>
             <h2 class="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight uppercase text-white mb-4">
                 Katalog Foto Gaya Rambut
             </h2>
-            <p class="text-sm md:text-base text-zinc-400 leading-relaxed">
-                Pilih potongan rambut idaman Anda dari koleksi portofolio terbaik kami di bawah ini. Klik <strong class="text-white">"Pilih Gaya Ini"</strong> untuk langsung memasukkannya ke formulir pemesanan.
+            <p class="text-sm md:text-base text-zinc-400 leading-relaxed mb-6">
+                Beberapa potongan rambut terfavorit pria modern karya kapster kami. Klik <strong class="text-white">"Pilih Gaya"</strong> untuk mengisi formulir pemesanan, atau jelajahi galeri lengkap untuk koleksi gaya lainnya.
             </p>
-            <div class="mt-4">
-                <a href="{{ route('gallery') }}" class="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-white/10 hover:bg-white hover:text-zinc-950 text-white border border-white/20 transition-all shadow-sm">
-                    <span>Buka Halaman Galeri Lengkap</span>
-                    <i class="bi bi-arrow-up-right"></i>
-                </a>
-            </div>
+            <a href="{{ route('gallery') }}" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider bg-white/10 hover:bg-white hover:text-zinc-950 text-white border border-white/20 transition-all shadow-sm">
+                <span>Buka Galeri Foto Lengkap (9+ Model)</span>
+                <i class="bi bi-arrow-up-right"></i>
+            </a>
         </div>
 
-        <!-- Filter Categories -->
-        <div class="flex items-center justify-center gap-2 sm:gap-3 flex-wrap mb-12 reveal">
-            <button type="button" onclick="filterCatalog('all', this)" class="filter-btn active px-4 py-2 rounded-full text-xs sm:text-sm font-semibold border border-zinc-800 bg-zinc-900 text-zinc-300 hover:text-white cursor-pointer">
-                Semua Model (8)
-            </button>
-            <button type="button" onclick="filterCatalog('crop', this)" class="filter-btn px-4 py-2 rounded-full text-xs sm:text-sm font-semibold border border-zinc-800 bg-zinc-900 text-zinc-300 hover:text-white cursor-pointer">
-                French Crop
-            </button>
-            <button type="button" onclick="filterCatalog('fade', this)" class="filter-btn px-4 py-2 rounded-full text-xs sm:text-sm font-semibold border border-zinc-800 bg-zinc-900 text-zinc-300 hover:text-white cursor-pointer">
-                Fade & Taper
-            </button>
-            <button type="button" onclick="filterCatalog('classic', this)" class="filter-btn px-4 py-2 rounded-full text-xs sm:text-sm font-semibold border border-zinc-800 bg-zinc-900 text-zinc-300 hover:text-white cursor-pointer">
-                Classic Pompadour
-            </button>
-            <button type="button" onclick="filterCatalog('beard', this)" class="filter-btn px-4 py-2 rounded-full text-xs sm:text-sm font-semibold border border-zinc-800 bg-zinc-900 text-zinc-300 hover:text-white cursor-pointer">
-                Beard & Shave
-            </button>
-            <button type="button" onclick="filterCatalog('coloring', this)" class="filter-btn px-4 py-2 rounded-full text-xs sm:text-sm font-semibold border border-zinc-800 bg-zinc-900 text-zinc-300 hover:text-white cursor-pointer">
-                Coloring & Care
-            </button>
-        </div>
-
-        <!-- Catalog Cards Grid (8 Models) -->
+        <!-- Curated Highlight Photo Cards Grid (Top 4 Styles) -->
         <div id="catalogGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
 
             <!-- 1. French Crop -->
@@ -126,44 +102,8 @@
                 </div>
             </div>
 
-            <!-- 3. Beard Sculpting & Razor Fade -->
-            <div class="catalog-item catalog-card group flex flex-col bg-zinc-900 rounded-2xl border border-zinc-800 overflow-hidden shadow-lg hover:border-barber-red/50 reveal delay-200" data-category="beard">
-                <div class="relative h-64 overflow-hidden bg-black cursor-pointer" onclick="openCatalogLightbox('{{ asset('images/style-beard.jpg') }}', 'Beard Trim & Hot Shave', 'BEARD & SHAVE', 'Kombinasi potongan samping bersih dengan pembentukan garis brewok dan kumis simetris menggunakan handuk hangat & pisau steril.')">
-                    <img src="{{ asset('images/style-beard.jpg') }}" alt="Beard Trim & Side Fade" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20"></div>
-                    <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md text-[10px] font-extrabold uppercase tracking-wider bg-amber-500 text-zinc-950 font-black shadow">
-                        👑 Gentleman
-                    </span>
-                    <div class="absolute bottom-3 right-3 text-xs text-white/90 bg-black/60 backdrop-blur-xs px-2.5 py-1 rounded-md font-mono">
-                        30 Mnt &bull; Rp 45K
-                    </div>
-                </div>
-                <div class="p-5 flex-1 flex flex-col justify-between">
-                    <div>
-                        <div class="flex items-center justify-between gap-2 mb-1">
-                            <h3 class="font-extrabold text-base text-white">Beard Sculpt & Shave</h3>
-                            <span class="text-[10px] uppercase font-bold text-zinc-400 bg-zinc-800 px-2 py-0.5 rounded">Beard</span>
-                        </div>
-                        <p class="text-xs text-zinc-400 leading-relaxed mb-4">
-                            Merapikan garis kumis dan brewok simetris dengan hot towel spa dan krim cukur eksklusif.
-                        </p>
-                        <div class="text-[11px] text-zinc-400 mb-4 flex items-center gap-1.5">
-                            <i class="bi bi-person-badge text-barber-red"></i> Rekomendasi: <span class="text-zinc-200 font-semibold">Agung (Beard Specialist)</span>
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-2 gap-2 pt-2 border-t border-zinc-800">
-                        <button type="button" onclick="openCatalogLightbox('{{ asset('images/style-beard.jpg') }}', 'Beard Trim & Hot Shave', 'BEARD & SHAVE', 'Kombinasi potongan samping bersih dengan pembentukan garis brewok dan kumis simetris menggunakan handuk hangat & pisau steril.')" class="py-2 px-3 rounded-xl border border-zinc-700 bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-xs font-bold transition flex items-center justify-center gap-1 cursor-pointer">
-                            <i class="bi bi-zoom-in"></i> Zoom
-                        </button>
-                        <button type="button" onclick="selectCatalogStyle('Beard Sculpt & Hot Shave', 'Beard & Shave', '{{ asset('images/style-beard.jpg') }}', 'Rp 45.000', '30 Menit', 'Merapikan garis kumis dan brewok simetris dengan hot towel spa dan krim cukur eksklusif.', 'Agung', 'Beard Trim & Hot Towel Shave')" class="py-2 px-3 rounded-xl bg-barber-red hover:bg-barber-darkred text-white text-xs font-bold transition flex items-center justify-center gap-1 shadow cursor-pointer">
-                            <i class="bi bi-check2"></i> Pilih Gaya
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 4. Classic Pompadour Slick -->
-            <div class="catalog-item catalog-card group flex flex-col bg-zinc-900 rounded-2xl border border-zinc-800 overflow-hidden shadow-lg hover:border-barber-red/50 reveal" data-category="classic">
+            <!-- 3. Classic Pompadour Slick -->
+            <div class="catalog-item catalog-card group flex flex-col bg-zinc-900 rounded-2xl border border-zinc-800 overflow-hidden shadow-lg hover:border-barber-red/50 reveal delay-200" data-category="classic">
                 <div class="relative h-64 overflow-hidden bg-black cursor-pointer" onclick="openCatalogLightbox('{{ asset('images/service-haircut.jpg') }}', 'Classic Gentleman Pompadour', 'CLASSIC', 'Volume rambut atas disisir ke belakang dengan kilau pomade klasik. Gaya abadi yang selalu memberikan impresi berkelas.')">
                     <img src="{{ asset('images/service-haircut.jpg') }}" alt="Classic Pompadour" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20"></div>
@@ -198,144 +138,36 @@
                 </div>
             </div>
 
-            <!-- 5. Modern Side-Part Quiff -->
-            <div class="catalog-item catalog-card group flex flex-col bg-zinc-900 rounded-2xl border border-zinc-800 overflow-hidden shadow-lg hover:border-barber-red/50 reveal delay-100" data-category="classic">
-                <div class="relative h-64 overflow-hidden bg-black cursor-pointer" onclick="openCatalogLightbox('{{ asset('images/service-styling.jpg') }}', 'Modern Side-Part Quiff', 'CLASSIC & MODERN', 'Belahan samping natural dengan jambul bertekstur. Fleksibel untuk acara santai maupun pertemuan profesional.')">
-                    <img src="{{ asset('images/service-styling.jpg') }}" alt="Modern Side-Part Quiff" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <!-- 4. Beard Sculpting & Razor Fade -->
+            <div class="catalog-item catalog-card group flex flex-col bg-zinc-900 rounded-2xl border border-zinc-800 overflow-hidden shadow-lg hover:border-barber-red/50 reveal delay-300" data-category="beard">
+                <div class="relative h-64 overflow-hidden bg-black cursor-pointer" onclick="openCatalogLightbox('{{ asset('images/style-beard.jpg') }}', 'Beard Trim & Hot Shave', 'BEARD & SHAVE', 'Kombinasi potongan samping bersih dengan pembentukan garis brewok dan kumis simetris menggunakan handuk hangat & pisau steril.')">
+                    <img src="{{ asset('images/style-beard.jpg') }}" alt="Beard Trim & Side Fade" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20"></div>
-                    <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md text-[10px] font-extrabold uppercase tracking-wider bg-zinc-800 text-zinc-200 border border-zinc-700 shadow">
-                        ✨ Casual Quiff
+                    <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md text-[10px] font-extrabold uppercase tracking-wider bg-amber-500 text-zinc-950 font-black shadow">
+                        👑 Gentleman
                     </span>
                     <div class="absolute bottom-3 right-3 text-xs text-white/90 bg-black/60 backdrop-blur-xs px-2.5 py-1 rounded-md font-mono">
-                        40 Mnt &bull; Rp 50K
+                        30 Mnt &bull; Rp 45K
                     </div>
                 </div>
                 <div class="p-5 flex-1 flex flex-col justify-between">
                     <div>
                         <div class="flex items-center justify-between gap-2 mb-1">
-                            <h3 class="font-extrabold text-base text-white">Side-Part Quiff</h3>
-                            <span class="text-[10px] uppercase font-bold text-zinc-400 bg-zinc-800 px-2 py-0.5 rounded">Classic</span>
+                            <h3 class="font-extrabold text-base text-white">Beard Sculpt & Shave</h3>
+                            <span class="text-[10px] uppercase font-bold text-zinc-400 bg-zinc-800 px-2 py-0.5 rounded">Beard</span>
                         </div>
                         <p class="text-xs text-zinc-400 leading-relaxed mb-4">
-                            Belahan samping rapi dengan quiff bertekstur. Mudah ditata ulang memakai jari dan clay matte.
+                            Merapikan garis kumis dan brewok simetris dengan hot towel spa dan krim cukur eksklusif.
                         </p>
                         <div class="text-[11px] text-zinc-400 mb-4 flex items-center gap-1.5">
-                            <i class="bi bi-person-badge text-barber-red"></i> Rekomendasi: <span class="text-zinc-200 font-semibold">Rusdi (Master Barber)</span>
+                            <i class="bi bi-person-badge text-barber-red"></i> Rekomendasi: <span class="text-zinc-200 font-semibold">Agung (Beard Specialist)</span>
                         </div>
                     </div>
                     <div class="grid grid-cols-2 gap-2 pt-2 border-t border-zinc-800">
-                        <button type="button" onclick="openCatalogLightbox('{{ asset('images/service-styling.jpg') }}', 'Modern Side-Part Quiff', 'CLASSIC & MODERN', 'Belahan samping natural dengan jambul bertekstur. Fleksibel untuk acara santai maupun pertemuan profesional.')" class="py-2 px-3 rounded-xl border border-zinc-700 bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-xs font-bold transition flex items-center justify-center gap-1 cursor-pointer">
+                        <button type="button" onclick="openCatalogLightbox('{{ asset('images/style-beard.jpg') }}', 'Beard Trim & Hot Shave', 'BEARD & SHAVE', 'Kombinasi potongan samping bersih dengan pembentukan garis brewok dan kumis simetris menggunakan handuk hangat & pisau steril.')" class="py-2 px-3 rounded-xl border border-zinc-700 bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-xs font-bold transition flex items-center justify-center gap-1 cursor-pointer">
                             <i class="bi bi-zoom-in"></i> Zoom
                         </button>
-                        <button type="button" onclick="selectCatalogStyle('Modern Side-Part Quiff', 'Classic Style', '{{ asset('images/service-styling.jpg') }}', 'Rp 50.000', '40 Menit', 'Belahan samping rapi dengan quiff bertekstur. Mudah ditata ulang memakai jari dan clay matte.', 'Rusdi', 'Gentleman Haircut & Styling')" class="py-2 px-3 rounded-xl bg-barber-red hover:bg-barber-darkred text-white text-xs font-bold transition flex items-center justify-center gap-1 shadow cursor-pointer">
-                            <i class="bi bi-check2"></i> Pilih Gaya
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 6. Bleaching & Silver Ash -->
-            <div class="catalog-item catalog-card group flex flex-col bg-zinc-900 rounded-2xl border border-zinc-800 overflow-hidden shadow-lg hover:border-barber-red/50 reveal delay-200" data-category="coloring">
-                <div class="relative h-64 overflow-hidden bg-black cursor-pointer" onclick="openCatalogLightbox('{{ asset('images/service-care.jpg') }}', 'Silver Ash Grey Trend', 'COLORING', 'Pewarnaan silver ash profesional dengan teknik bleaching bertahap yang melindungi kesehatan kutikula dan kulit kepala.')">
-                    <img src="{{ asset('images/service-care.jpg') }}" alt="Silver Ash Grey" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20"></div>
-                    <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md text-[10px] font-extrabold uppercase tracking-wider bg-purple-600 text-white shadow">
-                        🎨 Trend 2026
-                    </span>
-                    <div class="absolute bottom-3 right-3 text-xs text-white/90 bg-black/60 backdrop-blur-xs px-2.5 py-1 rounded-md font-mono">
-                        120 Mnt &bull; Rp 160K
-                    </div>
-                </div>
-                <div class="p-5 flex-1 flex flex-col justify-between">
-                    <div>
-                        <div class="flex items-center justify-between gap-2 mb-1">
-                            <h3 class="font-extrabold text-base text-white">Silver Ash Grey</h3>
-                            <span class="text-[10px] uppercase font-bold text-zinc-400 bg-zinc-800 px-2 py-0.5 rounded">Coloring</span>
-                        </div>
-                        <p class="text-xs text-zinc-400 leading-relaxed mb-4">
-                            Pewarnaan abu-abu perak berkilau dengan toner anti-kuning dan serum pelindung batang rambut.
-                        </p>
-                        <div class="text-[11px] text-zinc-400 mb-4 flex items-center gap-1.5">
-                            <i class="bi bi-person-badge text-barber-red"></i> Rekomendasi: <span class="text-zinc-200 font-semibold">Farhan (Stylist)</span>
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-2 gap-2 pt-2 border-t border-zinc-800">
-                        <button type="button" onclick="openCatalogLightbox('{{ asset('images/service-care.jpg') }}', 'Silver Ash Grey Trend', 'COLORING', 'Pewarnaan silver ash profesional dengan teknik bleaching bertahap yang melindungi kesehatan kutikula dan kulit kepala.')" class="py-2 px-3 rounded-xl border border-zinc-700 bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-xs font-bold transition flex items-center justify-center gap-1 cursor-pointer">
-                            <i class="bi bi-zoom-in"></i> Zoom
-                        </button>
-                        <button type="button" onclick="selectCatalogStyle('Silver Ash Grey', 'Coloring', '{{ asset('images/service-care.jpg') }}', 'Rp 160.000', '120 Menit', 'Pewarnaan abu-abu perak berkilau dengan toner anti-kuning dan serum pelindung batang rambut.', 'Farhan', 'Bleaching Level 8 + Ash Grey')" class="py-2 px-3 rounded-xl bg-barber-red hover:bg-barber-darkred text-white text-xs font-bold transition flex items-center justify-center gap-1 shadow cursor-pointer">
-                            <i class="bi bi-check2"></i> Pilih Gaya
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 7. Buzz Cut Military Line Up -->
-            <div class="catalog-item catalog-card group flex flex-col bg-zinc-900 rounded-2xl border border-zinc-800 overflow-hidden shadow-lg hover:border-barber-red/50 reveal" data-category="fade">
-                <div class="relative h-64 overflow-hidden bg-black cursor-pointer" onclick="openCatalogLightbox('{{ asset('images/hero-barber.jpg') }}', 'Buzz Cut & Sharp Line Up', 'FADE & TAPER', 'Potongan pendek militer nomor 1-3 dengan razor line tegas di dahi dan cambang. Praktis, dingin, dan tidak butuh styling.')">
-                    <img src="{{ asset('images/hero-barber.jpg') }}" alt="Buzz Cut Line Up" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20"></div>
-                    <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md text-[10px] font-extrabold uppercase tracking-wider bg-zinc-800 text-zinc-200 border border-zinc-700 shadow">
-                        👌 Zero Styling
-                    </span>
-                    <div class="absolute bottom-3 right-3 text-xs text-white/90 bg-black/60 backdrop-blur-xs px-2.5 py-1 rounded-md font-mono">
-                        20 Mnt &bull; Rp 30K
-                    </div>
-                </div>
-                <div class="p-5 flex-1 flex flex-col justify-between">
-                    <div>
-                        <div class="flex items-center justify-between gap-2 mb-1">
-                            <h3 class="font-extrabold text-base text-white">Buzz Cut Line Up</h3>
-                            <span class="text-[10px] uppercase font-bold text-zinc-400 bg-zinc-800 px-2 py-0.5 rounded">Fade</span>
-                        </div>
-                        <p class="text-xs text-zinc-400 leading-relaxed mb-4">
-                            Potongan cepak ringkas bernomor dengan garis tepi dahi presisi. Ringan, dingin, dan sporty.
-                        </p>
-                        <div class="text-[11px] text-zinc-400 mb-4 flex items-center gap-1.5">
-                            <i class="bi bi-person-badge text-barber-red"></i> Rekomendasi: <span class="text-zinc-200 font-semibold">Agung (Beard & Shave)</span>
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-2 gap-2 pt-2 border-t border-zinc-800">
-                        <button type="button" onclick="openCatalogLightbox('{{ asset('images/hero-barber.jpg') }}', 'Buzz Cut & Sharp Line Up', 'FADE & TAPER', 'Potongan pendek militer nomor 1-3 dengan razor line tegas di dahi dan cambang. Praktis, dingin, dan tidak butuh styling.')" class="py-2 px-3 rounded-xl border border-zinc-700 bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-xs font-bold transition flex items-center justify-center gap-1 cursor-pointer">
-                            <i class="bi bi-zoom-in"></i> Zoom
-                        </button>
-                        <button type="button" onclick="selectCatalogStyle('Buzz Cut & Line Up', 'Fade & Taper', '{{ asset('images/hero-barber.jpg') }}', 'Rp 30.000', '20 Menit', 'Potongan cepak ringkas bernomor dengan garis tepi dahi presisi. Ringan, dingin, dan sporty.', 'Agung', 'Buzz Cut & Clean Line Up')" class="py-2 px-3 rounded-xl bg-barber-red hover:bg-barber-darkred text-white text-xs font-bold transition flex items-center justify-center gap-1 shadow cursor-pointer">
-                            <i class="bi bi-check2"></i> Pilih Gaya
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 8. Scalp Spa & Hair Care -->
-            <div class="catalog-item catalog-card group flex flex-col bg-zinc-900 rounded-2xl border border-zinc-800 overflow-hidden shadow-lg hover:border-barber-red/50 reveal delay-100" data-category="coloring">
-                <div class="relative h-64 overflow-hidden bg-black cursor-pointer" onclick="openCatalogLightbox('{{ asset('images/hair-wash.jpg') }}', 'Royal Scalp Spa & Tonic', 'TREATMENT', 'Pencucian rambut air hangat ganda, masker nutrisi rambut, hair tonic menyegarkan, serta pijat bahu dan kepala pelepas penat.')">
-                    <img src="{{ asset('images/hair-wash.jpg') }}" alt="Hair Wash & Spa" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20"></div>
-                    <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md text-[10px] font-extrabold uppercase tracking-wider bg-emerald-600 text-white shadow">
-                        🌿 Relaksasi
-                    </span>
-                    <div class="absolute bottom-3 right-3 text-xs text-white/90 bg-black/60 backdrop-blur-xs px-2.5 py-1 rounded-md font-mono">
-                        45 Mnt &bull; Rp 75K
-                    </div>
-                </div>
-                <div class="p-5 flex-1 flex flex-col justify-between">
-                    <div>
-                        <div class="flex items-center justify-between gap-2 mb-1">
-                            <h3 class="font-extrabold text-base text-white">Scalp Spa & Creambath</h3>
-                            <span class="text-[10px] uppercase font-bold text-zinc-400 bg-zinc-800 px-2 py-0.5 rounded">Treatment</span>
-                        </div>
-                        <p class="text-xs text-zinc-400 leading-relaxed mb-4">
-                            Cuci bersih air hangat, creambath ginseng penumbuh akar, dan pijat relaksasi pundak leher.
-                        </p>
-                        <div class="text-[11px] text-zinc-400 mb-4 flex items-center gap-1.5">
-                            <i class="bi bi-person-badge text-barber-red"></i> Rekomendasi: <span class="text-zinc-200 font-semibold">Semua Kapster</span>
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-2 gap-2 pt-2 border-t border-zinc-800">
-                        <button type="button" onclick="openCatalogLightbox('{{ asset('images/hair-wash.jpg') }}', 'Royal Scalp Spa & Tonic', 'TREATMENT', 'Pencucian rambut air hangat ganda, masker nutrisi rambut, hair tonic menyegarkan, serta pijat bahu dan kepala pelepas penat.')" class="py-2 px-3 rounded-xl border border-zinc-700 bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-xs font-bold transition flex items-center justify-center gap-1 cursor-pointer">
-                            <i class="bi bi-zoom-in"></i> Zoom
-                        </button>
-                        <button type="button" onclick="selectCatalogStyle('Scalp Spa & Creambath', 'Treatment', '{{ asset('images/hair-wash.jpg') }}', 'Rp 75.000', '45 Menit', 'Cuci bersih air hangat, creambath ginseng penumbuh akar, dan pijat relaksasi pundak leher.', 'Rusdi', 'Hair Creambath Ginseng Relaksasi')" class="py-2 px-3 rounded-xl bg-barber-red hover:bg-barber-darkred text-white text-xs font-bold transition flex items-center justify-center gap-1 shadow cursor-pointer">
+                        <button type="button" onclick="selectCatalogStyle('Beard Sculpt & Hot Shave', 'Beard & Shave', '{{ asset('images/style-beard.jpg') }}', 'Rp 45.000', '30 Menit', 'Merapikan garis kumis dan brewok simetris dengan hot towel spa dan krim cukur eksklusif.', 'Agung', 'Beard Trim & Hot Towel Shave')" class="py-2 px-3 rounded-xl bg-barber-red hover:bg-barber-darkred text-white text-xs font-bold transition flex items-center justify-center gap-1 shadow cursor-pointer">
                             <i class="bi bi-check2"></i> Pilih Gaya
                         </button>
                     </div>
@@ -344,19 +176,14 @@
 
         </div>
 
-        <!-- Quick Jump to Booking Form Banner -->
-        <div class="bg-zinc-900/60 border border-zinc-800/80 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left reveal">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-barber-red/20 text-barber-red flex items-center justify-center shrink-0">
-                    <i class="bi bi-card-checklist text-xl"></i>
-                </div>
-                <div>
-                    <h4 class="text-sm font-bold text-white">Sudah Menemukan Potongan yang Pas?</h4>
-                    <p class="text-xs text-zinc-400">Klik "Pilih Gaya" di salah satu model di atas atau buka langsung formulir reservasi.</p>
-                </div>
-            </div>
-            <a href="#form-katalog" class="px-5 py-2.5 bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 text-white rounded-xl text-xs font-bold uppercase tracking-wider transition flex items-center gap-2 shrink-0">
-                <span>Buka Formulir Pemesanan</span>
+        <!-- Call to Action leading to Full Gallery & Quick Booking Form -->
+        <div class="mt-8 mb-4 flex flex-col sm:flex-row items-center justify-center gap-4 text-center reveal">
+            <a href="{{ route('gallery') }}" class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-full text-xs font-bold uppercase tracking-wider bg-white hover:bg-zinc-200 text-zinc-950 transition-all duration-300 shadow-xl shadow-white/10 hover:-translate-y-0.5 group">
+                <span>Lihat Semua Portofolio Foto (9+ Model)</span>
+                <i class="bi bi-arrow-right group-hover:translate-x-1 transition-transform"></i>
+            </a>
+            <a href="#form-katalog" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full text-xs font-bold uppercase tracking-wider bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 transition-all">
+                <span>Formulir Reservasi Model</span>
                 <i class="bi bi-arrow-down"></i>
             </a>
         </div>

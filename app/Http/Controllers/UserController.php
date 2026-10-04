@@ -227,6 +227,10 @@ class UserController extends Controller
      */
     public function storePublicBooking(Request $request)
     {
+        if (! Auth::check()) {
+            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu untuk melakukan booking.');
+        }
+
         $validated = $request->validate([
             'nama_pelanggan' => 'required|string|max:100',
             'no_whatsapp' => 'required|string|max:30',
