@@ -280,29 +280,36 @@ document.addEventListener('DOMContentLoaded', () => {
 // Modal Booking Mandiri Publik
 window.openBookingModal = function () {
     const modal = document.getElementById('bookingModal');
-    const modalContent = document.getElementById('bookingModalContent');
-    if (modal && modalContent) {
-        modal.classList.remove('hidden');
-        setTimeout(() => {
-            modal.classList.remove('opacity-0');
-            modalContent.classList.remove('scale-95');
-            modalContent.classList.add('scale-100');
-        }, 10);
+    if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
     }
 };
 
 window.closeBookingModal = function () {
     const modal = document.getElementById('bookingModal');
-    const modalContent = document.getElementById('bookingModalContent');
-    if (modal && modalContent) {
-        modal.classList.add('opacity-0');
-        modalContent.classList.remove('scale-100');
-        modalContent.classList.add('scale-95');
-        setTimeout(() => {
-            modal.classList.add('hidden');
-        }, 300);
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
     }
 };
+
+// Event listener tutup modal via klik backdrop dan tombol Escape
+document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('bookingModal');
+    if (modal) {
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                window.closeBookingModal();
+            }
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                window.closeBookingModal();
+            }
+        });
+    }
+});
 
 window.handleBookingSubmit = function (e) {
     e.preventDefault();
