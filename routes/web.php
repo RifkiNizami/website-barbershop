@@ -74,3 +74,24 @@ Route::prefix('admin')->name('admin.')->group(function () {
     // Demo Tugas: Eloquent ORM vs SQL Query Builder
     Route::get('/query-demo', [DatabaseDemoController::class, 'index'])->name('query.demo');
 });
+
+// ==========================================
+// DIRECT ASSET SERVING (No NPM Build Required)
+// ==========================================
+Route::get('/resources/css/{file}', function (string $file) {
+    $path = resource_path("css/{$file}");
+    abort_unless(file_exists($path), 404);
+
+    return response()->file($path, [
+        'Content-Type' => 'text/css',
+    ]);
+})->where('file', '.*');
+
+Route::get('/resources/js/{file}', function (string $file) {
+    $path = resource_path("js/{$file}");
+    abort_unless(file_exists($path), 404);
+
+    return response()->file($path, [
+        'Content-Type' => 'application/javascript',
+    ]);
+})->where('file', '.*');
