@@ -16,7 +16,7 @@
     <div class="max-w-5xl mx-auto space-y-6 text-user-text select-none sm:select-auto">
 
         {{-- ========================================================================= --}}
-        {{-- 1. WELCOME / HEADER                                                       --}}
+        {{-- 1. WELCOME / HEADER --}}
         {{-- ========================================================================= --}}
         <section class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2">
             <div>
@@ -37,7 +37,7 @@
         </section>
 
         {{-- ========================================================================= --}}
-        {{-- 2. NEXT APPOINTMENT (FOCAL POINT)                                         --}}
+        {{-- 2. NEXT APPOINTMENT (FOCAL POINT) --}}
         {{-- ========================================================================= --}}
         @if(isset($upcomingBooking))
             <section class="rounded-2xl bg-user-card border border-white/6 p-5 sm:p-6 transition">
@@ -46,7 +46,8 @@
                         <i class="bi bi-calendar-check text-user-gold"></i>
                         <span>NEXT APPOINTMENT</span>
                     </span>
-                    <span class="text-[11px] px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium capitalize">
+                    <span
+                        class="text-[11px] px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium capitalize">
                         {{ $upcomingBooking['status'] ?? 'Confirmed' }}
                     </span>
                 </div>
@@ -81,11 +82,12 @@
 
                     {{-- Action Buttons --}}
                     <div class="flex items-center gap-2 pt-3 md:pt-0 border-t md:border-t-0 border-white/6">
-                        <a href="{{ route('user.payment.show', $upcomingBooking['db_id']) }}"
-                            class="px-3.5 py-2 rounded-lg bg-user-input hover:bg-user-card-hover text-xs font-medium text-user-text border border-white/8 transition flex items-center gap-1.5 hover:text-user-gold">
-                            <i class="bi bi-receipt text-xs text-user-gold"></i>
-                            <span>View Ticket & Barcode</span>
-                        </a>
+                        <button type="button"
+                            onclick="alert('Tunjukkan booking ID ini saat tiba di barbershop: #{{ $upcomingBooking['id'] }}')"
+                            class="px-3.5 py-2 rounded-lg bg-user-input hover:bg-user-card-hover text-xs font-medium text-user-text border border-white/8 transition flex items-center gap-1.5">
+                            <i class="bi bi-ticket-perforated text-xs text-user-muted"></i>
+                            <span>View Ticket</span>
+                        </button>
                         <a href="https://wa.me/6281234567890?text=Halo%20Rusdi%20Barbershop,%20saya%20ingin%20reschedule%20booking%20{{ $upcomingBooking['id'] }}"
                             target="_blank"
                             class="px-3.5 py-2 rounded-lg bg-user-input hover:bg-user-card-hover text-xs font-medium text-user-muted hover:text-user-text border border-white/8 transition flex items-center gap-1.5">
@@ -115,7 +117,7 @@
         @endif
 
         {{-- ========================================================================= --}}
-        {{-- 3. LOYALTY REWARD (HORIZONTAL PROGRESS)                                   --}}
+        {{-- 3. LOYALTY REWARD (HORIZONTAL PROGRESS) --}}
         {{-- ========================================================================= --}}
         <section class="rounded-2xl bg-user-card border border-white/6 p-5 sm:p-6 space-y-3.5">
             <div class="flex items-start justify-between">
@@ -141,7 +143,7 @@
             {{-- Single Horizontal Progress Bar --}}
             <div class="w-full bg-user-input h-2 rounded-full overflow-hidden border border-white/4">
                 <div class="user-loyalty-progress bg-user-gold h-full rounded-full transition-all duration-300"
-                    style="--progress-pct: {{ $progressPercent }}%; width: {{ $progressPercent }}%;"></div>
+                    style="--progress-pct: {{ $progressPercent }}%;"></div>
             </div>
 
             <div class="flex flex-col sm:flex-row sm:items-center justify-between text-xs text-user-muted gap-2 pt-0.5">
@@ -150,7 +152,8 @@
                         <span><strong class="font-medium text-user-text">{{ $remainingStamps }} visits remaining</strong> &bull;
                             Free Grooming Treatment</span>
                     @else
-                        <span class="text-emerald-400 font-medium"><i class="bi bi-gift-fill mr-1"></i> Reward siap diklaim: Free Grooming Treatment</span>
+                        <span class="text-emerald-400 font-medium"><i class="bi bi-gift-fill mr-1"></i> Reward siap diklaim:
+                            Free Grooming Treatment</span>
                     @endif
                 </div>
                 <a href="{{ route('user.booking.create') }}"
@@ -162,7 +165,7 @@
         </section>
 
         {{-- ========================================================================= --}}
-        {{-- 4. RECENT VISITS & MEMBER INFORMATION                                     --}}
+        {{-- 4. RECENT VISITS & MEMBER INFORMATION --}}
         {{-- ========================================================================= --}}
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6 items-start">
 
@@ -179,15 +182,11 @@
                     </a>
                 </div>
 
-                <div class="divide-y divide-white/[0.04]">
+                <div class="divide-y divide-white/4">
                     @forelse(($pastBookings ?? collect())->take(4) as $history)
-                        <a href="{{ isset($history['db_id']) ? route('user.bookings.show', $history['db_id']) : route('user.bookings.index') }}"
-                            class="py-3 first:pt-0 last:pb-0 flex items-center justify-between gap-4 text-xs sm:text-sm group hover:bg-white/[0.02] -mx-2 px-2 rounded-xl transition">
+                        <div class="py-3 first:pt-0 last:pb-0 flex items-center justify-between gap-4 text-xs sm:text-sm">
                             <div class="space-y-0.5">
-                                <h4 class="font-medium text-user-text group-hover:text-user-gold transition-colors flex items-center gap-1.5">
-                                    <span>{{ $history['service'] }}</span>
-                                    <i class="bi bi-chevron-right text-[10px] text-user-muted opacity-0 group-hover:opacity-100 transition-opacity"></i>
-                                </h4>
+                                <h4 class="font-medium text-user-text">{{ $history['service'] }}</h4>
                                 <p class="text-xs text-user-muted">
                                     {{ $history['barber'] }} &bull; {{ $history['date'] }}
                                 </p>
@@ -202,7 +201,7 @@
                                     <i class="bi bi-star-fill"></i>
                                 </div>
                             </div>
-                        </a>
+                        </div>
                     @empty
                         <div class="py-6 text-center text-xs text-user-muted">
                             Belum ada riwayat kunjungan.

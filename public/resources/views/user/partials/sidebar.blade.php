@@ -52,17 +52,10 @@
 
                     {{-- Riwayat Cukur --}}
                     <a href="{{ route('user.bookings.index') }}"
-                        class="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs font-medium transition-colors {{ request()->routeIs('user.bookings*') ? 'bg-user-gold/10 text-user-gold' : 'text-user-muted hover:text-user-text hover:bg-white/[0.03]' }}">
+                        class="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs font-medium transition-colors {{ request()->routeIs('user.bookings.index') ? 'bg-user-gold/10 text-user-gold' : 'text-user-muted hover:text-user-text hover:bg-white/[0.03]' }}">
                         <i
-                            class="bi bi-clock-history text-sm {{ request()->routeIs('user.bookings*') ? 'text-user-gold' : 'text-user-muted' }}"></i>
+                            class="bi bi-clock-history text-sm {{ request()->routeIs('user.bookings.index') ? 'text-user-gold' : 'text-user-muted' }}"></i>
                         <span>Riwayat Cukur</span>
-                    </a>
-
-                    {{-- Tagihan & Barcode Pembayaran --}}
-                    <a href="{{ route('user.payment.show') }}" 
-                       class="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs font-medium transition-colors {{ request()->routeIs('user.payment*') ? 'bg-user-gold/10 text-user-gold' : 'text-user-muted hover:text-user-text hover:bg-white/[0.03]' }}">
-                        <i class="bi bi-receipt-cutoff text-sm {{ request()->routeIs('user.payment*') ? 'text-user-gold' : 'text-user-muted' }}"></i>
-                        <span>Tagihan & Barcode</span>
                     </a>
                 </nav>
             </div>
@@ -91,35 +84,20 @@
         </div>
     </div>
 
-    {{-- Bottom Portion: Dynamic Loyalty Stamps Widget --}}
-    @php
-        use App\Models\Booking;
-        use Illuminate\Support\Facades\Auth;
-        $sidebarUser     = Auth::user();
-        $sidebarTotal    = $sidebarUser
-            ? Booking::where('user_id', $sidebarUser->user_id)->where('status', 'completed')->count()
-            : 0;
-        $sidebarStamps   = $sidebarTotal % 10;
-        $sidebarRemain   = 10 - $sidebarStamps;
-        $sidebarProgress = ($sidebarStamps / 10) * 100;
-    @endphp
+    {{-- Bottom Portion: Compact & Elegant Loyalty Stamps Widget --}}
     <div class="p-3 border-t border-white/[0.06] bg-user-surface shrink-0">
         <div class="p-3 rounded-xl bg-user-card border border-white/[0.06]">
             <div class="flex items-center justify-between text-xs font-medium text-user-text mb-1.5">
                 <span class="flex items-center gap-1.5 text-[11px] text-user-muted">
                     <i class="bi bi-award text-user-gold"></i> Loyalty Stamps
                 </span>
-                <span class="text-[11px] font-mono font-semibold text-user-gold">{{ $sidebarStamps }}/10</span>
+                <span class="text-[11px] font-mono font-semibold text-user-gold">7/10</span>
             </div>
             <div class="w-full bg-user-input rounded-full h-1.5 overflow-hidden">
-                <div class="bg-user-gold h-1.5 rounded-full transition-all duration-300" style="width: {{ $sidebarProgress }}%"></div>
+                <div class="user-sidebar-loyalty-bar bg-user-gold h-1.5 rounded-full"></div>
             </div>
             <p class="text-[10px] text-user-muted mt-1.5 leading-snug">
-                @if($sidebarRemain > 0)
-                    {{ $sidebarRemain }} visits remaining to unlock free grooming
-                @else
-                    <span class="text-emerald-400"><i class="bi bi-gift-fill"></i> Reward ready to claim!</span>
-                @endif
+                3 visits remaining to unlock free grooming
             </p>
         </div>
     </div>
