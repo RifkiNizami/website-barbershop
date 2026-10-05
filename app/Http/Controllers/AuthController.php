@@ -7,13 +7,17 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    // Menampilkan halaman login
+    /**
+     * Tampilkan halaman formulir login.
+     */
     public function showLoginForm()
     {
         return view('auth.login');
     }
 
-    // Memproses data login
+    /**
+     * Proses autentikasi login pengguna.
+     */
     public function login(Request $request)
     {
         // Validasi input
@@ -35,7 +39,9 @@ class AuthController extends Controller
         ])->onlyInput('email');
     }
 
-    // Proses logout
+    /**
+     * Proses logout dan invalidasi sesi pengguna.
+     */
     public function logout(Request $request)
     {
         Auth::logout();

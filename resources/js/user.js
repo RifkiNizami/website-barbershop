@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (sidebar && backdrop) {
             sidebar.classList.remove('-translate-x-full');
             backdrop.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
         }
     }
 
@@ -18,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (sidebar && backdrop) {
             sidebar.classList.add('-translate-x-full');
             backdrop.classList.add('hidden');
+            document.body.style.overflow = '';
         }
     }
 

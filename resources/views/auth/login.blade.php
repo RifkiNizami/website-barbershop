@@ -14,8 +14,8 @@
     {{-- Bootstrap Icons --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-    {{-- Vite Assets (Pastikan login.css dan login.js terdaftar di vite.config.js atau gunakan app.css/app.js) --}}
-    @vite(['resources/css/app.css', 'resources/css/login.css', 'resources/js/app.js', 'resources/js/login.js'])
+    {{-- Vite Assets Khusus Halaman Auth/Login --}}
+    @vite(['resources/css/login.css', 'resources/js/login.js'])
 </head>
 <body class="bg-black text-zinc-100 min-h-screen flex flex-col antialiased selection:bg-white selection:text-black">
 

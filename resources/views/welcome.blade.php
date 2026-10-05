@@ -26,10 +26,24 @@
                 Wujudkan potongan rambut idaman Anda bersama barber berpengalaman dengan teknik cukur presisi dan pelayanan ternyaman di kelasnya.
             </p>
 
-            <button onclick="openBookingModal()" type="button" class="inline-flex items-center justify-center px-8 py-4 bg-barber-red hover:bg-barber-darkred text-white text-sm font-bold tracking-wider uppercase rounded-full shadow-lg shadow-barber-red/40 transition-all duration-300 transform hover:-translate-y-1 active:translate-y-0 cursor-pointer group">
-                <span>Book Appointment</span>
-                <i class="bi bi-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
-            </button>
+            @auth
+                @if(auth()->user()->role === 'admin')
+                    <a href="{{ route('admin.dashboard') }}" class="inline-flex items-center justify-center px-8 py-4 bg-barber-red hover:bg-barber-darkred text-white text-sm font-bold tracking-wider uppercase rounded-full shadow-lg shadow-barber-red/40 transition-all duration-300 transform hover:-translate-y-1 active:translate-y-0 cursor-pointer group">
+                        <span>Dashboard Admin</span>
+                        <i class="bi bi-speedometer2 ml-2"></i>
+                    </a>
+                @else
+                    <a href="{{ route('user.booking.create') }}" class="inline-flex items-center justify-center px-8 py-4 bg-barber-red hover:bg-barber-darkred text-white text-sm font-bold tracking-wider uppercase rounded-full shadow-lg shadow-barber-red/40 transition-all duration-300 transform hover:-translate-y-1 active:translate-y-0 cursor-pointer group">
+                        <span>Book Appointment</span>
+                        <i class="bi bi-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                @endif
+            @else
+                <a href="{{ route('login') }}" class="inline-flex items-center justify-center px-8 py-4 bg-barber-red hover:bg-barber-darkred text-white text-sm font-bold tracking-wider uppercase rounded-full shadow-lg shadow-barber-red/40 transition-all duration-300 transform hover:-translate-y-1 active:translate-y-0 cursor-pointer group">
+                    <span>Book Appointment</span>
+                    <i class="bi bi-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                </a>
+            @endauth
 
             <!-- Scroll Down Indicator -->
             <a href="#about" class="absolute bottom-10 flex flex-col items-center gap-2 text-gray-400 hover:text-white transition-colors duration-300 group cursor-pointer">
@@ -50,7 +64,7 @@
                     <div class="relative w-full max-w-md group">
                         <img src="{{ asset('images/hair-wash.jpg') }}" alt="Layanan Cuci Rambut Black Crown Barbershop" class="w-full h-100 md:h-125 object-cover rounded-2xl shadow-2xl group-hover:scale-[1.02] transition-transform duration-500">
                                                 <!-- Circular Badge -->
-                        <div class="absolute -bottom-6 -right-6 w-28 h-28 md:w-32 md:h-32 rounded-full bg-barber-red text-white flex flex-col items-center justify-center text-
+                        <div class="absolute -bottom-6 -right-6 w-28 h-28 md:w-32 md:h-32 rounded-full bg-barber-red text-white flex flex-col items-center justify-center text-center shadow-xl">
                             <span class="text-[10px] md:text-xs uppercase font-semibold tracking-widest opacity-90">EST.</span>
                             <span class="text-2xl md:text-3xl font-black tracking-tight leading-none my-1">2026</span>
                         </div>
@@ -137,65 +151,11 @@
         </div>
     </section>
 
-    <!-- 4. STYLE GALLERY -->
-    <section id="gallery" class="py-24 bg-white border-t border-gray-100">
-        <div class="max-w-6xl mx-auto px-6">
-            <!-- Section Header -->
-            <div class="flex flex-col md:flex-row justify-between items-end mb-12 reveal">
-                <div>
-                    <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight mb-2">
-                        Lookbook & Inspirasi
-                    </h2>
-                    <p class="text-gray-500">Beberapa karya terbaik dari kapster kami.</p>
-                </div>
-                <a href="#" class="hidden md:inline-flex items-center text-barber-red font-bold hover:text-barber-darkred transition-colors group">
-                    Lihat Semua <i class="bi bi-arrow-right ml-1 group-hover:translate-x-1 transition-transform"></i>
-                </a>
-            </div>
+    <!-- 4. GALERI FOTO KATALOG GAYA RAMBUT -->
+    @include('partials.gallery')
 
-            <!-- 3 Style Cards -->
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 lg:gap-8">
-                <!-- Style 1 -->
-                <div class="group cursor-pointer reveal">
-                    <div class="relative overflow-hidden rounded-2xl shadow-sm">
-                        <img src="{{ asset('images/style-crop.jpg') }}" alt="Textured Crop" class="w-full h-64 md:h-80 object-cover object-top group-hover:scale-110 transition-transform duration-700">
-                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                            <span class="text-white bg-barber-red/90 px-4 py-2 rounded-full text-sm font-bold backdrop-blur-sm">View Style</span>
-                        </div>
-                    </div>
-                    <div class="mt-4 text-center">
-                        <h4 class="text-lg font-bold text-gray-900">Textured Crop</h4>
-                    </div>
-                </div>
-
-                <!-- Style 2 -->
-                <div class="group cursor-pointer reveal delay-100">
-                    <div class="relative overflow-hidden rounded-2xl shadow-sm">
-                        <img src="{{ asset('images/style-fade.jpg') }}" alt="Low Skin Fade" class="w-full h-64 md:h-80 object-cover object-top group-hover:scale-110 transition-transform duration-700">
-                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                            <span class="text-white bg-barber-red/90 px-4 py-2 rounded-full text-sm font-bold backdrop-blur-sm">View Style</span>
-                        </div>
-                    </div>
-                    <div class="mt-4 text-center">
-                        <h4 class="text-lg font-bold text-gray-900">Low Skin Fade</h4>
-                    </div>
-                </div>
-
-                <!-- Style 3 -->
-                <div class="group cursor-pointer reveal delay-200">
-                    <div class="relative overflow-hidden rounded-2xl shadow-sm">
-                        <img src="{{ asset('images/style-beard.jpg') }}" alt="Beard Trim & Side Fade" class="w-full h-64 md:h-80 object-cover object-top group-hover:scale-110 transition-transform duration-700">
-                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                            <span class="text-white bg-barber-red/90 px-4 py-2 rounded-full text-sm font-bold backdrop-blur-sm">View Style</span>
-                        </div>
-                    </div>
-                    <div class="mt-4 text-center">
-                        <h4 class="text-lg font-bold text-gray-900">Beard Trim & Fade</h4>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- 5. FORMULIR PEMESANAN KATALOG FOTO -->
+    @include('partials.catalog-form')
 
     <!-- 5. MORE SERVICES SECTION -->
     <section class="py-24 bg-gray-900 text-white relative overflow-hidden">
@@ -250,7 +210,8 @@
     </section>
 
     <!-- 6. TESTIMONIALS -->
-    <section class="py-24 bg-gray-50 border-t border-gray-100">
+    <section id="testimoni" class="py-24 bg-gray-50 border-t border-gray-100 scroll-mt-20 relative">
+        <div id="contact" class="absolute -top-24"></div>
         <div class="max-w-6xl mx-auto px-6">
             <!-- Header -->
             <div class="text-center mb-16 reveal">
@@ -338,9 +299,21 @@
             <p class="text-base text-gray-300 max-w-xl mx-auto mb-8 leading-relaxed">
                 Nikmati potongan rambut berkualitas tinggi dengan harga bersahabat. Pesan jadwal Anda sekarang tanpa harus antre lama.
             </p>
-            <button onclick="openBookingModal()" type="button" class="inline-flex items-center justify-center px-10 py-4 bg-barber-red hover:bg-barber-darkred text-white text-sm font-bold tracking-wider uppercase rounded-full shadow-xl shadow-barber-red/30 transition-all duration-300 hover:-translate-y-1 active:translate-y-0 cursor-pointer">
-                Book Your Seat Now
-            </button>
+            @auth
+                @if(auth()->user()->role === 'admin')
+                    <a href="{{ route('admin.dashboard') }}" class="inline-flex items-center justify-center px-10 py-4 bg-barber-red hover:bg-barber-darkred text-white text-sm font-bold tracking-wider uppercase rounded-full shadow-xl shadow-barber-red/30 transition-all duration-300 hover:-translate-y-1 active:translate-y-0 cursor-pointer">
+                        Dashboard Admin
+                    </a>
+                @else
+                    <a href="{{ route('user.booking.create') }}" class="inline-flex items-center justify-center px-10 py-4 bg-barber-red hover:bg-barber-darkred text-white text-sm font-bold tracking-wider uppercase rounded-full shadow-xl shadow-barber-red/30 transition-all duration-300 hover:-translate-y-1 active:translate-y-0 cursor-pointer">
+                        Book Your Seat Now
+                    </a>
+                @endif
+            @else
+                <a href="{{ route('login') }}" class="inline-flex items-center justify-center px-10 py-4 bg-barber-red hover:bg-barber-darkred text-white text-sm font-bold tracking-wider uppercase rounded-full shadow-xl shadow-barber-red/30 transition-all duration-300 hover:-translate-y-1 active:translate-y-0 cursor-pointer">
+                    Book Your Seat Now
+                </a>
+            @endauth
         </div>
     </section>
 @endsection

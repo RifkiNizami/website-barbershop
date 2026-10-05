@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class AdminController extends Controller
 {
     /**
-     * Tampilkan Halaman Utama Dashboard Admin
+     * Tampilkan halaman utama dashboard admin dan ringkasan statistik.
      */
     public function dashboard()
     {
@@ -40,13 +40,16 @@ class AdminController extends Controller
     }
 
     /**
-     * Form & CRUD Layanan Barbershop
+     * Tampilkan formulir penambahan layanan baru.
      */
     public function createService()
     {
         return view('admin.services.create');
     }
 
+    /**
+     * Simpan data layanan baru ke database.
+     */
     public function storeService(Request $request)
     {
         $validated = $request->validate([
@@ -65,6 +68,9 @@ class AdminController extends Controller
         return redirect()->route('admin.dashboard')->with('success', 'Layanan "'.$validated['nama_layanan'].'" berhasil ditambahkan!');
     }
 
+    /**
+     * Tampilkan formulir edit untuk data layanan tertentu.
+     */
     public function editService($id)
     {
         $service = Service::findOrFail($id);
@@ -72,6 +78,9 @@ class AdminController extends Controller
         return view('admin.services.edit', compact('service'));
     }
 
+    /**
+     * Perbarui data layanan yang tersimpan di database.
+     */
     public function updateService(Request $request, $id)
     {
         $service = Service::findOrFail($id);
@@ -92,6 +101,9 @@ class AdminController extends Controller
         return redirect()->route('admin.dashboard')->with('success', 'Layanan "'.$service->nama_layanan.'" berhasil diperbarui!');
     }
 
+    /**
+     * Hapus data layanan dari database.
+     */
     public function destroyService($id)
     {
         $service = Service::findOrFail($id);
@@ -102,7 +114,7 @@ class AdminController extends Controller
     }
 
     /**
-     * Form & CRUD Booking / Reservasi
+     * Tampilkan formulir pembuatan booking manual oleh admin.
      */
     public function createBooking()
     {
@@ -111,6 +123,9 @@ class AdminController extends Controller
         return view('admin.bookings.create', compact('services'));
     }
 
+    /**
+     * Simpan data booking baru yang diinput oleh admin.
+     */
     public function storeBooking(Request $request)
     {
         $validated = $request->validate([
@@ -136,6 +151,9 @@ class AdminController extends Controller
         return redirect()->route('admin.dashboard')->with('success', 'Booking untuk '.$validated['nama_pelanggan'].' ('.$validated['booking_code'].') berhasil dibuat!');
     }
 
+    /**
+     * Perbarui status reservasi booking.
+     */
     public function updateBookingStatus(Request $request, $id)
     {
         $booking = Booking::findOrFail($id);
@@ -146,6 +164,9 @@ class AdminController extends Controller
         return redirect()->route('admin.dashboard')->with('success', 'Status booking '.$booking->booking_code.' diubah menjadi '.strtoupper($request->status));
     }
 
+    /**
+     * Hapus data booking dari database.
+     */
     public function destroyBooking($id)
     {
         $booking = Booking::findOrFail($id);

@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     /**
-     * Tampilkan Halaman Login (Unified untuk Admin & Customer)
+     * Tampilkan halaman login untuk admin dan customer.
      */
     public function showLogin()
     {
@@ -25,7 +25,7 @@ class UserController extends Controller
     }
 
     /**
-     * Proses Login (Email + Password, redirect berdasarkan role)
+     * Proses autentikasi login pengguna dan arahkan sesuai role.
      */
     public function login(Request $request)
     {
@@ -48,7 +48,7 @@ class UserController extends Controller
     }
 
     /**
-     * Redirect berdasarkan role user
+     * Arahkan pengguna ke halaman dashboard sesuai role masing-masing.
      */
     private function redirectByRole($user)
     {
@@ -60,7 +60,7 @@ class UserController extends Controller
     }
 
     /**
-     * Tampilkan Halaman Registrasi Member
+     * Tampilkan halaman formulir registrasi member baru.
      */
     public function showRegister()
     {
@@ -68,7 +68,7 @@ class UserController extends Controller
     }
 
     /**
-     * Proses Registrasi Member Baru
+     * Proses pendaftaran akun member customer baru.
      */
     public function register(Request $request)
     {
@@ -87,12 +87,11 @@ class UserController extends Controller
             'role' => 'customer',
         ]);
 
-
         return redirect()->route('login')->with('success', 'Pendaftaran Member Berhasil! ');
     }
 
     /**
-     * Logout
+     * Proses logout dan invalidasi sesi pengguna.
      */
     public function logout(Request $request)
     {
@@ -104,7 +103,7 @@ class UserController extends Controller
     }
 
     /**
-     * Halaman Dashboard Member
+     * Tampilkan halaman dashboard member beserta data poin, stempel, dan booking.
      */
     public function dashboard()
     {
@@ -167,7 +166,7 @@ class UserController extends Controller
     }
 
     /**
-     * Form Booking Mandiri Member
+     * Tampilkan formulir pembuatan booking mandiri oleh member.
      */
     public function createBooking()
     {
@@ -177,7 +176,7 @@ class UserController extends Controller
     }
 
     /**
-     * Simpan Booking Mandiri
+     * Simpan data booking mandiri member ke database.
      */
     public function storeBooking(Request $request)
     {
@@ -212,7 +211,7 @@ class UserController extends Controller
     }
 
     /**
-     * Riwayat Lengkap Booking Saya
+     * Tampilkan halaman riwayat lengkap daftar booking milik member.
      */
     public function bookingsIndex()
     {
@@ -288,7 +287,7 @@ class UserController extends Controller
     }
 
     /**
-     * Batalkan Booking
+     * Batalkan status reservasi booking member.
      */
     public function destroyBooking($id)
     {
@@ -296,5 +295,66 @@ class UserController extends Controller
         $booking->update(['status' => 'cancelled']);
 
         return redirect()->route('user.bookings.index')->with('success', 'Booking '.$booking->booking_code.' berhasil dibatalkan.');
+    }
+
+    /**
+     * Simpan data booking publik dari formulir katalog landing page.
+     */
+    public function storePublicBooking(Request $request)
+    {
+        if (! Auth::check()) {
+            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu untuk melakukan booking.');
+        }
+
+        $validated = $request->validate([
+            'nama_pelanggan' => 'required|string|max:100',
+            'no_whatsapp' => 'required|string|max:30',
+            'layanan' => 'required|string|max:150',
+            'barber' => 'nullable|string|max:100',
+            'tanggal' => 'required|date',
+            'jam' => 'required|string|max:30',
+            'model_rambut' => 'nullable|string|max:100',
+            'catatan' => 'nullable|string|max:500',
+            'foto_referensi' => 'nullable|image|max:3072',
+        ]);
+
+        $svc = Service::where('nama_layanan', $validated['layanan'])->first();
+        $harga = $svc ? $svc->harga : 55000;
+
+        $fotoPath = null;
+        if ($request->hasFile('foto_referensi')) {
+            $file = $request->file('foto_referensi');
+            $filename = 'ref_'.time().'_'.rand(100, 999).'.'.$file->getClientOriginalExtension();
+            $file->move(public_path('uploads/referensi'), $filename);
+            $fotoPath = 'uploads/referensi/'.$filename;
+        }
+
+        $note = '';
+        if (! empty($validated['model_rambut'])) {
+            $note .= '[Model Katalog: '.$validated['model_rambut'].'] ';
+        }
+        if (! empty($validated['catatan'])) {
+            $note .= $validated['catatan'];
+        }
+        if ($fotoPath) {
+            $note .= ' [Foto Referensi: '.$fotoPath.']';
+        }
+
+        $bookingCode = 'BK-'.rand(1000, 9999);
+        Booking::create([
+            'booking_code' => $bookingCode,
+            'nama_pelanggan' => $validated['nama_pelanggan'],
+            'no_whatsapp' => $validated['no_whatsapp'],
+            'layanan' => $validated['layanan'],
+            'barber' => $validated['barber'] ?: 'Rusdi (Master Barber)',
+            'tanggal' => $validated['tanggal'],
+            'jam' => $validated['jam'],
+            'catatan' => trim($note),
+            'harga' => $harga,
+            'status' => 'pending',
+            'user_id' => Auth::check() ? Auth::id() : null,
+        ]);
+
+        return redirect()->to(url('/#katalog'))->with('catalog_success', 'Booking berhasil dibuat untuk '.$validated['nama_pelanggan'].' (Kode: '.$bookingCode.'). Kapster kami akan segera menghubungi Anda via WhatsApp!');
     }
 }
