@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 class DatabaseDemoController extends Controller
 {
     /**
-     * Halaman Contoh Penerapan Eloquent ORM vs SQL Query Builder
+     * Tampilkan halaman demo perbandingan Eloquent ORM vs SQL Query Builder.
      */
     public function index(Request $request)
     {

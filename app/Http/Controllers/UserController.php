@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     /**
-     * Tampilkan Halaman Login (Unified untuk Admin & Customer)
+     * Tampilkan halaman login untuk admin dan customer.
      */
     public function showLogin()
     {
@@ -24,7 +24,7 @@ class UserController extends Controller
     }
 
     /**
-     * Proses Login (Email + Password, redirect berdasarkan role)
+     * Proses autentikasi login pengguna dan arahkan sesuai role.
      */
     public function login(Request $request)
     {
@@ -47,7 +47,7 @@ class UserController extends Controller
     }
 
     /**
-     * Redirect berdasarkan role user
+     * Arahkan pengguna ke halaman dashboard sesuai role masing-masing.
      */
     private function redirectByRole($user)
     {
@@ -59,7 +59,7 @@ class UserController extends Controller
     }
 
     /**
-     * Tampilkan Halaman Registrasi Member
+     * Tampilkan halaman formulir registrasi member baru.
      */
     public function showRegister()
     {
@@ -67,7 +67,7 @@ class UserController extends Controller
     }
 
     /**
-     * Proses Registrasi Member Baru
+     * Proses pendaftaran akun member customer baru.
      */
     public function register(Request $request)
     {
@@ -90,7 +90,7 @@ class UserController extends Controller
     }
 
     /**
-     * Logout
+     * Proses logout dan invalidasi sesi pengguna.
      */
     public function logout(Request $request)
     {
@@ -102,7 +102,7 @@ class UserController extends Controller
     }
 
     /**
-     * Halaman Dashboard Member
+     * Tampilkan halaman dashboard member beserta data poin, stempel, dan booking.
      */
     public function dashboard()
     {
@@ -157,7 +157,7 @@ class UserController extends Controller
     }
 
     /**
-     * Form Booking Mandiri Member
+     * Tampilkan formulir pembuatan booking mandiri oleh member.
      */
     public function createBooking()
     {
@@ -167,7 +167,7 @@ class UserController extends Controller
     }
 
     /**
-     * Simpan Booking Mandiri
+     * Simpan data booking mandiri member ke database.
      */
     public function storeBooking(Request $request)
     {
@@ -202,7 +202,7 @@ class UserController extends Controller
     }
 
     /**
-     * Riwayat Lengkap Booking Saya
+     * Tampilkan halaman riwayat lengkap daftar booking milik member.
      */
     public function bookingsIndex()
     {
@@ -212,7 +212,7 @@ class UserController extends Controller
     }
 
     /**
-     * Batalkan Booking
+     * Batalkan status reservasi booking member.
      */
     public function destroyBooking($id)
     {
@@ -223,7 +223,7 @@ class UserController extends Controller
     }
 
     /**
-     * Simpan Booking Langsung dari Form Katalog Landing Page
+     * Simpan data booking publik dari formulir katalog landing page.
      */
     public function storePublicBooking(Request $request)
     {
