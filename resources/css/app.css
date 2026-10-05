@@ -13,6 +13,8 @@
     --color-barber-border: #27272a;
     --color-barber-white: #ffffff;
     --color-barber-muted: #a1a1aa;
+    --color-barber-red: #e63946;
+    --color-barber-red-hover: #d42f3c;
 }
 
 html {
@@ -167,7 +169,7 @@ li:hover .price-dots {
 .sliding-pill-indicator {
     position: absolute;
     border-radius: 9999px;
-    background: linear-gradient(135deg, #e53935 0%, #b71c1c 100%);
+    background: linear-gradient(135deg, #0716eb 0%, #0f9bec 100%);
     box-shadow: 0 4px 14px rgba(229, 57, 53, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.25);
     transition: left 320ms cubic-bezier(0.25, 1, 0.5, 1),
                 width 320ms cubic-bezier(0.25, 1, 0.5, 1),

@@ -16,21 +16,21 @@
     </div>
     <div class="stat-cell">
         <span class="stat-label">Omset Bulan Ini</span>
-        <span class="stat-value" style="font-size:18px">{{ $stats['monthly_income'] ?? 'Rp 0' }}</span>
+        <span class="stat-value stat-value--sm">{{ $stats['monthly_income'] ?? 'Rp 0' }}</span>
         <span class="stat-sub stat-sub--up">Non-cancelled</span>
     </div>
     <div class="stat-cell">
         <span class="stat-label">Layanan Aktif</span>
         <span class="stat-value">{{ $stats['total_services'] ?? 0 }}</span>
         <span class="stat-sub stat-sub--info">
-            <a href="{{ route('admin.layanan.create') }}" style="color:inherit;text-decoration:none;">+ Tambah baru</a>
+            <a href="{{ route('admin.layanan.create') }}" class="stat-sub-link">+ Tambah baru</a>
         </span>
     </div>
     <div class="stat-cell">
         <span class="stat-label">Barber On Duty</span>
         <span class="stat-value">{{ $stats['active_barbers'] ?? 4 }}</span>
-        <span class="stat-sub flex items-center gap-1" style="color:var(--c-green)">
-            <span style="width:6px;height:6px;border-radius:50%;background:var(--c-green);display:inline-block"></span>
+        <span class="stat-sub flex items-center gap-1 text-green">
+            <span class="status-dot-green"></span>
             Semua tersedia
         </span>
     </div>
@@ -49,7 +49,7 @@
                     <div class="section-title">Reservasi Terbaru</div>
                     <div class="section-title-sub">10 booking paling baru</div>
                 </div>
-                <a href="{{ route('admin.booking.create') }}" class="btn btn--primary" style="font-size:11px;padding:5px 12px">
+                <a href="{{ route('admin.booking.create') }}" class="btn btn--primary btn--sm">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                     Input Manual
                 </a>
@@ -64,7 +64,7 @@
                             <th>Barber</th>
                             <th>Jam</th>
                             <th>Status</th>
-                            <th style="text-align:right">Aksi</th>
+                            <th class="text-right">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -75,8 +75,8 @@
                                 <div class="cell-meta">{{ $b['id'] }} · {{ $b['phone'] }}</div>
                             </td>
                             <td>
-                                <div style="font-size:12px;color:var(--c-text-2)">{{ $b['service'] }}</div>
-                                <div class="cell-price" style="margin-top:2px">{{ $b['price'] }}</div>
+                                <div class="cell-service-name">{{ $b['service'] }}</div>
+                                <div class="cell-price cell-price--spaced">{{ $b['price'] }}</div>
                             </td>
                             <td>
                                 <span class="badge badge--barber">{{ $b['barber'] }}</span>
@@ -101,8 +101,8 @@
                                 @endphp
                                 <span class="badge {{ $statusClass }}">{{ $statusLabel }}</span>
                             </td>
-                            <td style="text-align:right">
-                                <div style="display:inline-flex;gap:4px;align-items:center">
+                            <td class="text-right">
+                                <div class="table-actions-group">
                                     {{-- Status update --}}
                                     <form action="{{ route('admin.booking.status', $b['db_id']) }}" method="POST" class="status-form inline-flex items-center">
                                         @csrf @method('PATCH')
@@ -128,8 +128,8 @@
                         @empty
                         <tr>
                             <td colspan="6" class="data-table-empty">
-                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin:0 auto 8px;display:block;color:var(--c-text-3)"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/></svg>
-                                Belum ada booking. <a href="{{ route('admin.booking.create') }}" style="color:var(--c-red)">Input sekarang →</a>
+                                <svg class="data-table-empty-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/></svg>
+                                Belum ada booking. <a href="{{ route('admin.booking.create') }}" class="text-red">Input sekarang →</a>
                             </td>
                         </tr>
                         @endforelse
@@ -187,7 +187,7 @@
                     <div class="section-title">Daftar Layanan</div>
                     <div class="section-title-sub">Semua layanan barbershop</div>
                 </div>
-                <a href="{{ route('admin.layanan.create') }}" class="btn btn--ghost" style="font-size:11px;padding:5px 12px">
+                <a href="{{ route('admin.layanan.create') }}" class="btn btn--ghost btn--sm">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                     Tambah
                 </a>
@@ -201,7 +201,7 @@
                             {{ $svc->kategori }} · {{ $svc->durasi }} menit
                         </div>
                     </div>
-                    <div style="display:flex;align-items:center;gap:10px">
+                    <div class="service-row-actions-group">
                         <span class="service-row-price">Rp {{ number_format($svc->harga, 0, ',', '.') }}</span>
                         <span class="badge {{ $svc->is_active ? 'badge--active' : 'badge--inactive' }}">
                             {{ $svc->is_active ? 'Aktif' : 'Nonaktif' }}
@@ -221,8 +221,8 @@
                     </div>
                 </div>
                 @empty
-                <div class="service-row" style="justify-content:center;color:var(--c-text-3);font-size:12px;padding:24px">
-                    Belum ada layanan. <a href="{{ route('admin.layanan.create') }}" style="color:var(--c-red);margin-left:4px">Tambah sekarang →</a>
+                <div class="service-row service-row--empty">
+                    Belum ada layanan. <a href="{{ route('admin.layanan.create') }}" class="text-red ml-1">Tambah sekarang →</a>
                 </div>
                 @endforelse
             </div>
@@ -251,7 +251,7 @@
                 @foreach($barbers as $i => $br)
                 <div class="barber-row">
                     <div class="barber-avatar {{ $i===0 ? 'barber-avatar--red' : '' }}">{{ $br['init'] }}</div>
-                    <div style="flex:1;min-width:0">
+                    <div class="barber-info-wrap">
                         <div class="barber-name">{{ $br['name'] }}</div>
                         <div class="barber-queue">{{ $br['queue'] }} antrean</div>
                     </div>
@@ -288,10 +288,10 @@
         <div class="info-block">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
             <div class="info-block-text">
-                <strong style="color:var(--c-text-2)">Jam Operasional</strong><br>
+                <strong class="text-muted">Jam Operasional</strong><br>
                 Setiap hari · <strong>10.00 – 21.00 WIB</strong><br>
                 Sabtu & Minggu · <strong>09.00 – 22.00 WIB</strong><br>
-                <span style="color:var(--c-green)">● Toko sedang buka</span>
+                <span class="text-green">● Toko sedang buka</span>
             </div>
         </div>
 

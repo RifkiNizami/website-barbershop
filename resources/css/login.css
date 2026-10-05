@@ -62,3 +62,12 @@ body {
         opacity: 0;
     }
 }
+
+/* Auth Submit Button Glow */
+.btn-auth-submit {
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
+}
+
+.btn-auth-submit:hover {
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+}

@@ -21,12 +21,12 @@
     <div class="stat-row">
         <div class="stat-cell">
             <span class="stat-label">Pendekatan 1</span>
-            <span class="stat-value" style="font-size:16px;color:#93c5fd">Eloquent ORM</span>
+            <span class="stat-value demo-stat-eloquent">Eloquent ORM</span>
             <span class="stat-sub">Object-Relational Mapping (Active Record Model)</span>
         </div>
         <div class="stat-cell">
             <span class="stat-label">Pendekatan 2</span>
-            <span class="stat-value" style="font-size:16px;color:#fcd34d">SQL Builder</span>
+            <span class="stat-value demo-stat-sql">SQL Builder</span>
             <span class="stat-sub">Fluent Query Interface via <code>DB::table()</code></span>
         </div>
         <div class="stat-cell">
@@ -36,7 +36,7 @@
         </div>
         <div class="stat-cell">
             <span class="stat-label">Omset Completed</span>
-            <span class="stat-value" style="font-size:16px">Rp {{ number_format($eloquentAggregates['total_omset'], 0, ',', '.') }}</span>
+            <span class="stat-value stat-value--md">Rp {{ number_format($eloquentAggregates['total_omset'], 0, ',', '.') }}</span>
             <span class="stat-sub stat-sub--up">Dihitung otomatis</span>
         </div>
     </div>
@@ -45,10 +45,10 @@
     {{-- BAGIAN 1: ELOQUENT ORM --}}
     {{-- ========================================================================= --}}
     <div class="form-card">
-        <div class="form-card-header" style="background:rgba(59,130,246,0.08);border-bottom:1px solid rgba(59,130,246,0.2)">
-            <div style="display:flex;align-items:center;gap:8px">
+        <div class="form-card-header demo-header-eloquent">
+            <div class="demo-header-inner">
                 <span class="badge badge--confirmed">BAGIAN 1</span>
-                <span class="form-card-title" style="color:#93c5fd">Penerapan Eloquent ORM (App\Models\Booking)</span>
+                <span class="form-card-title demo-title-eloquent">Penerapan Eloquent ORM (App\Models\Booking)</span>
             </div>
             <p class="form-card-desc">Menggunakan representasi Class/Model PHP yang memetakan tabel database secara berorientasi objek.</p>
         </div>
@@ -56,13 +56,13 @@
         <div class="form-body">
             {{-- Code Snippet 1 --}}
             <div>
-                <span class="form-section-label" style="color:#93c5fd">1.1 Query Where + Order By + Pagination dengan Eloquent</span>
-                <pre style="background:var(--c-bg);padding:12px;border-radius:var(--radius-sm);border:1px solid var(--c-border);font-family:'Space Mono',monospace;font-size:11px;color:#93c5fd;overflow-x:auto;margin:8px 0 14px">// Mengambil data booking berstatus 'confirmed' dengan pagination 5 data per halaman
+                <span class="form-section-label demo-section-label-eloquent">1.1 Query Where + Order By + Pagination dengan Eloquent</span>
+                <pre class="demo-code-eloquent">// Mengambil data booking berstatus 'confirmed' dengan pagination 5 data per halaman
 $eloquentPaginated = Booking::where('status', 'confirmed')
     ->orderBy('tanggal', 'desc')
     ->paginate(5, ['*'], 'eloquent_page');</pre>
 
-                <div class="overflow-x-auto" style="border:1px solid var(--c-border);border-radius:var(--radius-sm)">
+                <div class="overflow-x-auto demo-table-box">
                     <table class="data-table">
                         <thead>
                             <tr>
@@ -91,7 +91,7 @@ $eloquentPaginated = Booking::where('status', 'confirmed')
 
                 {{-- Pagination Links for Eloquent --}}
                 @if($eloquentPaginated->hasPages())
-                <div class="data-table-footer" style="margin-top:6px;border-radius:var(--radius-sm)">
+                <div class="data-table-footer demo-table-footer">
                     <div class="pagination-info">
                         Halaman <span>{{ $eloquentPaginated->currentPage() }}</span> dari <span>{{ $eloquentPaginated->lastPage() }}</span> (Total {{ $eloquentPaginated->total() }} data)
                     </div>
@@ -111,12 +111,12 @@ $eloquentPaginated = Booking::where('status', 'confirmed')
             </div>
 
             {{-- Code Snippet 2: Eager Loading Relasi --}}
-            <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--c-border)">
-                <span class="form-section-label" style="color:#93c5fd">1.2 Eager Loading Relasi Eloquent (Booking -> User)</span>
-                <pre style="background:var(--c-bg);padding:12px;border-radius:var(--radius-sm);border:1px solid var(--c-border);font-family:'Space Mono',monospace;font-size:11px;color:#93c5fd;overflow-x:auto;margin:8px 0 14px">// Mengambil data Booking sekaligus me-load data relasi User miliknya (belongsTo)
+            <div class="demo-section-divider">
+                <span class="form-section-label demo-section-label-eloquent">1.2 Eager Loading Relasi Eloquent (Booking -> User)</span>
+                <pre class="demo-code-eloquent">// Mengambil data Booking sekaligus me-load data relasi User miliknya (belongsTo)
 $bookings = Booking::with('user')->whereNotNull('user_id')->latest()->take(5)->get();</pre>
 
-                <div class="overflow-x-auto" style="border:1px solid var(--c-border);border-radius:var(--radius-sm)">
+                <div class="overflow-x-auto demo-table-box">
                     <table class="data-table">
                         <thead>
                             <tr>
@@ -160,10 +160,10 @@ $bookings = Booking::with('user')->whereNotNull('user_id')->latest()->take(5)->g
     {{-- BAGIAN 2: SQL QUERY BUILDER --}}
     {{-- ========================================================================= --}}
     <div class="form-card">
-        <div class="form-card-header" style="background:rgba(245,158,11,0.08);border-bottom:1px solid rgba(245,158,11,0.2)">
-            <div style="display:flex;align-items:center;gap:8px">
+        <div class="form-card-header demo-header-sql">
+            <div class="demo-header-inner">
                 <span class="badge badge--pending">BAGIAN 2</span>
-                <span class="form-card-title" style="color:#fcd34d">Penerapan SQL Query Builder (Illuminate\Support\Facades\DB)</span>
+                <span class="form-card-title demo-title-sql">Penerapan SQL Query Builder (Illuminate\Support\Facades\DB)</span>
             </div>
             <p class="form-card-desc">Menggunakan fluent interface <code>DB::table()</code> langsung ke tabel database tanpa perantara Model.</p>
         </div>
@@ -171,15 +171,15 @@ $bookings = Booking::with('user')->whereNotNull('user_id')->latest()->take(5)->g
         <div class="form-body">
             {{-- Code Snippet 2.1 --}}
             <div>
-                <span class="form-section-label" style="color:#fcd34d">2.1 Query Builder Select + Where + Pagination</span>
-                <pre style="background:var(--c-bg);padding:12px;border-radius:var(--radius-sm);border:1px solid var(--c-border);font-family:'Space Mono',monospace;font-size:11px;color:#fcd34d;overflow-x:auto;margin:8px 0 14px">// Mengambil data dengan DB::table() langsung ke tabel 'bookings'
+                <span class="form-section-label demo-section-label-sql">2.1 Query Builder Select + Where + Pagination</span>
+                <pre class="demo-code-sql">// Mengambil data dengan DB::table() langsung ke tabel 'bookings'
 $builderPaginated = DB::table('bookings')
     ->select('booking_code', 'nama_pelanggan', 'layanan', 'barber', 'harga', 'status')
     ->where('status', 'confirmed')
     ->orderBy('tanggal', 'desc')
     ->paginate(5, ['*'], 'builder_page');</pre>
 
-                <div class="overflow-x-auto" style="border:1px solid var(--c-border);border-radius:var(--radius-sm)">
+                <div class="overflow-x-auto demo-table-box">
                     <table class="data-table">
                         <thead>
                             <tr>
@@ -208,7 +208,7 @@ $builderPaginated = DB::table('bookings')
 
                 {{-- Pagination Links for Builder --}}
                 @if($builderPaginated->hasPages())
-                <div class="data-table-footer" style="margin-top:6px;border-radius:var(--radius-sm)">
+                <div class="data-table-footer demo-table-footer">
                     <div class="pagination-info">
                         Halaman <span>{{ $builderPaginated->currentPage() }}</span> dari <span>{{ $builderPaginated->lastPage() }}</span> (Total {{ $builderPaginated->total() }} data)
                     </div>
@@ -228,16 +228,16 @@ $builderPaginated = DB::table('bookings')
             </div>
 
             {{-- Code Snippet 2.2: INNER JOIN --}}
-            <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--c-border)">
-                <span class="form-section-label" style="color:#fcd34d">2.2 Query Builder dengan SQL JOIN (Antara bookings & users)</span>
-                <pre style="background:var(--c-bg);padding:12px;border-radius:var(--radius-sm);border:1px solid var(--c-border);font-family:'Space Mono',monospace;font-size:11px;color:#fcd34d;overflow-x:auto;margin:8px 0 14px">// Menggabungkan tabel bookings dan users menggunakan perintah join()
+            <div class="demo-section-divider">
+                <span class="form-section-label demo-section-label-sql">2.2 Query Builder dengan SQL JOIN (Antara bookings & users)</span>
+                <pre class="demo-code-sql">// Menggabungkan tabel bookings dan users menggunakan perintah join()
 $joinedData = DB::table('bookings')
     ->join('users', 'bookings.user_id', '=', 'users.user_id')
     ->select('bookings.booking_code', 'bookings.nama_pelanggan', 'users.email', 'users.role', 'bookings.layanan', 'bookings.harga')
     ->take(5)
     ->get();</pre>
 
-                <div class="overflow-x-auto" style="border:1px solid var(--c-border);border-radius:var(--radius-sm)">
+                <div class="overflow-x-auto demo-table-box">
                     <table class="data-table">
                         <thead>
                             <tr>
@@ -266,16 +266,16 @@ $joinedData = DB::table('bookings')
             </div>
 
             {{-- Code Snippet 2.3: GROUP BY & DB::raw() --}}
-            <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--c-border)">
-                <span class="form-section-label" style="color:#fcd34d">2.3 Agregasi Kompleks: GROUP BY & DB::raw() (Statistik Barber)</span>
-                <pre style="background:var(--c-bg);padding:12px;border-radius:var(--radius-sm);border:1px solid var(--c-border);font-family:'Space Mono',monospace;font-size:11px;color:#fcd34d;overflow-x:auto;margin:8px 0 14px">// Menghitung agregasi GROUP BY barber dengan DB::raw()
+            <div class="demo-section-divider">
+                <span class="form-section-label demo-section-label-sql">2.3 Agregasi Kompleks: GROUP BY & DB::raw() (Statistik Barber)</span>
+                <pre class="demo-code-sql">// Menghitung agregasi GROUP BY barber dengan DB::raw()
 $barberStats = DB::table('bookings')
     ->select('barber', DB::raw('COUNT(*) as total_transaksi'), DB::raw('SUM(harga) as total_omset'), DB::raw('AVG(harga) as rata_rata_omset'))
     ->whereNotNull('barber')
     ->groupBy('barber')
     ->get();</pre>
 
-                <div class="overflow-x-auto" style="border:1px solid var(--c-border);border-radius:var(--radius-sm)">
+                <div class="overflow-x-auto demo-table-box">
                     <table class="data-table">
                         <thead>
                             <tr>
@@ -289,8 +289,8 @@ $barberStats = DB::table('bookings')
                             @foreach($builderGroupByBarber as $stat)
                             <tr>
                                 <td class="cell-name">💈 {{ $stat->barber }}</td>
-                                <td class="font-mono font-bold" style="color:var(--c-blue)">{{ $stat->total_transaksi }} Transaksi</td>
-                                <td class="cell-price" style="color:var(--c-green)">Rp {{ number_format($stat->total_omset, 0, ',', '.') }}</td>
+                                <td class="font-mono font-bold text-blue">{{ $stat->total_transaksi }} Transaksi</td>
+                                <td class="cell-price text-green">Rp {{ number_format($stat->total_omset, 0, ',', '.') }}</td>
                                 <td class="cell-price">Rp {{ number_format(round($stat->rata_rata_omset), 0, ',', '.') }}</td>
                             </tr>
                             @endforeach
@@ -314,9 +314,9 @@ $barberStats = DB::table('bookings')
             <table class="data-table">
                 <thead>
                     <tr>
-                        <th style="width:20%">Kriteria</th>
-                        <th style="width:40%;color:#93c5fd">Eloquent ORM</th>
-                        <th style="width:40%;color:#fcd34d">SQL Query Builder (DB::table)</th>
+                        <th class="demo-th-kriteria">Kriteria</th>
+                        <th class="demo-th-eloquent">Eloquent ORM</th>
+                        <th class="demo-th-sql">SQL Query Builder (DB::table)</th>
                     </tr>
                 </thead>
                 <tbody>

@@ -19,7 +19,7 @@
     <div class="form-card">
         <div class="form-card-header">
             <div class="form-card-title">Detail Layanan</div>
-            <div class="form-card-desc">Kolom bertanda <span style="color:var(--c-red)">*</span> wajib diisi.</div>
+            <div class="form-card-desc">Kolom bertanda <span class="form-required">*</span> wajib diisi.</div>
         </div>
 
         <form action="{{ route('admin.layanan.store') }}" method="POST">

@@ -8,7 +8,7 @@
     <div class="page-header">
         <div>
             <h2 class="page-header-title">Edit Layanan</h2>
-            <p class="page-header-desc">Mengubah rincian layanan: <strong style="color:var(--c-text)">{{ $service->nama_layanan }}</strong></p>
+            <p class="page-header-desc">Mengubah rincian layanan: <strong class="text-base-heading">{{ $service->nama_layanan }}</strong></p>
         </div>
         <a href="{{ route('admin.dashboard') }}" class="btn btn--ghost">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
@@ -19,7 +19,7 @@
     <div class="form-card">
         <div class="form-card-header">
             <div class="form-card-title">Detail Layanan</div>
-            <div class="form-card-desc">Kolom bertanda <span style="color:var(--c-red)">*</span> wajib diisi.</div>
+            <div class="form-card-desc">Kolom bertanda <span class="form-required">*</span> wajib diisi.</div>
         </div>
 
         <form action="{{ route('admin.layanan.update', $service->id) }}" method="POST">

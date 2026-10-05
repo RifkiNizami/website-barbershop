@@ -19,7 +19,7 @@
     <div class="form-card">
         <div class="form-card-header">
             <div class="form-card-title">Data Reservasi Pelanggan</div>
-            <div class="form-card-desc">Isi semua kolom bertanda <span style="color:var(--c-red)">*</span> untuk menyimpan booking.</div>
+            <div class="form-card-desc">Isi semua kolom bertanda <span class="form-required">*</span> untuk menyimpan booking.</div>
         </div>
 
         <form action="{{ route('admin.booking.store') }}" method="POST">

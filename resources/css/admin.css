@@ -334,6 +334,7 @@ html { scroll-behavior: smooth; }
 .btn--primary:hover { background: var(--c-red-hover); border-color: var(--c-red-hover); }
 .btn--ghost   { background: transparent; border-color: var(--c-border-md); color: var(--c-text-2); }
 .btn--ghost:hover { background: var(--c-elevated); color: var(--c-text); }
+.btn--sm     { font-size: 11px; padding: 5px 12px; }
 .btn svg      { width: 13px; height: 13px; flex-shrink: 0; }
 
 /* ── SIDE PANEL (barbers / info) ───────────────────────────── */
@@ -529,4 +530,139 @@ textarea.form-input { resize: vertical; min-height: 80px; }
 .pagination-page--active {
     background: var(--c-red) !important; border-color: var(--c-red) !important;
     color: #fff !important; font-weight: 700;
+}
+
+/* ── HELPER & COMPONENT CLASSES ────────────────────────────── */
+.text-right { text-align: right; }
+.text-red { color: var(--c-red); }
+.text-green { color: var(--c-green); }
+.text-blue { color: var(--c-blue); }
+.text-muted { color: var(--c-text-2); }
+.text-subtle { color: var(--c-text-3); }
+.text-base-heading { color: var(--c-text); }
+.stat-value--sm { font-size: 18px; }
+.stat-value--md { font-size: 16px; }
+.stat-sub-link { color: inherit; text-decoration: none; }
+.status-dot-green {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--c-green);
+    display: inline-block;
+}
+.cell-service-name {
+    font-size: 12px;
+    color: var(--c-text-2);
+}
+.cell-price--spaced {
+    margin-top: 2px;
+}
+.table-actions-group {
+    display: inline-flex;
+    gap: 4px;
+    align-items: center;
+}
+.data-table-empty-icon {
+    margin: 0 auto 8px;
+    display: block;
+    color: var(--c-text-3);
+}
+.service-row-actions-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.service-row--empty {
+    justify-content: center;
+    color: var(--c-text-3);
+    font-size: 12px;
+    padding: 24px;
+}
+.barber-info-wrap {
+    flex: 1;
+    min-width: 0;
+}
+.ml-1 {
+    margin-left: 4px;
+}
+
+/* ── DATABASE DEMO CLASSES ─────────────────────────────────── */
+.demo-stat-eloquent {
+    font-size: 16px;
+    color: #93c5fd;
+}
+.demo-stat-sql {
+    font-size: 16px;
+    color: #fcd34d;
+}
+.demo-header-eloquent {
+    background: rgba(59, 130, 246, 0.08);
+    border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+}
+.demo-header-sql {
+    background: rgba(245, 158, 11, 0.08);
+    border-bottom: 1px solid rgba(245, 158, 11, 0.2);
+}
+.demo-header-inner {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.demo-title-eloquent {
+    color: #93c5fd;
+}
+.demo-title-sql {
+    color: #fcd34d;
+}
+.demo-section-label-eloquent {
+    color: #93c5fd;
+}
+.demo-section-label-sql {
+    color: #fcd34d;
+}
+.demo-code-eloquent {
+    background: var(--c-bg);
+    padding: 12px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--c-border);
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: #93c5fd;
+    overflow-x: auto;
+    margin: 8px 0 14px;
+}
+.demo-code-sql {
+    background: var(--c-bg);
+    padding: 12px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--c-border);
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: #fcd34d;
+    overflow-x: auto;
+    margin: 8px 0 14px;
+}
+.demo-table-box {
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius-sm);
+}
+.demo-table-footer {
+    margin-top: 6px;
+    border-radius: var(--radius-sm);
+}
+.demo-section-divider {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--c-border);
+}
+.demo-th-kriteria {
+    width: 20%;
+}
+.demo-th-eloquent {
+    width: 40%;
+    color: #93c5fd;
+}
+.demo-th-sql {
+    width: 40%;
+    color: #fcd34d;
 }

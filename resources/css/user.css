@@ -3,14 +3,74 @@
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 
+/* ── COLOR TOKENS & THEME ──────────────────────────────────── */
 @theme {
     --font-sans: 'Instrument Sans', 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --color-user-bg: #080B12;
+    --color-user-surface: #0B0F19;
+    --color-user-card: #111827;
+    --color-user-input: #151B26;
+    --color-user-card-hover: #1c2433;
+    --color-user-gold: #D4A72C;
+    --color-user-gold-hover: #c49826;
+    --color-user-text: #F5F5F5;
+    --color-user-muted: #9CA3AF;
+    --color-user-dim: #6B7280;
+    
+    /* Legacy aliases */
     --color-barber-red: #e53935;
-    --color-member-gold: #f59e0b;
-    --color-member-darkgold: #d97706;
-    --color-member-dark: #090e17;
-    --color-member-card: #131a28;
-    --color-member-border: #1e293b;
+    --color-member-gold: #D4A72C;
+    --color-member-darkgold: #c49826;
+    --color-member-dark: #080B12;
+    --color-member-card: #111827;
+    --color-member-border: rgba(255, 255, 255, 0.06);
+}
+
+:root {
+    --user-bg: #080B12;
+    --user-surface: #0B0F19;
+    --user-card: #111827;
+    --user-input: #151B26;
+    --user-card-hover: #1c2433;
+    --user-gold: #D4A72C;
+    --user-gold-hover: #c49826;
+    --user-text: #F5F5F5;
+    --user-muted: #9CA3AF;
+    --user-dim: #6B7280;
+}
+
+/* Background utilities */
+.bg-user-bg { background-color: var(--user-bg); }
+.bg-user-surface { background-color: var(--user-surface); }
+.bg-user-card { background-color: var(--user-card); }
+.bg-user-input { background-color: var(--user-input); }
+.bg-user-card-hover { background-color: var(--user-card-hover); }
+.bg-user-gold { background-color: var(--user-gold); }
+.hover\:bg-user-gold-hover:hover { background-color: var(--user-gold-hover); }
+.hover\:bg-user-card-hover:hover { background-color: var(--user-card-hover); }
+
+/* Text utilities */
+.text-user-text { color: var(--user-text); }
+.text-user-gold { color: var(--user-gold); }
+.text-user-muted { color: var(--user-muted); }
+.text-user-dim { color: var(--user-dim); }
+.hover\:text-user-text:hover { color: var(--user-text); }
+.hover\:text-user-gold:hover { color: var(--user-gold); }
+
+/* Border utilities */
+.border-user-gold { border-color: var(--user-gold); }
+
+/* Alpha / Opacity variants */
+.bg-user-bg\/90 { background-color: rgba(8, 11, 18, 0.9); }
+.bg-user-gold\/10 { background-color: rgba(212, 167, 44, 0.1); }
+.border-user-gold\/20 { border-color: rgba(212, 167, 44, 0.2); }
+.border-user-gold\/40 { border-color: rgba(212, 167, 44, 0.4); }
+.text-user-gold\/80 { color: rgba(212, 167, 44, 0.8); }
+
+/* Selection */
+.selection-user-gold::selection {
+    background-color: var(--user-gold);
+    color: #000000;
 }
 
 /* User / Member Specific Styles */
@@ -33,3 +93,13 @@
     backdrop-filter: blur(12px);
     border: 1px solid rgba(229, 231, 235, 0.8);
 }
+
+/* Loyalty Progress Elements */
+.user-sidebar-loyalty-bar {
+    width: 70%;
+}
+
+.user-loyalty-progress {
+    width: var(--progress-pct, 0%);
+}
+
